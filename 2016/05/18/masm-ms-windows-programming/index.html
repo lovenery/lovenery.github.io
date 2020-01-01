@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="用書:Assembly Language for x86 Processors 7th Edition, Global EditionChapter 11: MS-Windows Programming">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MASM : MS-Windows Programming (1)">
+<meta property="og:url" content="http://yoursite.com/2016/05/18/masm-ms-windows-programming/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="用書:Assembly Language for x86 Processors 7th Edition, Global EditionChapter 11: MS-Windows Programming">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.463Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MASM : MS-Windows Programming (1)">
+<meta name="twitter:description" content="用書:Assembly Language for x86 Processors 7th Edition, Global EditionChapter 11: MS-Windows Programming">
+
+<link rel="canonical" href="http://yoursite.com/2016/05/18/masm-ms-windows-programming/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>MASM : MS-Windows Programming (1) | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/18/masm-ms-windows-programming/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MASM : MS-Windows Programming (1)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-05-18 13:07:00" itemprop="dateCreated datePublished" datetime="2016-05-18T13:07:00+08:00">2016-05-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>用書:Assembly Language for x86 Processors 7th Edition, Global Edition<br>Chapter 11: MS-Windows Programming</p>
+<a id="more"></a>
+<h1 id="Classifying-Console-Functions-分類終端機函式"><a href="#Classifying-Console-Functions-分類終端機函式" class="headerlink" title="- Classifying Console Functions 分類終端機函式"></a>- Classifying Console Functions 分類終端機函式</h1><h2 id="Text-oriented-high-level-console-functions-文本導向-高階-的終端機函式"><a href="#Text-oriented-high-level-console-functions-文本導向-高階-的終端機函式" class="headerlink" title="Text-oriented (high-level) console functions 文本導向(高階)的終端機函式"></a>Text-oriented (high-level) console functions 文本導向(高階)的終端機函式</h2><ul>
+<li>Read character streams from input buffer 從輸入緩衝器讀取字元</li>
+<li>Write character streams to screen buffer 寫入字元到屏幕緩衝器</li>
+<li>Redirect input and output 將輸入輸出重新導向</li>
+</ul>
+<h2 id="Event-oriented-low-level-console-functions-事件導向-低階-的終端機函式"><a href="#Event-oriented-low-level-console-functions-事件導向-低階-的終端機函式" class="headerlink" title="Event-oriented (low-level) console functions 事件導向(低階)的終端機函式"></a>Event-oriented (low-level) console functions 事件導向(低階)的終端機函式</h2><ul>
+<li>Retrieve keyboard and mouse events 取得鍵盤跟滑鼠的事件</li>
+<li>Detect user interactions with the console window 偵測使用者所在的終端機視窗</li>
+<li>Control window size &amp; position, text colors 控制視窗大小,位置,字的顏色</li>
+</ul>
+<h1 id="API-and-SDK-應用程式介面-amp-軟體開發工具包"><a href="#API-and-SDK-應用程式介面-amp-軟體開發工具包" class="headerlink" title="- API and SDK 應用程式介面&amp;軟體開發工具包"></a>- API and SDK 應用程式介面&amp;軟體開發工具包</h1><h2 id="Microsoft-Win32-Application-Programming-Interface"><a href="#Microsoft-Win32-Application-Programming-Interface" class="headerlink" title="Microsoft Win32 Application Programming Interface"></a>Microsoft Win32 <em>Application Programming Interface</em></h2><ul>
+<li>API: a collection of types, constants, and functions that provide a way to directly manipulate objects through</li>
+</ul>
+<h2 id="Microsoft-Platform-Software-Development-Kit"><a href="#Microsoft-Platform-Software-Development-Kit" class="headerlink" title="Microsoft Platform Software Development Kit"></a>Microsoft Platform <em>Software Development Kit</em></h2><ul>
+<li>SDK: a collection of tools, libraries, sample code, and documentation that helps programmers create<br>applications</li>
+<li>Platform: an operating system or a group of closely</li>
+</ul>
+<h1 id="Translating-Windows-Data-Types-對照windows的資料型別"><a href="#Translating-Windows-Data-Types-對照windows的資料型別" class="headerlink" title="- Translating Windows Data Types 對照windows的資料型別"></a>- Translating Windows Data Types 對照windows的資料型別</h1><table>
+<thead>
+<tr>
+<th>Windows Type(s)</th>
+<th style="text-align:center">MASM Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BOOL</td>
+<td style="text-align:center">DWORD</td>
+</tr>
+<tr>
+<td>LONG</td>
+<td style="text-align:center">SDWORD</td>
+</tr>
+<tr>
+<td>COLORREF,HANDLE,LPARAM,LRESULT,UINT,WNDPROC</td>
+<td style="text-align:center">DWORD</td>
+</tr>
+<tr>
+<td>LPTSTR</td>
+<td style="text-align:center">PTR WORD</td>
+</tr>
+<tr>
+<td>WORD</td>
+<td style="text-align:center">WORD</td>
+</tr>
+</tbody>
+</table>
+<h1 id="Standard-Console-Handles-標準console處理"><a href="#Standard-Console-Handles-標準console處理" class="headerlink" title="- Standard Console Handles 標準console處理"></a>- Standard Console Handles 標準console處理</h1><ul>
+<li>A <strong>handle</strong> is an unsigned 32-bit integer.</li>
+<li>The following MS-Windows constants are predefined to specify the type of handle requested:</li>
+</ul>
+<p><code>STD_INPUT_HANDLE</code> : standard input<br><code>STD_OUTPUT_HANDLE</code> : standard output<br><code>STD_ERROR_HANDLE</code> : standard error output</p>
+<h1 id="GetStdHandle"><a href="#GetStdHandle" class="headerlink" title="- GetStdHandle"></a>- GetStdHandle</h1><ul>
+<li><code>GetStdHandle</code> returns a handle to a console stream</li>
+<li>Specify handle type</li>
+<li>The handle is returned in <code>EAX</code></li>
+<li>Prototype:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">GetStdHandle PROTO,</div><div class="line">  nStdHandle:DWORD    ; handle type</div></pre></td></tr></table></figure>
+<ul>
+<li>Sample call:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">INVOKE GetStdHandle, STD_OUTPUT_HANDLE</div><div class="line">mov myHandle, eax</div></pre></td></tr></table></figure>
+<h1 id="Console-Input"><a href="#Console-Input" class="headerlink" title="- Console Input"></a>- Console Input</h1><ul>
+<li>The <code>ReadConsole</code> function provides a convenient way to <code>read text input and put it in a buffer</code>.</li>
+<li>Prototype:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ReadConsole PROTO,</div><div class="line">  handle:DWORD,			 		; input handle</div><div class="line">  pBuffer:PTR BYTE, 			; pointer to buffer</div><div class="line">  maxBytes:DWORD, 				; number of chars to read</div><div class="line">  pBytesRead:PTR DWORD, 		; ptr to num bytes read</div><div class="line">  notUsed:DWORD 				; (not used)</div></pre></td></tr></table></figure>
+<h1 id="WriteConsole"><a href="#WriteConsole" class="headerlink" title="- WriteConsole"></a>- WriteConsole</h1><ul>
+<li>The <code>WriteConsole</code> function <code>writes a string to the screen</code>, using the console output handle. It acts upon standard ASCII control characters such as tab, carriage return, and line feed.</li>
+<li>Prototype:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">WriteConsole PROTO,</div><div class="line">  handle:DWORD, 		; output handle</div><div class="line">  pBuffer:PTR BYTE, 	; pointer to buffer</div><div class="line">  bufsize:DWORD, 		; size of buffer</div><div class="line">  pCount:PTR DWORD, 	; output count</div><div class="line">  lpReserved:DWORD 		; (not used)</div></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/05/14/laravel-from-scratch/" rel="prev" title="Laravel From Scratch 筆記">
+      <i class="fa fa-chevron-left"></i> Laravel From Scratch 筆記
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/05/18/masm-ms-windows-programming-2/" rel="next" title="MASM : MS-Windows Programming (2)">
+      MASM : MS-Windows Programming (2) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Classifying-Console-Functions-分類終端機函式"><span class="nav-number">1.</span> <span class="nav-text">- Classifying Console Functions 分類終端機函式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Text-oriented-high-level-console-functions-文本導向-高階-的終端機函式"><span class="nav-number">1.1.</span> <span class="nav-text">Text-oriented (high-level) console functions 文本導向(高階)的終端機函式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Event-oriented-low-level-console-functions-事件導向-低階-的終端機函式"><span class="nav-number">1.2.</span> <span class="nav-text">Event-oriented (low-level) console functions 事件導向(低階)的終端機函式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#API-and-SDK-應用程式介面-amp-軟體開發工具包"><span class="nav-number">2.</span> <span class="nav-text">- API and SDK 應用程式介面&amp;軟體開發工具包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Microsoft-Win32-Application-Programming-Interface"><span class="nav-number">2.1.</span> <span class="nav-text">Microsoft Win32 Application Programming Interface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Microsoft-Platform-Software-Development-Kit"><span class="nav-number">2.2.</span> <span class="nav-text">Microsoft Platform Software Development Kit</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Translating-Windows-Data-Types-對照windows的資料型別"><span class="nav-number">3.</span> <span class="nav-text">- Translating Windows Data Types 對照windows的資料型別</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Standard-Console-Handles-標準console處理"><span class="nav-number">4.</span> <span class="nav-text">- Standard Console Handles 標準console處理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GetStdHandle"><span class="nav-number">5.</span> <span class="nav-text">- GetStdHandle</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Console-Input"><span class="nav-number">6.</span> <span class="nav-text">- Console Input</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WriteConsole"><span class="nav-number">7.</span> <span class="nav-text">- WriteConsole</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

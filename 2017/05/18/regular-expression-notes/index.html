@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Regular Expression NotesCompiler Ch03: Scanner 之 Notes Good Online Testinghttp://regexr.com/https://regex101.com/ Rules Σ 用來表示 vocabulary  λ 用來表示 empty string characters 透過catenation(鍵接 EX:AB) 變成 stri">
+<meta name="keywords" content="notes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Regular Expression Notes">
+<meta property="og:url" content="http://yoursite.com/2017/05/18/regular-expression-notes/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="Regular Expression NotesCompiler Ch03: Scanner 之 Notes Good Online Testinghttp://regexr.com/https://regex101.com/ Rules Σ 用來表示 vocabulary  λ 用來表示 empty string characters 透過catenation(鍵接 EX:AB) 變成 stri">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.479Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Regular Expression Notes">
+<meta name="twitter:description" content="Regular Expression NotesCompiler Ch03: Scanner 之 Notes Good Online Testinghttp://regexr.com/https://regex101.com/ Rules Σ 用來表示 vocabulary  λ 用來表示 empty string characters 透過catenation(鍵接 EX:AB) 變成 stri">
+
+<link rel="canonical" href="http://yoursite.com/2017/05/18/regular-expression-notes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Regular Expression Notes | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/18/regular-expression-notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Regular Expression Notes
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-05-18 23:15:11" itemprop="dateCreated datePublished" datetime="2017-05-18T23:15:11+08:00">2017-05-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Regular-Expression-Notes"><a href="#Regular-Expression-Notes" class="headerlink" title="Regular Expression Notes"></a>Regular Expression Notes</h1><p>Compiler Ch03: Scanner 之 Notes</p>
+<h2 id="Good-Online-Testing"><a href="#Good-Online-Testing" class="headerlink" title="Good Online Testing"></a>Good Online Testing</h2><p><a href="http://regexr.com/" target="_blank" rel="external">http://regexr.com/</a><br><a href="https://regex101.com/" target="_blank" rel="external">https://regex101.com/</a></p>
+<h2 id="Rules"><a href="#Rules" class="headerlink" title="Rules"></a>Rules</h2><ul>
+<li>Σ 用來表示 vocabulary </li>
+<li>λ 用來表示 empty string</li>
+<li>characters 透過<code>catenation(鍵接 EX:AB)</code> 變成 string</li>
+<li>Meta-characters(six): Regular Expression 的 Operator<ul>
+<li><code>(</code> 左括號</li>
+<li><code>)</code> 右括號</li>
+<li><code>&#39;</code> 單引號</li>
+<li><code>*</code> 星號代表&gt;=0, Kleene closure(A*), 可能為空<ul>
+<li><code>P* = (P+|λ)</code></li>
+<li><code>P+ = PP*</code></li>
+</ul>
+</li>
+<li><code>+</code> 加號代表&gt;=1, 非空</li>
+<li><code>|</code> 一槓代表OR, Alternation(A|B)<ul>
+<li><code>a|b = [ab]</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>0</code> 代表空集合</li>
+<li><code>s</code> 代表a set of the single symbol s屬於Σ</li>
+<li><code>-</code> 代表single character</li>
+<li><code>[abc]</code> = <code>a|b|c</code>中括號表示包含a或b或c, “a123”, “cb12”</li>
+<li><code>^</code> 是開頭字元, 代表前面沒有任何character<ul>
+<li><code>Not(A)</code> = <code>(Σ-A)</code></li>
+<li>EX: [^abc] 非a非b非c開頭</li>
+</ul>
+</li>
+<li><code>\d</code> 代表digital [0-9]</li>
+<li><code>.</code> 任意character</li>
+<li>A^k^, A^3^=AAA</li>
+<li><code>b?</code> = <code>b | λ</code></li>
+<li><code>{}</code> 大括號表示他可以出現幾次</li>
+</ul>
+<h2 id="三大operations"><a href="#三大operations" class="headerlink" title="三大operations"></a>三大operations</h2><ul>
+<li>Catenation(AB)<ul>
+<li>G -&gt; AB</li>
+</ul>
+</li>
+<li>Alternation(A|B)<ul>
+<li>G -&gt; A</li>
+<li>G -&gt; B</li>
+</ul>
+</li>
+<li>Kleene closure(A*)<ul>
+<li>G -&gt; AG</li>
+<li>G -&gt; λ</li>
+</ul>
+</li>
+</ul>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># Int Declaration</div><div class="line"><span class="keyword">int</span> abc;</div><div class="line"><span class="keyword">int</span> abc = <span class="number">123</span>;</div><div class="line"></div><div class="line">^(\s*<span class="keyword">int</span>)\s+[a-zA-Z_]([a-zA-Z_]|[<span class="number">0</span><span class="number">-9</span>])*\s*(=\s*[\+\-]?(<span class="number">0</span>|[<span class="number">1</span><span class="number">-9</span>][<span class="number">0</span><span class="number">-9</span>]*))?;\s*$</div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># Float Declaration</div><div class="line"><span class="keyword">float</span> abc;</div><div class="line"><span class="keyword">float</span> abc = <span class="number">0.123</span>;</div><div class="line"></div><div class="line">^(\s*<span class="keyword">float</span>)\s+[a-zA-Z_]([a-zA-Z_]|[<span class="number">0</span><span class="number">-9</span>])*\s*(=\s*[\-\+]?(<span class="number">0</span>|<span class="number">0</span>\.[<span class="number">0</span><span class="number">-9</span>]+|[<span class="number">1</span><span class="number">-9</span>][<span class="number">0</span><span class="number">-9</span>]*\.?[<span class="number">0</span><span class="number">-9</span>]+))?;\s*$</div></pre></td></tr></table></figure>
+<h2 id="懶人包"><a href="#懶人包" class="headerlink" title="懶人包"></a>懶人包</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">[abc] 一個集合包含a,b,c (any of a, b, or c)</div><div class="line">[^abc] 不是a|b|c的字 (not a, b, or c)</div><div class="line">^[abc] 以a|b|c開頭</div><div class="line">[abc]$ 以a|b|c結尾</div><div class="line"></div><div class="line">. 任何字母(換行除外)</div><div class="line">+ 出現1次以上</div><div class="line">* 出現0次以上</div><div class="line">? 出現0次或1次</div><div class="line">[0-9]+ 數字字串</div><div class="line">[a-zA-Z]+ 英文字串</div><div class="line">(abc) 可視為一體</div><div class="line"></div><div class="line"># 縮寫</div><div class="line">\d = [0-9]</div><div class="line">\D = !\d = [^0-9]</div><div class="line">\w = [a-zA-Z0-9_]</div><div class="line">\W = !\w =  [^a-zA-Z0-9_]</div><div class="line"></div><div class="line">\n = New Line (ASCII=0x0a)</div><div class="line">\t = Tab</div><div class="line">\r = New Line \r\n in Window (ASCII=0x0c)</div><div class="line">\s = [\r\n\t\f\v ]</div><div class="line"></div><div class="line"># 當？出現在＊, ＋, &#123;m,n&#125;之後時，為非貪心模式：選一個操作盡可能比對最短的</div></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/notes/" rel="tag"># notes</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/05/10/redis-notes/" rel="prev" title="Redis Notes">
+      <i class="fa fa-chevron-left"></i> Redis Notes
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/05/27/node-js-notes/" rel="next" title="Node.js Notes">
+      Node.js Notes <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Regular-Expression-Notes"><span class="nav-number">1.</span> <span class="nav-text">Regular Expression Notes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Good-Online-Testing"><span class="nav-number">1.1.</span> <span class="nav-text">Good Online Testing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rules"><span class="nav-number">1.2.</span> <span class="nav-text">Rules</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三大operations"><span class="nav-number">1.3.</span> <span class="nav-text">三大operations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Examples"><span class="nav-number">1.4.</span> <span class="nav-text">Examples</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#懶人包"><span class="nav-number">1.5.</span> <span class="nav-text">懶人包</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Button 事件方法一Android 1.01234567mybutton = (Button) findViewById(R.id.button1);mybutton.setOnClickListener(new View.OnClickListener() &amp;#123;    @Override    public void onClick(View v) &amp;#123;        my">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 常用元件">
+<meta property="og:url" content="http://yoursite.com/2016/06/27/android-common-components/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="Button 事件方法一Android 1.01234567mybutton = (Button) findViewById(R.id.button1);mybutton.setOnClickListener(new View.OnClickListener() &amp;#123;    @Override    public void onClick(View v) &amp;#123;        my">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.468Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 常用元件">
+<meta name="twitter:description" content="Button 事件方法一Android 1.01234567mybutton = (Button) findViewById(R.id.button1);mybutton.setOnClickListener(new View.OnClickListener() &amp;#123;    @Override    public void onClick(View v) &amp;#123;        my">
+
+<link rel="canonical" href="http://yoursite.com/2016/06/27/android-common-components/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Android 常用元件 | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/27/android-common-components/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android 常用元件
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-06-27 17:23:00" itemprop="dateCreated datePublished" datetime="2016-06-27T17:23:00+08:00">2016-06-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <a id="more"></a>
+<h1 id="Button-事件"><a href="#Button-事件" class="headerlink" title="Button 事件"></a>Button 事件</h1><h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>Android 1.0<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mybutton = (Button) findViewById(R.id.button1);</div><div class="line">mybutton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">        myedit.setTextColor(Color.YELLOW);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><p>Android 1.0<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XXXXX</span> ... <span class="keyword">implements</span> <span class="title">View</span>.<span class="title">OnClickListener</span></span>&#123;</div><div class="line">...</div><div class="line">    mybutton = (Button) findViewById(R.id.button1);</div><div class="line">    mybutton.setOnClickListener(<span class="keyword">this</span>);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>&#123;</div><div class="line">    <span class="keyword">switch</span> (v.getId())&#123;</div><div class="line">        <span class="keyword">case</span> R.id.button1:</div><div class="line">            myedit.setTextColor(Color.RED);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">default</span>:</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h2><p>Android 1.6<br><code>android:onClick=&quot;myClickHandler&quot;</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myClickHandler</span><span class="params">(View v)</span></span>&#123;</div><div class="line">    <span class="keyword">switch</span> (v.getId())&#123;</div><div class="line">        <span class="keyword">case</span> R.id.button2:</div><div class="line">            myedit.setTextColor(Color.BLACK);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">default</span>:</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h1><h2 id="Bitmap"><a href="#Bitmap" class="headerlink" title="Bitmap"></a>Bitmap</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.koala);</div><div class="line">myimagebutton.setImageBitmap(icon);</div></pre></td></tr></table></figure>
+<h2 id="Resource"><a href="#Resource" class="headerlink" title="Resource"></a>Resource</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">myimagebutton.setImageResource(R.drawable.penguins);</div></pre></td></tr></table></figure>
+<h1 id="CheckBox"><a href="#CheckBox" class="headerlink" title="CheckBox"></a>CheckBox</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">mycheckbox = (CheckBox) findViewById(R.id.checkBox);</div><div class="line">mycheckbox.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">        CheckBox t1 = (CheckBox) v;</div><div class="line"><span class="comment">//                if (((CheckBox) v).isChecked())&#123;</span></div><div class="line">        <span class="keyword">if</span> (t1.isChecked())&#123;</div><div class="line">            mycheckbox.setText(<span class="string">"Checked"</span>);</div><div class="line">            Toast.makeText(MainActivity.<span class="keyword">this</span>,<span class="string">"選"</span>,Toast.LENGTH_LONG).show();</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            mycheckbox.setText(<span class="string">"Not Checked"</span>);</div><div class="line">            Toast.makeText(MainActivity.<span class="keyword">this</span>,<span class="string">"不選"</span>,Toast.LENGTH_LONG).show();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">也可以直接<span class="keyword">if</span>(mycheckbox.isChecked())</div></pre></td></tr></table></figure>
+<h1 id="RadioButton"><a href="#RadioButton" class="headerlink" title="RadioButton"></a>RadioButton</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">mygroup = (RadioGroup) findViewById(R.id.myRadioGroup);</div><div class="line">myradio = (RadioButton) findViewById(R.id.radioButton);</div><div class="line">myradio2 = (RadioButton) findViewById(R.id.radioButton2);</div><div class="line">mygroup.setOnCheckedChangeListener(<span class="keyword">new</span> RadioGroup.OnCheckedChangeListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCheckedChanged</span><span class="params">(RadioGroup radioGroup, <span class="keyword">int</span> i)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (i == myradio.getId())&#123;</div><div class="line">            myedit.setText(<span class="string">"AA Apple"</span>);</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(i == myradio2.getId())&#123;</div><div class="line">            myedit.setText(<span class="string">"BB Banana"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h1 id="Spinner-下拉式"><a href="#Spinner-下拉式" class="headerlink" title="Spinner 下拉式"></a>Spinner 下拉式</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> String[] myStringArray = &#123; <span class="string">"Dog"</span>, <span class="string">"Cat"</span>, <span class="string">"Bird"</span>&#125;;</div><div class="line"><span class="keyword">private</span> Spinner mysp;</div><div class="line">...</div><div class="line">mysp = (Spinner) findViewById(R.id.spinner);</div><div class="line">ArrayAdapter&lt;String&gt; adapter = <span class="keyword">new</span> ArrayAdapter&lt;String&gt;(<span class="keyword">this</span>,android.R.layout.simple_spinner_item, myStringArray);</div><div class="line">adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);</div><div class="line">mysp.setAdapter(adapter);</div><div class="line">mysp.setOnItemSelectedListener(<span class="keyword">new</span> AdapterView.OnItemSelectedListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onItemSelected</span><span class="params">(AdapterView&lt;?&gt; adapterView, View view, <span class="keyword">int</span> i, <span class="keyword">long</span> l)</span> </span>&#123;</div><div class="line">        myedit.setText(myStringArray[i]);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNothingSelected</span><span class="params">(AdapterView&lt;?&gt; adapterView)</span> </span>&#123;</div><div class="line">        myedit.setText(<span class="string">"QQ"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h1 id="NumberPicker"><a href="#NumberPicker" class="headerlink" title="NumberPicker"></a>NumberPicker</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> String[] nums = <span class="keyword">new</span> String[<span class="number">21</span>]; <span class="comment">// 0~20</span></div><div class="line"><span class="keyword">private</span> NumberPicker mynp;</div><div class="line">...</div><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;nums.length;i++)&#123;</div><div class="line">    nums[i] = Integer.toString(i*<span class="number">5</span>);</div><div class="line">&#125;</div><div class="line">mynp = (NumberPicker) findViewById(R.id.numberPicker);</div><div class="line">mynp.setMaxValue(nums.length-<span class="number">1</span>);</div><div class="line">mynp.setMinValue(<span class="number">0</span>);</div><div class="line">mynp.setWrapSelectorWheel(<span class="keyword">false</span>); <span class="comment">//設置是否循環滾動</span></div><div class="line">mynp.setDisplayedValues(nums);</div><div class="line">...</div><div class="line">Toast.makeText(getApplicationContext(), String.valueOf(mynp.getValue()), Toast.LENGTH_SHORT).show();</div></pre></td></tr></table></figure>
+<h1 id="點擊空白關閉鍵盤"><a href="#點擊空白關閉鍵盤" class="headerlink" title="點擊空白關閉鍵盤"></a>點擊空白關閉鍵盤</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">RelativeLayout layout1 = (RelativeLayout) findViewById(R.id.layout1);</div><div class="line">layout1.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        <span class="comment">// 關閉鍵盤</span></div><div class="line">        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);</div><div class="line">        imm.hideSoftInputFromWindow(myedit.getWindowToken(),<span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/06/24/android-environment/" rel="prev" title="Android 環境">
+      <i class="fa fa-chevron-left"></i> Android 環境
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/06/28/markdown-can-highlight-language/" rel="next" title="MarkDown 可以高亮的語言">
+      MarkDown 可以高亮的語言 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Button-事件"><span class="nav-number">1.</span> <span class="nav-text">Button 事件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方法一"><span class="nav-number">1.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法二"><span class="nav-number">1.2.</span> <span class="nav-text">方法二</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法三"><span class="nav-number">1.3.</span> <span class="nav-text">方法三</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Image"><span class="nav-number">2.</span> <span class="nav-text">Image</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bitmap"><span class="nav-number">2.1.</span> <span class="nav-text">Bitmap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Resource"><span class="nav-number">2.2.</span> <span class="nav-text">Resource</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CheckBox"><span class="nav-number">3.</span> <span class="nav-text">CheckBox</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RadioButton"><span class="nav-number">4.</span> <span class="nav-text">RadioButton</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spinner-下拉式"><span class="nav-number">5.</span> <span class="nav-text">Spinner 下拉式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NumberPicker"><span class="nav-number">6.</span> <span class="nav-text">NumberPicker</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#點擊空白關閉鍵盤"><span class="nav-number">7.</span> <span class="nav-text">點擊空白關閉鍵盤</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Implementation dingo/api &amp;amp; tymon/jwt-auth package">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Laravel API+JWT">
+<meta property="og:url" content="http://yoursite.com/2016/11/17/laravel-api-jwt/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="Implementation dingo/api &amp;amp; tymon/jwt-auth package">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.473Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Laravel API+JWT">
+<meta name="twitter:description" content="Implementation dingo/api &amp;amp; tymon/jwt-auth package">
+
+<link rel="canonical" href="http://yoursite.com/2016/11/17/laravel-api-jwt/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Laravel API+JWT | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/17/laravel-api-jwt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Laravel API+JWT
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-11-17 12:01:00" itemprop="dateCreated datePublished" datetime="2016-11-17T12:01:00+08:00">2016-11-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Implementation dingo/api &amp; tymon/jwt-auth package</p>
+<a id="more"></a>
+<h1 id="Dingo-API"><a href="#Dingo-API" class="headerlink" title="Dingo/API"></a>Dingo/API</h1><p><a href="https://github.com/dingo/api" target="_blank" rel="external">https://github.com/dingo/api</a></p>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><p><code>$ laravel new api_jwt</code><br><code>$ cd api_jwt</code><br><code>$ composer require dingo/api:1.0.x@dev</code></p>
+<h2 id="Config"><a href="#Config" class="headerlink" title="Config"></a>Config</h2><p><code>config/app.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="string">'providers'</span> =&gt; [</div><div class="line">    Dingo\Api\Provider\LaravelServiceProvider::class</div><div class="line">]</div><div class="line"></div><div class="line"><span class="string">'aliases'</span> =&gt; [</div><div class="line">    Dapi =&gt; Dingo\Api\Facade\API::class,</div><div class="line">    Droute =&gt; Dingo\Api\Facade\Route::class,</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>產生config/api.php<br><code>$ php artisan vendor:publish --provider=&quot;Dingo\Api\Provider\LaravelServiceProvider&quot;</code></p>
+<h2 id="ENV-or-config-api-php"><a href="#ENV-or-config-api-php" class="headerlink" title=".ENV or config/api.php"></a>.ENV or config/api.php</h2><p><code>.env</code><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">API_STANDARDS_TREE=vnd</div><div class="line">API_SUBTYPE=myapp</div><div class="line">API_VERSION=v1</div><div class="line">API_PREFIX=api</div><div class="line">API_DOMAIN=trackye.dev</div><div class="line">API_NAME=MyAPI</div><div class="line">API_DEBUG=true</div></pre></td></tr></table></figure></p>
+<h2 id="Routes"><a href="#Routes" class="headerlink" title="Routes"></a>Routes</h2><p><code>routes/api.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$api = app(<span class="string">'Dingo\Api\Routing\Router'</span>);</div><div class="line">$api-&gt;version(<span class="string">'v1'</span>, <span class="function"><span class="keyword">function</span><span class="params">($api)</span> </span>&#123;</div><div class="line">    $api-&gt;get(<span class="string">'hello'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"Hello"</span>;</div><div class="line">    &#125;);</div><div class="line">    $api-&gt;get(<span class="string">'world'</span>, <span class="string">'App\Http\Controllers\ExampleController@index'</span>); <span class="comment">// return users</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h2 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a>Testing</h2><p>.env資料庫設定<br><code>php artisan migrate</code></p>
+<p><code>php artisan make:seeder UsersTableSeeder</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Database</span>\<span class="title">Seeder</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">App</span>\<span class="title">User</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Support</span>\<span class="title">Facades</span>\<span class="title">Hash</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">UsersTableSeeder</span> <span class="keyword">extends</span> <span class="title">Seeder</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">()</span></span></div><div class="line">    &#123;</div><div class="line">        $user1 = <span class="keyword">new</span> User();</div><div class="line">        $user1-&gt;name = <span class="string">'A'</span>;</div><div class="line">        $user1-&gt;email = <span class="string">'A@A.A'</span>;</div><div class="line">        $user1-&gt;password = Hash::make(<span class="string">'A'</span>);</div><div class="line">        $user1-&gt;save();</div><div class="line"></div><div class="line">        $user2 = <span class="keyword">new</span> User();</div><div class="line">        $user2-&gt;name = <span class="string">'B'</span>;</div><div class="line">        $user2-&gt;email = <span class="string">'B@B.B'</span>;</div><div class="line">        $user2-&gt;password = Hash::make(<span class="string">'B'</span>);</div><div class="line">        $user2-&gt;save();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>php artisan db:seed</code></p>
+<p><code>php artisan api:routes</code></p>
+<p><code>http://api_jwt.dev/api/hello</code><br><code>http://api_jwt.dev/api/world</code></p>
+<hr>
+<p>前言：</p>
+<ul>
+<li>API的用戶認證(Authorization)可以使用JWT(內部登入) or OAuth2.0(內部登入or第三方例如facebook)</li>
+<li>Oauth2.0: Laravel5.3有新的Passport package, 所以不再用<code>lucadegasperi/oauth2-server-laravel</code>(5.2以前的解決方案)</li>
+</ul>
+<h1 id="JWT-Json-Web-Token"><a href="#JWT-Json-Web-Token" class="headerlink" title="JWT(Json Web Token)"></a>JWT(Json Web Token)</h1><p><a href="https://github.com/tymondesigns/jwt-auth" target="_blank" rel="external">https://github.com/tymondesigns/jwt-auth</a></p>
+<h2 id="Install-1"><a href="#Install-1" class="headerlink" title="Install"></a>Install</h2><p><code>composer require tymon/jwt-auth:0.5.*</code></p>
+<h2 id="Config-1"><a href="#Config-1" class="headerlink" title="Config"></a>Config</h2><p><code>config/app.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="string">'providers'</span> =&gt; [</div><div class="line">    Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,</div><div class="line">]</div><div class="line"></div><div class="line"><span class="string">'aliases'</span> =&gt; [</div><div class="line">    <span class="string">'JWTAuth'</span> =&gt; Tymon\JWTAuth\Facades\JWTAuth::class,</div><div class="line">    <span class="string">'JWTFactory'</span> =&gt; Tymon\JWTAuth\Facades\JWTFactory::class,</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p><code>config/api.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="string">'auth'</span> =&gt; [</div><div class="line">    <span class="string">'jwt'</span> =&gt; Dingo\Api\Auth\Provider\JWT::class,</div><div class="line">],</div></pre></td></tr></table></figure></p>
+<p>產生<code>config/jwt.php</code><br><code>$ php artisan vendor:publish --provider=&quot;Tymon\JWTAuth\Providers\JWTAuthServiceProvider&quot;</code></p>
+<h2 id="ENV-or-config-jwt-php"><a href="#ENV-or-config-jwt-php" class="headerlink" title=".ENV or config/jwt.php"></a>.ENV or config/jwt.php</h2><p><code>php artisan jwt:generate</code>會自動加到<code>config/jwt.php</code><br>or copy to <code>.env</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">JWT_SECRET=npoW1xxv8yXwwQVWO3GljPO9qBncmuIb</div></pre></td></tr></table></figure></p>
+<h2 id="Return-Token"><a href="#Return-Token" class="headerlink" title="Return Token"></a>Return Token</h2><p><code>app/Http/Kernel.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">protected</span> $routeMiddleware = [</div><div class="line">    <span class="string">'jwt.auth'</span> =&gt; \Tymon\JWTAuth\Middleware\GetUserFromToken::class,</div><div class="line">    <span class="string">'jwt.refresh'</span> =&gt; \Tymon\JWTAuth\Middleware\RefreshToken::class,</div><div class="line">];</div></pre></td></tr></table></figure></p>
+<p>假如使用者登入成功, return token<br><code>routes/api.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$api-&gt;post(<span class="string">'authenticate'</span>, <span class="string">'App\Http\Controller\ExampleController@authenticate'</span>);</div></pre></td></tr></table></figure></p>
+<p><code>App\Http\Controllers\ExampleController.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">use</span> <span class="title">JWTAuth</span>;</div><div class="line"><span class="keyword">use</span> <span class="title">Tymon</span>\<span class="title">JWTAuth</span>\<span class="title">Exceptions</span>\<span class="title">JWTException</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ExampleController</span> <span class="keyword">extends</span> <span class="title">Controller</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">authenticate</span><span class="params">(Request $request)</span></span></div><div class="line">    &#123;</div><div class="line">        <span class="comment">// grab credentials from the request</span></div><div class="line">        $credentials = $request-&gt;only(<span class="string">'email'</span>, <span class="string">'password'</span>);</div><div class="line"></div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="comment">// attempt to verify the credentials and create a token for the user</span></div><div class="line">            <span class="keyword">if</span> (! $token = JWTAuth::attempt($credentials)) &#123;</div><div class="line">                <span class="keyword">return</span> response()-&gt;json([<span class="string">'error'</span> =&gt; <span class="string">'invalid_credentials'</span>], <span class="number">401</span>);</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">catch</span> (JWTException $e) &#123;</div><div class="line">            <span class="comment">// something went wrong whilst attempting to encode the token</span></div><div class="line">            <span class="keyword">return</span> response()-&gt;json([<span class="string">'error'</span> =&gt; <span class="string">'could_not_create_token'</span>], <span class="number">500</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// all good so return the token</span></div><div class="line">        <span class="keyword">return</span> response()-&gt;json(compact(<span class="string">'token'</span>));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Example-Testing"><a href="#Example-Testing" class="headerlink" title="Example Testing"></a>Example Testing</h2><p><code>POST</code><br><code>api_jwt.dev/api/authenticate</code><br><code>email: A@A.A</code><br><code>Password: A</code></p>
+<p><code>curl -X POST -H &quot;Content-Type:application/x-www-form-urlencoded&quot; http://api_jwt.dev/api/authenticate -d &quot;email=A@A.A&amp;password=A&quot;</code><br>取得token！</p>
+<h2 id="Add-Middleware-以下都需要token"><a href="#Add-Middleware-以下都需要token" class="headerlink" title="Add Middleware 以下都需要token"></a>Add Middleware 以下都需要token</h2><h4 id="show-users"><a href="#show-users" class="headerlink" title="show users"></a>show users</h4><p><code>routes/api.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$api-&gt;version(<span class="string">'v1'</span>, [<span class="string">'middleware'</span> =&gt; <span class="string">'api.auth'</span>], <span class="function"><span class="keyword">function</span><span class="params">($api)</span></span>&#123;</div><div class="line">    $api-&gt;get(<span class="string">'users'</span>, <span class="string">'App\Http\Controllers\ExampleController@index'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>PS: api.auth就是jwt(config/api.php) =&gt; jwt.auth, jwt.refresh</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    $users = User::all();</div><div class="line">    <span class="keyword">return</span> response()-&gt;json($users);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>加入Header<br><code>Authorization: Bearer &lt;token&gt;</code><br><code>curl -H &quot;Authorization: Bearer &lt;token&gt;&quot; http://api_jwt.dev/api/users</code><br>要有token才能使用！</p>
+<h4 id="show-user"><a href="#show-user" class="headerlink" title="show user"></a>show user</h4><p><code>routes/api.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$api-&gt;version(<span class="string">'v1'</span>, [<span class="string">'middleware'</span> =&gt; <span class="string">'api.auth'</span>], <span class="function"><span class="keyword">function</span><span class="params">($api)</span></span>&#123;</div><div class="line">    $api-&gt;get(<span class="string">'user'</span>, <span class="string">'App\Http\Controllers\ExampleController@show'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">use</span> <span class="title">Tymon</span>\<span class="title">JWTAuth</span>\<span class="title">Exceptions</span>;</div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">show</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        $user = JWTAuth::parseToken()-&gt;toUser();</div><div class="line">        <span class="keyword">if</span> (! $user) &#123;</div><div class="line">            <span class="keyword">return</span> response()-&gt;json([<span class="string">'error'</span> =&gt; <span class="string">'User not found'</span>], <span class="number">400</span>);</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">catch</span> (TokenInvalidException $e) &#123;</div><div class="line">        <span class="keyword">return</span> response()-&gt;json([<span class="string">'error'</span> =&gt; <span class="string">'Token is invalid'</span>], <span class="number">401</span>);</div><div class="line">    &#125; <span class="keyword">catch</span> (TokenExpiredException $e) &#123;</div><div class="line">        <span class="keyword">return</span> response()-&gt;json([<span class="string">'error'</span> =&gt; <span class="string">'Token has expired'</span>], <span class="number">401</span>);</div><div class="line">    &#125; <span class="keyword">catch</span> (TokenBlacklistedException $e) &#123;</div><div class="line">        <span class="keyword">return</span> response()-&gt;json([<span class="string">'error'</span> =&gt; <span class="string">'Token is blacklisted'</span>], <span class="number">401</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">     <span class="keyword">return</span> response()-&gt;json($user);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>curl -H &quot;Authorization: Bearer &lt;token&gt;&quot; http://api_jwt.dev/api/user</code><br>會根據token判斷是哪一個user, 非常厲害</p>
+<h4 id="refresh-token"><a href="#refresh-token" class="headerlink" title="refresh token"></a>refresh token</h4><p><code>routes/api.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$api-&gt;version(<span class="string">'v1'</span>, [<span class="string">'middleware'</span> =&gt; <span class="string">'api.auth'</span>], <span class="function"><span class="keyword">function</span><span class="params">($api)</span></span>&#123;</div><div class="line">    $api-&gt;get(<span class="string">'token'</span>, <span class="string">'App\Http\Controllers\ExampleController@getToken'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getToken</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    $token = JWTAuth::getToken();</div><div class="line">    <span class="keyword">if</span> (! $token) &#123;</div><div class="line">        <span class="keyword">return</span> response()-&gt;json([<span class="string">'error'</span> =&gt; <span class="string">'Token is invalid'</span>], <span class="number">401</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        $refreshedToken = JWTAuth::refresh($token);</div><div class="line">    &#125; <span class="keyword">catch</span> (JWTException $e) &#123;</div><div class="line">        <span class="keyword">return</span> response()-&gt;json([<span class="string">'error'</span> =&gt; <span class="string">'Something went wrong'</span>], <span class="number">400</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> response()-&gt;json($refreshedToken);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>curl -H &quot;Authorization: Bearer &lt;token&gt;&quot; http://api_jwt.dev/api/token</code><br>得到傳進來的token, 返回一個新的token</p>
+<h4 id="delete-user"><a href="#delete-user" class="headerlink" title="delete user"></a>delete user</h4><p><code>routes/api.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$api-&gt;version(<span class="string">'v1'</span>, [<span class="string">'middleware'</span> =&gt; <span class="string">'api.auth'</span>], <span class="function"><span class="keyword">function</span><span class="params">($api)</span></span>&#123;</div><div class="line">    $api-&gt;delete(<span class="string">'delete'</span>, <span class="string">'App\Http\Controllers\ExampleController@destroy'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">destroy</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    $user = JWTAuth::parseToken()-&gt;authenticate();</div><div class="line">    <span class="keyword">if</span> (! $user) &#123;</div><div class="line">        <span class="keyword">return</span> response()-&gt;json([<span class="string">'error'</span> =&gt; <span class="string">'Fail the delete provess'</span>], <span class="number">401</span>);</div><div class="line">    &#125;</div><div class="line">    $user-&gt;delete();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>curl -X DELETE -H &quot;Authorization: Bearer &lt;token&gt;&quot; http://api_jwt.dev/api/delete</code><br>檢查token, 再刪user</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/11/16/raspberry-pi/" rel="prev" title="Raspberry Pi Notes">
+      <i class="fa fa-chevron-left"></i> Raspberry Pi Notes
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/11/28/matrix-chain-multiplication-algorithm/" rel="next" title="Matrix Chain Multiplication">
+      Matrix Chain Multiplication <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Dingo-API"><span class="nav-number">1.</span> <span class="nav-text">Dingo/API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Install"><span class="nav-number">1.1.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Config"><span class="nav-number">1.2.</span> <span class="nav-text">Config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ENV-or-config-api-php"><span class="nav-number">1.3.</span> <span class="nav-text">.ENV or config/api.php</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Routes"><span class="nav-number">1.4.</span> <span class="nav-text">Routes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Testing"><span class="nav-number">1.5.</span> <span class="nav-text">Testing</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JWT-Json-Web-Token"><span class="nav-number">2.</span> <span class="nav-text">JWT(Json Web Token)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Install-1"><span class="nav-number">2.1.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Config-1"><span class="nav-number">2.2.</span> <span class="nav-text">Config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ENV-or-config-jwt-php"><span class="nav-number">2.3.</span> <span class="nav-text">.ENV or config/jwt.php</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Return-Token"><span class="nav-number">2.4.</span> <span class="nav-text">Return Token</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-Testing"><span class="nav-number">2.5.</span> <span class="nav-text">Example Testing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Add-Middleware-以下都需要token"><span class="nav-number">2.6.</span> <span class="nav-text">Add Middleware 以下都需要token</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#show-users"><span class="nav-number">2.6.0.1.</span> <span class="nav-text">show users</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#show-user"><span class="nav-number">2.6.0.2.</span> <span class="nav-text">show user</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#refresh-token"><span class="nav-number">2.6.0.3.</span> <span class="nav-text">refresh token</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#delete-user"><span class="nav-number">2.6.0.4.</span> <span class="nav-text">delete user</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Lex and Yacc NotesMy GitHub Examples 1. LexIntro to lex/flex lex: lexical analyzer generator (詞法產生器) flex: fast lexical analyzer generator（快速詞法分析產生器） lex的開放原始碼版本   flex &amp;gt; lex 也叫做 Scanners 或 lexers">
+<meta name="keywords" content="notes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lex and Yacc Notes">
+<meta property="og:url" content="http://yoursite.com/2017/06/16/lex-and-yacc-notes/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="Lex and Yacc NotesMy GitHub Examples 1. LexIntro to lex/flex lex: lexical analyzer generator (詞法產生器) flex: fast lexical analyzer generator（快速詞法分析產生器） lex的開放原始碼版本   flex &amp;gt; lex 也叫做 Scanners 或 lexers">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.480Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lex and Yacc Notes">
+<meta name="twitter:description" content="Lex and Yacc NotesMy GitHub Examples 1. LexIntro to lex/flex lex: lexical analyzer generator (詞法產生器) flex: fast lexical analyzer generator（快速詞法分析產生器） lex的開放原始碼版本   flex &amp;gt; lex 也叫做 Scanners 或 lexers">
+
+<link rel="canonical" href="http://yoursite.com/2017/06/16/lex-and-yacc-notes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Lex and Yacc Notes | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/16/lex-and-yacc-notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Lex and Yacc Notes
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-06-16 22:21:57" itemprop="dateCreated datePublished" datetime="2017-06-16T22:21:57+08:00">2017-06-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Lex-and-Yacc-Notes"><a href="#Lex-and-Yacc-Notes" class="headerlink" title="Lex and Yacc Notes"></a>Lex and Yacc Notes</h1><p><a href="https://github.com/lovenery/Compiler" target="_blank" rel="external">My GitHub Examples</a></p>
+<h1 id="1-Lex"><a href="#1-Lex" class="headerlink" title="1. Lex"></a>1. Lex</h1><h2 id="Intro-to-lex-flex"><a href="#Intro-to-lex-flex" class="headerlink" title="Intro to lex/flex"></a>Intro to lex/flex</h2><ul>
+<li>lex: lexical analyzer generator (詞法產生器)</li>
+<li>flex: fast lexical analyzer generator（快速詞法分析產生器）<ul>
+<li>lex的開放原始碼版本</li>
+</ul>
+</li>
+<li>flex &gt; lex</li>
+<li>也叫做 Scanners 或 lexers</li>
+</ul>
+<h2 id="Editor-Plugin"><a href="#Editor-Plugin" class="headerlink" title="Editor Plugin"></a>Editor Plugin</h2><ul>
+<li>Visual Code: <code>Lex</code> <a href="https://github.com/textmate/lex-flex.tmbundle/" target="_blank" rel="external">https://github.com/textmate/lex-flex.tmbundle/</a></li>
+</ul>
+<h2 id="Compile"><a href="#Compile" class="headerlink" title="Compile"></a>Compile</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> OS X 10.11.6</span></div><div class="line">flex lexfile.l</div><div class="line">gcc lex.yy.c -ll</div><div class="line">./a.out &lt; input.txt</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> Linux</span></div><div class="line">flex lexfile.l</div><div class="line">gcc lex.yy.c -lfl</div><div class="line">./a.out &lt; input.txt</div></pre></td></tr></table></figure>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/*** Definition section ***/</div><div class="line">%&#123;</div><div class="line">initial C or C++ codes</div><div class="line">%&#125;</div><div class="line">%%</div><div class="line">/*** Rules section ***/</div><div class="line">%%</div><div class="line">/*** C Code section ***/</div></pre></td></tr></table></figure>
+<p><a href="https://goo.gl/DmtVCC" target="_blank" rel="external">example from wiki</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">/*** Definition section ***/</div><div class="line"></div><div class="line">%&#123;</div><div class="line">/* C code to be copied verbatim */</div><div class="line">#include &lt;stdio.h&gt;</div><div class="line">%&#125;</div><div class="line"></div><div class="line">/* This tells flex to read only one input file */</div><div class="line">%option noyywrap</div><div class="line">NUMBER  [0-9]+</div><div class="line"></div><div class="line">%%</div><div class="line">/*** Rules section ***/</div><div class="line">&#123;NUMBER&#125;  &#123;</div><div class="line">            /* yytext is a string containing the matched text. */</div><div class="line">            printf(&quot;Saw an integer: %s\n&quot;, yytext);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">.|\n    &#123;   /* Ignore all other characters. */   &#125;</div><div class="line"></div><div class="line">%%</div><div class="line">/*** C Code section ***/</div><div class="line"></div><div class="line">int main(void)</div><div class="line">&#123;</div><div class="line">    /* Call the lexer, then quit. */</div><div class="line">    yylex();</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Solve-yywrap-error"><a href="#Solve-yywrap-error" class="headerlink" title="Solve yywrap() error"></a>Solve yywrap() error</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">%&#123;</div><div class="line">....</div><div class="line">%&#125;</div><div class="line"></div><div class="line">/* solve yywrap 1 */</div><div class="line">%option noyywrap</div><div class="line"></div><div class="line">%%</div><div class="line"></div><div class="line">......</div><div class="line"></div><div class="line">%%</div><div class="line"></div><div class="line">/* solve yywrap 2 */</div><div class="line">/*int yywrap () &#123;return -1;&#125;*/</div><div class="line"></div><div class="line">/* solve yywrap 3 */</div><div class="line">/* OS:X gcc ..... -ll */</div><div class="line">/* Linux gcc ..... -lfl */</div></pre></td></tr></table></figure>
+<h2 id="Common-Lex-Variables"><a href="#Common-Lex-Variables" class="headerlink" title="Common Lex Variables"></a>Common Lex Variables</h2><ul>
+<li>yyout<ul>
+<li>The FILE* used for output, it is equivalent to stdout by default</li>
+</ul>
+</li>
+<li>yyin<ul>
+<li>The FILE* used for read input, it is equivalent to stdin by default</li>
+</ul>
+</li>
+<li>yytext<ul>
+<li>Store the matched token</li>
+</ul>
+</li>
+<li>yyleng<ul>
+<li>Store the length of the matched token</li>
+</ul>
+</li>
+</ul>
+<h2 id="Common-Lex-Macros"><a href="#Common-Lex-Macros" class="headerlink" title="Common Lex Macros"></a>Common Lex Macros</h2><ul>
+<li>ECHO<ul>
+<li>It is equivalent to <code>fprintf(yyout, “%s”, yytext)</code></li>
+</ul>
+</li>
+<li>BEGIN<ul>
+<li>Switch the start state</li>
+<li>can do comments</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-Yacc"><a href="#2-Yacc" class="headerlink" title="2. Yacc"></a>2. Yacc</h1><h2 id="Intro-to-yacc-bison"><a href="#Intro-to-yacc-bison" class="headerlink" title="Intro to yacc/bison"></a>Intro to yacc/bison</h2><ul>
+<li>yacc: Yet Another Compiler Compiler</li>
+<li>bison: GNU bison</li>
+<li>bison &gt; yacc</li>
+<li>需與lex一起用</li>
+<li>輸入是巴科斯範式（BNF）</li>
+<li>採用LALR（1）<ul>
+<li>Bottom up Parser</li>
+<li>Match到RHS(right hand side)會轉成LHS</li>
+</ul>
+</li>
+<li>也叫做Parser</li>
+</ul>
+<h2 id="Editor-Plugin-1"><a href="#Editor-Plugin-1" class="headerlink" title="Editor Plugin"></a>Editor Plugin</h2><ul>
+<li>Visual Code: <code>Bison &amp; Yacc</code> <a href="https://marketplace.visualstudio.com/items?itemName=se2dev.vscode-yacc" target="_blank" rel="external">https://marketplace.visualstudio.com/items?itemName=se2dev.vscode-yacc</a></li>
+</ul>
+<h2 id="Compile-1"><a href="#Compile-1" class="headerlink" title="Compile"></a>Compile</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> OS X</span></div><div class="line">bison -d -o y.tab.c yacc.y</div><div class="line">flex -o lex.yy.c lex.l</div><div class="line">gcc lex.yy.c y.tab.c</div><div class="line">./a.out &lt; input.txt</div></pre></td></tr></table></figure>
+<h2 id="Usage-1"><a href="#Usage-1" class="headerlink" title="Usage"></a>Usage</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// add in .l file</div><div class="line">#include &quot;y.tab.h&quot;</div><div class="line"></div><div class="line">// .l return token to .y</div><div class="line">yylval.ival = atoi(yytext);</div><div class="line">return(INUMBER);</div><div class="line">return(yytext[0]);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">%&#123;</div><div class="line">initial C or C++ codes</div><div class="line">%&#125;</div><div class="line">… Other Definitions …</div><div class="line">%%</div><div class="line">… Rules Section …</div><div class="line">%%</div><div class="line">… Subroutine Section …</div></pre></td></tr></table></figure>
+<h2 id="Rules-section"><a href="#Rules-section" class="headerlink" title="Rules section"></a>Rules section</h2><ul>
+<li>Context Free Grammer</li>
+</ul>
+<h2 id="C-Code-section"><a href="#C-Code-section" class="headerlink" title="C Code section"></a>C Code section</h2><ul>
+<li>yyerror<ul>
+<li>deal with error .    ex: sytax error</li>
+</ul>
+</li>
+<li>yyparse<ul>
+<li>Use the productions of rule section to analyze the syntax</li>
+<li>Communication with yylex</li>
+</ul>
+</li>
+</ul>
+<h2 id="Symbol-Attributes"><a href="#Symbol-Attributes" class="headerlink" title="Symbol Attributes"></a>Symbol Attributes</h2><ul>
+<li>yylval:<ul>
+<li>This is a variable defined in *.y file </li>
+<li>When token is returned to yacc , yacc can use it to do something</li>
+<li>By default, yylval is of type int</li>
+</ul>
+</li>
+</ul>
+<h2 id="Non-Integer-Symbol-Attributes"><a href="#Non-Integer-Symbol-Attributes" class="headerlink" title="Non-Integer Symbol Attributes"></a>Non-Integer Symbol Attributes</h2><ul>
+<li>The %union directive</li>
+<li>Declare data type for terminals and non-terminals<ul>
+<li>terminals: %token <variable-name> token …</variable-name></li>
+<li>non-terminals: %type <variable-name>  non-terminal …</variable-name></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">%union&#123;</div><div class="line">	datatype variable-name;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Token-Declarations"><a href="#Token-Declarations" class="headerlink" title="Token Declarations"></a>Token Declarations</h2><ul>
+<li>%token: generic token declarations</li>
+<li>%left: left-associative binary operators with precedence<ul>
+<li>ex: 9-3-2 = 4 not 8</li>
+</ul>
+</li>
+<li>%right: right-associative binary operators with precedence<ul>
+<li>ex: 2 ^ 2 ^ 3 = 256 not 64</li>
+</ul>
+</li>
+<li>%nonassoc: non-associative tokens with precedence (從左邊算到右邊跟右算到左一樣)</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/notes/" rel="tag"># notes</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/05/27/node-js-notes/" rel="prev" title="Node.js Notes">
+      <i class="fa fa-chevron-left"></i> Node.js Notes
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/07/04/deploy-meteor-js-apps-on-ubuntu-16-04/" rel="next" title="Deploy Meteor.js Apps on Ubuntu 16.04">
+      Deploy Meteor.js Apps on Ubuntu 16.04 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Lex-and-Yacc-Notes"><span class="nav-number">1.</span> <span class="nav-text">Lex and Yacc Notes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Lex"><span class="nav-number">2.</span> <span class="nav-text">1. Lex</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Intro-to-lex-flex"><span class="nav-number">2.1.</span> <span class="nav-text">Intro to lex/flex</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Editor-Plugin"><span class="nav-number">2.2.</span> <span class="nav-text">Editor Plugin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Compile"><span class="nav-number">2.3.</span> <span class="nav-text">Compile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Usage"><span class="nav-number">2.4.</span> <span class="nav-text">Usage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solve-yywrap-error"><span class="nav-number">2.5.</span> <span class="nav-text">Solve yywrap() error</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Common-Lex-Variables"><span class="nav-number">2.6.</span> <span class="nav-text">Common Lex Variables</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Common-Lex-Macros"><span class="nav-number">2.7.</span> <span class="nav-text">Common Lex Macros</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Yacc"><span class="nav-number">3.</span> <span class="nav-text">2. Yacc</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Intro-to-yacc-bison"><span class="nav-number">3.1.</span> <span class="nav-text">Intro to yacc/bison</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Editor-Plugin-1"><span class="nav-number">3.2.</span> <span class="nav-text">Editor Plugin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Compile-1"><span class="nav-number">3.3.</span> <span class="nav-text">Compile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Usage-1"><span class="nav-number">3.4.</span> <span class="nav-text">Usage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rules-section"><span class="nav-number">3.5.</span> <span class="nav-text">Rules section</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-Code-section"><span class="nav-number">3.6.</span> <span class="nav-text">C Code section</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Symbol-Attributes"><span class="nav-number">3.7.</span> <span class="nav-text">Symbol Attributes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Non-Integer-Symbol-Attributes"><span class="nav-number">3.8.</span> <span class="nav-text">Non-Integer Symbol Attributes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Token-Declarations"><span class="nav-number">3.9.</span> <span class="nav-text">Token Declarations</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

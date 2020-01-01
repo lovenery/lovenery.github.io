@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="參考自圖書館的書">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 環境">
+<meta property="og:url" content="http://yoursite.com/2016/06/24/android-environment/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="參考自圖書館的書">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.467Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 環境">
+<meta name="twitter:description" content="參考自圖書館的書">
+
+<link rel="canonical" href="http://yoursite.com/2016/06/24/android-environment/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Android 環境 | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/24/android-environment/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android 環境
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-06-24 16:20:00" itemprop="dateCreated datePublished" datetime="2016-06-24T16:20:00+08:00">2016-06-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>參考自圖書館的書<br><a id="more"></a></p>
+<h1 id="Android-Env-Eclipse"><a href="#Android-Env-Eclipse" class="headerlink" title="Android Env - Eclipse"></a>Android Env - Eclipse</h1><h2 id="下載Java-JDK"><a href="#下載Java-JDK" class="headerlink" title="下載Java JDK"></a>下載Java JDK</h2><p><a href="http://www.oracle.com/technetwork/java/javase/downloads/" target="_blank" rel="external">oracle</a>  </p>
+<h2 id="下載Eclipse"><a href="#下載Eclipse" class="headerlink" title="下載Eclipse"></a>下載Eclipse</h2><p><a href="https://www.eclipse.org/downloads/" target="_blank" rel="external">Eclipse</a><br>我裝Eclipse IDE for Java EE Developers</p>
+<h2 id="設定Eclipse"><a href="#設定Eclipse" class="headerlink" title="設定Eclipse"></a>設定Eclipse</h2><p>功能列 -&gt; Help -&gt; Install New Software<br>add按鈕<br>name輸入android<br>location輸入<a href="http://dl-ssl.google.com/android/eclipse/" target="_blank" rel="external">http://dl-ssl.google.com/android/eclipse/</a><br>OK<br>Developer Tools全選<br>一直下一步</p>
+<h2 id="下載-Android-SDK"><a href="#下載-Android-SDK" class="headerlink" title="下載 Android SDK"></a>下載 Android SDK</h2><p><a href="https://developer.android.com/studio/index.html" target="_blank" rel="external">andriod</a><br>下載 android-sdk_r24.4.1-windows.zip 這個<br>然後安裝執行,放在一個想放的地方</p>
+<h2 id="指定-Android-SDK"><a href="#指定-Android-SDK" class="headerlink" title="指定 Android SDK"></a>指定 Android SDK</h2><p>{<br>功能列 -&gt; Window -&gt; Preference<br>點左側Android SDK Location選剛剛解壓縮的SDK資料夾(android-sdk-windows)<br>Apply -&gt; OK<br>}  </p>
+<h2 id="Android-SDK-Manager"><a href="#Android-SDK-Manager" class="headerlink" title="Android SDK Manager"></a>Android SDK Manager</h2><p>功能列 -&gt; Window -&gt; Perspective -&gt; Open Perspective -&gt; 選Java<br>功能列 -&gt; Window -&gt; Android SDK Manager<br>選要安裝的SDK<br>{<br>Tools所有選項<br>Android 4.4.2 (API19)所有選項 (用舊的開發)<br>Extras -&gt; Google USB Driver<br>}<br>好了就點選 Install Packages<br>重開 Eclipse 可以用嚕<br>以後要安裝不同的版本就點 Android SDK Manager  </p>
+<h1 id="Android-Env-Android-Studio"><a href="#Android-Env-Android-Studio" class="headerlink" title="Android Env - Android Studio"></a>Android Env - Android Studio</h1><p><a href="https://developer.android.com/studio/index.html" target="_blank" rel="external">android studio</a><br>一直下一步<br>結束</p>
+<h1 id="Android-Studio-改字"><a href="#Android-Studio-改字" class="headerlink" title="Android Studio 改字"></a>Android Studio 改字</h1><p>File -&gt; Settings -&gt; Editor -&gt; Colors&amp;Fonts 記得先按Save as,copy一份存起來</p>
+<h1 id="小米手機連不到"><a href="#小米手機連不到" class="headerlink" title="小米手機連不到"></a>小米手機連不到</h1><p>到裝置管理員查看連接USB的硬體識別碼,小米應該是<code>2717</code><br>在<code>C:\Users\xxxxx\.android\</code> 下，找到 <code>adb_usb.ini</code>，並寫入 <code>0x2717</code>  </p>
+<p>到小米大陸網站<a href="http://www.mi.com/index.html" target="_blank" rel="external">http://www.mi.com/index.html</a><br>服務 -&gt; 資源下載 -&gt; <a href="http://www.mi.com/service/download/" target="_blank" rel="external">手機驅動</a><br>載完之後 可以在裝置管理員 按更新驅動程式 選剛剛載的那個資料夾  </p>
+<p>OK</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/06/13/production/" rel="prev" title="Production - 網站上線前檢測">
+      <i class="fa fa-chevron-left"></i> Production - 網站上線前檢測
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/06/27/android-common-components/" rel="next" title="Android 常用元件">
+      Android 常用元件 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-Env-Eclipse"><span class="nav-number">1.</span> <span class="nav-text">Android Env - Eclipse</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下載Java-JDK"><span class="nav-number">1.1.</span> <span class="nav-text">下載Java JDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下載Eclipse"><span class="nav-number">1.2.</span> <span class="nav-text">下載Eclipse</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#設定Eclipse"><span class="nav-number">1.3.</span> <span class="nav-text">設定Eclipse</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下載-Android-SDK"><span class="nav-number">1.4.</span> <span class="nav-text">下載 Android SDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指定-Android-SDK"><span class="nav-number">1.5.</span> <span class="nav-text">指定 Android SDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-SDK-Manager"><span class="nav-number">1.6.</span> <span class="nav-text">Android SDK Manager</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-Env-Android-Studio"><span class="nav-number">2.</span> <span class="nav-text">Android Env - Android Studio</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-Studio-改字"><span class="nav-number">3.</span> <span class="nav-text">Android Studio 改字</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小米手機連不到"><span class="nav-number">4.</span> <span class="nav-text">小米手機連不到</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

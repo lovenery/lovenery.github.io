@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Ref:https://www.youtube.com/watch?v=Kas2w2DBuFghttps://github.com/mschwarzmueller/laravel-playgroundMy:https://github.com/lovenery/laravel-simple-acl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Laravel 5.2 ACL">
+<meta property="og:url" content="http://yoursite.com/2016/06/09/laravel-52-role/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="Ref:https://www.youtube.com/watch?v=Kas2w2DBuFghttps://github.com/mschwarzmueller/laravel-playgroundMy:https://github.com/lovenery/laravel-simple-acl">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.466Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Laravel 5.2 ACL">
+<meta name="twitter:description" content="Ref:https://www.youtube.com/watch?v=Kas2w2DBuFghttps://github.com/mschwarzmueller/laravel-playgroundMy:https://github.com/lovenery/laravel-simple-acl">
+
+<link rel="canonical" href="http://yoursite.com/2016/06/09/laravel-52-role/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Laravel 5.2 ACL | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/09/laravel-52-role/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Laravel 5.2 ACL
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-06-09 11:25:00" itemprop="dateCreated datePublished" datetime="2016-06-09T11:25:00+08:00">2016-06-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Ref:<br><a href="https://www.youtube.com/watch?v=Kas2w2DBuFg" target="_blank" rel="external">https://www.youtube.com/watch?v=Kas2w2DBuFg</a><br><a href="https://github.com/mschwarzmueller/laravel-playground" target="_blank" rel="external">https://github.com/mschwarzmueller/laravel-playground</a><br>My:<a href="https://github.com/lovenery/laravel-simple-acl" target="_blank" rel="external">https://github.com/lovenery/laravel-simple-acl</a></p>
+<a id="more"></a>
+<p>–<br>Great!<br>shinobi<br><a href="https://github.com/caffeinated/shinobi" target="_blank" rel="external">https://github.com/caffeinated/shinobi</a><br>GUI<br><a href="https://github.com/SmarchSoftware/watchtower" target="_blank" rel="external">https://github.com/SmarchSoftware/watchtower</a></p>
+<hr>
+<p>Entrust<br>Ref:<a href="https://github.com/Zizaco/entrust" target="_blank" rel="external">https://github.com/Zizaco/entrust</a></p>
+<h1 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h1><p>照著Readme做,但<br><code>composer require zizaco/entrust:dev-master</code><br><code>5.2.x-dev</code>有不能用file cache的問題QQ</p>
+<p>以下也是<code>5.2.x-dev</code>的問題</p>
+<p>在<code>php artisan entrust:migration</code>之前就要</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&apos;providers&apos; =&gt; [</div><div class="line">    &apos;users&apos; =&gt; [</div><div class="line">        &apos;driver&apos; =&gt; &apos;eloquent&apos;,</div><div class="line">        &apos;model&apos; =&gt; App\User::class,</div><div class="line">        &apos;table&apos; =&gt; &apos;users&apos;, // add me</div><div class="line">    ],</div><div class="line"></div><div class="line">    // &apos;users&apos; =&gt; [</div><div class="line">    //     &apos;driver&apos; =&gt; &apos;database&apos;,</div><div class="line">    //     &apos;table&apos; =&gt; &apos;users&apos;,</div><div class="line">    // ],</div><div class="line">],</div></pre></td></tr></table></figure>
+<p>不然你就要<br><code>$table-&gt;foreign(&#39;user_id&#39;)-&gt;references(&#39;id&#39;)-&gt;on(&#39;&#39;)</code><br>to<br><code>$table-&gt;foreign(&#39;user_id&#39;)-&gt;references(&#39;id&#39;)-&gt;on(&#39;users&#39;)</code></p>
+<p>才能<code>php artisan migrate</code></p>
+<p>不能<code>php artisan migrate:reset</code>的時後記得<br><code>composer dump-autoload</code></p>
+<h1 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h1><p><code>php artisan make:auth</code></p>
+<p><code>php artisan make:model Role</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">namespace App;</div><div class="line"></div><div class="line">use Zizaco\Entrust\EntrustRole;</div><div class="line"></div><div class="line">class Role extends EntrustRole</div><div class="line">&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>php artisan make:model Permission</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">namespace App;</div><div class="line"></div><div class="line">use Zizaco\Entrust\EntrustPermission;</div><div class="line"></div><div class="line">class Permission extends EntrustPermission</div><div class="line">&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">use Zizaco\Entrust\Traits\EntrustUserTrait;</div><div class="line">class User extends Eloquent</div><div class="line">&#123;</div><div class="line">    use EntrustUserTrait; // add this trait to your user model</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>This will enable the relation with <code>Role</code> and add the following methods <code>roles()</code>, <code>hasRole($name)</code>, <code>can($permission)</code>, and <code>ability($roles, $permissions, $options)</code> within your <code>User</code> model.</p>
+<p>記得<code>composer dump-autoload</code></p>
+<h1 id="Play"><a href="#Play" class="headerlink" title="Play"></a>Play</h1><p><code>php artisan make:seeder RolesTableSeeder</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">$user = new User();</div><div class="line">$user-&gt;name = &apos;hsu&apos;;</div><div class="line">$user-&gt;email = &apos;q@q.q&apos;;</div><div class="line">$user-&gt;password = bcrypt(&apos;qqqqqq&apos;);</div><div class="line">$user-&gt;save();</div><div class="line"></div><div class="line">$owner = new Role();</div><div class="line">$owner-&gt;name         = &apos;owner&apos;;</div><div class="line">$owner-&gt;display_name = &apos;Project Owner&apos;; // optional</div><div class="line">$owner-&gt;description  = &apos;User is the owner of a given project&apos;; // optional</div><div class="line">$owner-&gt;save();</div><div class="line"></div><div class="line">$admin = new Role();</div><div class="line">$admin-&gt;name         = &apos;admin&apos;;</div><div class="line">$admin-&gt;display_name = &apos;User Administrator&apos;; // optional</div><div class="line">$admin-&gt;description  = &apos;User is allowed to manage and edit other users&apos;; // optional</div><div class="line">$admin-&gt;save();</div><div class="line"></div><div class="line">$createPost = new Permission();</div><div class="line">$createPost-&gt;name         = &apos;create-post&apos;;</div><div class="line">$createPost-&gt;display_name = &apos;Create Posts&apos;; // optional</div><div class="line">// Allow a user to...</div><div class="line">$createPost-&gt;description  = &apos;create new blog posts&apos;; // optional</div><div class="line">$createPost-&gt;save();</div><div class="line"></div><div class="line">$editUser = new Permission();</div><div class="line">$editUser-&gt;name         = &apos;edit-user&apos;;</div><div class="line">$editUser-&gt;display_name = &apos;Edit Users&apos;; // optional</div><div class="line">// Allow a user to...</div><div class="line">$editUser-&gt;description  = &apos;edit existing users&apos;; // optional</div><div class="line">$editUser-&gt;save();</div><div class="line"></div><div class="line">//-----------------------------------------------</div><div class="line">$user = User::where(&apos;name&apos;, &apos;=&apos;, &apos;hsu&apos;)-&gt;first();</div><div class="line">// role attach alias</div><div class="line">$user-&gt;attachRole($admin); // parameter can be an Role object, array, or id</div><div class="line">// or eloquent&apos;s original technique</div><div class="line">//$user-&gt;roles()-&gt;attach($admin-&gt;id); // id only</div><div class="line"></div><div class="line">//----------------------------------------------</div><div class="line">$admin-&gt;attachPermission($createPost);</div><div class="line">// equivalent to $admin-&gt;perms()-&gt;sync(array($createPost-&gt;id));</div><div class="line"></div><div class="line">$owner-&gt;attachPermissions(array($createPost, $editUser));</div><div class="line">// equivalent to $owner-&gt;perms()-&gt;sync(array($createPost-&gt;id, $editUser-&gt;id));</div></pre></td></tr></table></figure>
+<p><code>$this-&gt;call(RolesTableSeeder::class);</code></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/06/05/laravel-52-fileupload/" rel="prev" title="Laravel 5.2 FileUpload">
+      <i class="fa fa-chevron-left"></i> Laravel 5.2 FileUpload
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/06/13/production/" rel="next" title="Production - 網站上線前檢測">
+      Production - 網站上線前檢測 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Install"><span class="nav-number">1.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Configuration"><span class="nav-number">2.</span> <span class="nav-text">Configuration</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Play"><span class="nav-number">3.</span> <span class="nav-text">Play</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

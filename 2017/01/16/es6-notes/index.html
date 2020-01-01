@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="ES6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6 筆記">
+<meta property="og:url" content="http://yoursite.com/2017/01/16/es6-notes/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="ES6">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.475Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6 筆記">
+<meta name="twitter:description" content="ES6">
+
+<link rel="canonical" href="http://yoursite.com/2017/01/16/es6-notes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>ES6 筆記 | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/16/es6-notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ES6 筆記
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-01-16 11:25:00" itemprop="dateCreated datePublished" datetime="2017-01-16T11:25:00+08:00">2017-01-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h1><a id="more"></a>
+<h2 id="Babel"><a href="#Babel" class="headerlink" title="Babel"></a>Babel</h2><p>JavaScript compiler(es6 to es5)<br><a href="https://babeljs.io/" target="_blank" rel="external">https://babeljs.io/</a></p>
+<p>Choose your tool (try CLI)<br><a href="http://babeljs.io/docs/setup/#installation" target="_blank" rel="external">http://babeljs.io/docs/setup/#installation</a></p>
+<p><code>npm install --save-dev babel-cli</code></p>
+<p>package.json<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">  &quot;build&quot;: &quot;babel src -d output&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>npm install babel-preset-env --save-dev</code></p>
+<p>.babelrc<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;presets&quot;: [&quot;env&quot;]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>npm run build</code></p>
+<h2 id="Varibale-變數"><a href="#Varibale-變數" class="headerlink" title="Varibale 變數"></a>Varibale 變數</h2><p><code>var</code> : 小心Hoisting、Global<br><code>let</code> : Local<br><code>const</code> : 不能修改、可以push</p>
+<h2 id="Arror-箭頭函式"><a href="#Arror-箭頭函式" class="headerlink" title="Arror 箭頭函式"></a>Arror 箭頭函式</h2><h3 id="Ex-1"><a href="#Ex-1" class="headerlink" title="Ex 1"></a>Ex 1</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Collection</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(items = []) &#123;</div><div class="line">    <span class="keyword">this</span>.items = items;</div><div class="line">  &#125;</div><div class="line">  print() &#123;</div><div class="line">    <span class="keyword">this</span>.items.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>) </span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(item);</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Item</span> </span>&#123;&#125;</div><div class="line"></div><div class="line"><span class="keyword">new</span> Collection([</div><div class="line">  <span class="keyword">new</span> Item, <span class="keyword">new</span> Item</div><div class="line">]).print();</div></pre></td></tr></table></figure>
+<p>一樣, 空或兩個參數以上要加parentheses<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">print() &#123;</div><div class="line">  <span class="keyword">this</span>.items.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(item);</div><div class="line">  &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">print() &#123;</div><div class="line">  <span class="keyword">this</span>.items.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(item);</div><div class="line">  &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">print() &#123;</div><div class="line">  <span class="keyword">this</span>.items.forEach(<span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">console</span>.log(item));</div><div class="line">&#125;</div><div class="line"></div><div class="line">print() &#123;</div><div class="line">  <span class="keyword">this</span>.items.forEach(<span class="function">(<span class="params">item,index</span>) =&gt;</span> <span class="built_in">console</span>.log(item,index));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="Ex2"><a href="#Ex2" class="headerlink" title="Ex2"></a>Ex2</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> items = [<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>];</div><div class="line"></div><div class="line"><span class="comment">// 原始作法</span></div><div class="line"><span class="comment">// items = items.map(function (i) &#123;</span></div><div class="line"><span class="comment">//   return i + ' hi';</span></div><div class="line"><span class="comment">// &#125;);</span></div><div class="line"></div><div class="line"><span class="comment">// 箭頭</span></div><div class="line"><span class="comment">// items = items.map(i =&gt; &#123;</span></div><div class="line"><span class="comment">//   return i + ' hi';</span></div><div class="line"><span class="comment">// &#125;);</span></div><div class="line"></div><div class="line"><span class="comment">// 縮成一排 return是implicit</span></div><div class="line"><span class="comment">// items = items.map(i =&gt; i + ' hi');</span></div><div class="line"></div><div class="line"><span class="comment">// template語法</span></div><div class="line">items = items.map(<span class="function"><span class="params">i</span> =&gt;</span> <span class="string">`<span class="subst">$&#123;i&#125;</span> hi`</span>);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(items);</div></pre></td></tr></table></figure>
+<h2 id="Default-Parameters-預設參數"><a href="#Default-Parameters-預設參數" class="headerlink" title="Default Parameters 預設參數"></a>Default Parameters 預設參數</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">hihi</span>(<span class="params">paraA = <span class="number">2</span>, paraB = <span class="number">3</span></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> paraA + paraB;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(hihi(<span class="number">20</span>, <span class="number">30</span>));</div><div class="line"><span class="built_in">console</span>.log(hihi());</div></pre></td></tr></table></figure>
+<h2 id="Rest-and-Spread-其餘參數與展開運算子"><a href="#Rest-and-Spread-其餘參數與展開運算子" class="headerlink" title="Rest and Spread 其餘參數與展開運算子"></a>Rest and Spread 其餘參數與展開運算子</h2><p>以前會用argument key word<br>都是用 <code>...</code></p>
+<h3 id="Rest"><a href="#Rest" class="headerlink" title="Rest"></a>Rest</h3><p><a href="http://www.w3schools.com/jsref/jsref_reduce.asp" target="_blank" rel="external">http://www.w3schools.com/jsref/jsref_reduce.asp</a></p>
+<p><code>reduce()</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">...numbers</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(numbers);</div><div class="line">  <span class="keyword">return</span> numbers.reduce( <span class="function"><span class="keyword">function</span>(<span class="params">total, current</span>) </span>&#123;</div><div class="line">      <span class="keyword">return</span> total + current;</div><div class="line">  &#125;)</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(sum(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>));</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">hi, ...numbers</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(numbers);</div><div class="line">  <span class="built_in">console</span>.log(hi);</div><div class="line">  <span class="keyword">return</span> numbers.reduce( <span class="function"><span class="keyword">function</span>(<span class="params">total, current</span>) </span>&#123;</div><div class="line">      <span class="keyword">return</span> total + current;</div><div class="line">  &#125;)</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(sum(<span class="string">'QQ'</span>, <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>));</div></pre></td></tr></table></figure>
+<h3 id="Spread"><a href="#Spread" class="headerlink" title="Spread"></a>Spread</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">x, y</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> x+y;</div><div class="line">&#125;</div><div class="line"><span class="keyword">let</span> numbers = [<span class="number">1</span>, <span class="number">2</span>];</div><div class="line"><span class="built_in">console</span>.log(sum(...numbers));</div></pre></td></tr></table></figure>
+<h2 id="Template-Strings-字串模板"><a href="#Template-Strings-字串模板" class="headerlink" title="Template Strings 字串模板"></a>Template Strings 字串模板</h2><p><a href="http://www.w3schools.com/jsref/jsref_join.asp" target="_blank" rel="external">http://www.w3schools.com/jsref/jsref_join.asp</a><br><code>join()</code></p>
+<p>以前<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> template = [</div><div class="line">  <span class="string">'&lt;div&gt;'</span>,</div><div class="line">    <span class="string">'&lt;h1&gt;hihi&lt;/h1&gt;'</span>,</div><div class="line">  <span class="string">'&lt;/div&gt;'</span></div><div class="line">].join(<span class="string">''</span>);</div><div class="line"><span class="built_in">console</span>.log(template);</div></pre></td></tr></table></figure></p>
+<p>現在<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> parm = <span class="string">'hihi'</span>;</div><div class="line"><span class="keyword">let</span> template = <span class="string">`</span></div><div class="line">  &lt;div&gt;</div><div class="line">    &lt;h1&gt;<span class="subst">$&#123;parm&#125;</span>&lt;/h1&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">`;</div><div class="line"><span class="built_in">console</span>.log(template);</div></pre></td></tr></table></figure></p>
+<h2 id="Object-物件的改進"><a href="#Object-物件的改進" class="headerlink" title="Object 物件的改進"></a>Object 物件的改進</h2><h3 id="Ex1-Object-shorthand"><a href="#Ex1-Object-shorthand" class="headerlink" title="Ex1 Object shorthand"></a>Ex1 Object shorthand</h3><p>以前<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getItem</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> item1 = <span class="string">'A'</span>;</div><div class="line">  <span class="keyword">let</span> item2 = <span class="string">'B'</span>;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">item1</span>: item1,</div><div class="line">    <span class="attr">item2</span>: item2</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(getItem());</div></pre></td></tr></table></figure></p>
+<p>現在 他會自動配對參數<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getItem</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> item1 = <span class="string">'A'</span>;</div><div class="line">  <span class="keyword">let</span> item2 = <span class="string">'B'</span>;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    item1,</div><div class="line">    item2</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(getItem());</div></pre></td></tr></table></figure></p>
+<h3 id="Ex2-Method-shorthand"><a href="#Ex2-Method-shorthand" class="headerlink" title="Ex2 Method shorthand"></a>Ex2 Method shorthand</h3><p>拿掉冒號跟function關鍵字很方便<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getItem</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> item1 = <span class="string">'A'</span>;</div><div class="line">  <span class="keyword">let</span> item2 = <span class="string">'B'</span>;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    item1,</div><div class="line">    item2,</div><div class="line">    <span class="comment">// hihi: function () &#123;</span></div><div class="line">    <span class="comment">//   return item1 + ' ' + item2;</span></div><div class="line">    <span class="comment">// &#125;</span></div><div class="line">    hihi() &#123;</div><div class="line">      <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;item1&#125;</span> <span class="subst">$&#123;item2&#125;</span>`</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(getItem().hihi());</div></pre></td></tr></table></figure></p>
+<h3 id="Ex3-Object-Destructuring"><a href="#Ex3-Object-Destructuring" class="headerlink" title="Ex3 Object Destructuring"></a>Ex3 Object Destructuring</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> person = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'Ken'</span>,</div><div class="line">  <span class="attr">age</span>: <span class="number">11</span></div><div class="line">&#125;;</div><div class="line"><span class="comment">// var name = person.name // es5</span></div><div class="line"><span class="keyword">let</span> &#123; name, age &#125; = person; <span class="comment">// es6</span></div><div class="line"><span class="built_in">console</span>.log(name);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// es5</span></div><div class="line"><span class="comment">// function getData(data) &#123;</span></div><div class="line"><span class="comment">//   var name = data.name;</span></div><div class="line"><span class="comment">//   var age = data.age;</span></div><div class="line"><span class="comment">//   console.log(name, age);</span></div><div class="line"><span class="comment">// &#125;</span></div><div class="line"></div><div class="line"><span class="comment">// es6</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params">&#123; name, age &#125;</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(name, age);</div><div class="line">&#125;</div><div class="line">getData(&#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'Ken'</span>,</div><div class="line">  <span class="attr">age</span>: <span class="number">12</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="Classes-類別"><a href="#Classes-類別" class="headerlink" title="Classes 類別"></a>Classes 類別</h2><p>以前用prototype<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params">name, age</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.name = name;</div><div class="line">  <span class="keyword">this</span>.age = age;</div><div class="line">&#125;</div><div class="line">User.prototype.setName = <span class="function"><span class="keyword">function</span> (<span class="params">newName</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.name = newName;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> user = <span class="keyword">new</span> User(<span class="string">'Ken'</span>, <span class="number">14</span>);</div><div class="line"><span class="built_in">console</span>.log(user);</div><div class="line"></div><div class="line">user.setName(<span class="string">'King'</span>);</div><div class="line"><span class="built_in">console</span>.log(user);</div></pre></td></tr></table></figure></p>
+<p>現在<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(name, age) &#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">    <span class="keyword">this</span>.age = age;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  setName(newName) &#123;</div><div class="line">    <span class="keyword">this</span>.name = newName;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> user = <span class="keyword">new</span> User(<span class="string">'Ken'</span>, <span class="number">12</span>);</div><div class="line"><span class="built_in">console</span>.log(user);</div><div class="line"></div><div class="line">user.setName(<span class="string">'King'</span>);</div><div class="line"><span class="built_in">console</span>.log(user);</div></pre></td></tr></table></figure></p>
+<h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(name, age) &#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">    <span class="keyword">this</span>.age = age;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">static</span> createUser(name, age) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> User(name, age);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> user2 = User.createUser(<span class="string">'Kenne'</span>, <span class="number">22</span>);</div><div class="line"><span class="built_in">console</span>.log(user2);</div></pre></td></tr></table></figure>
+<h3 id="get-set-accessors"><a href="#get-set-accessors" class="headerlink" title="get set accessors"></a>get set accessors</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(name, age) &#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">    <span class="keyword">this</span>.age = age;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// get or set accessors, computed properties.</span></div><div class="line">  get getFullName() &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name.toUpperCase();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> user = <span class="keyword">new</span> User(<span class="string">'Ken'</span>, <span class="number">22</span>);</div><div class="line"><span class="built_in">console</span>.log(user.getFullName);</div></pre></td></tr></table></figure>
+<h2 id="Modules-模組"><a href="#Modules-模組" class="headerlink" title="Modules 模組"></a>Modules 模組</h2><h3 id="語法"><a href="#語法" class="headerlink" title="語法"></a>語法</h3><p>以前我們用<br>CommonJS<br>AMD<br>UMD<br>現在<br>ES6 !!! export class …..</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Item.js</span></div><div class="line"><span class="comment">// 只能有一個default</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Item</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(items = []) &#123;</div><div class="line">    <span class="keyword">this</span>.items = items;</div><div class="line">  &#125;</div><div class="line">  getItems() &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.items);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">let</span> foo = <span class="string">'bar'</span>;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">myfunc</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'0.0'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// main.js</span></div><div class="line"><span class="comment">// export default的 不用加&#123;&#125;, 一般export要Destructuring</span></div><div class="line"><span class="keyword">import</span> Item, &#123; foo, myfunc &#125; <span class="keyword">from</span> <span class="string">'./Item'</span>;</div><div class="line"></div><div class="line"><span class="keyword">new</span> Item([</div><div class="line">  <span class="string">'A'</span>,</div><div class="line">  <span class="string">'B'</span>,</div><div class="line">  <span class="string">'C'</span></div><div class="line">]).getItems();</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(foo);</div><div class="line"></div><div class="line">myfunc();</div></pre></td></tr></table></figure>
+<h3 id="rollup-js"><a href="#rollup-js" class="headerlink" title="rollup.js"></a>rollup.js</h3><p>A JavaScript module bundler<br><a href="http://rollupjs.org/guide/#creating-your-first-bundle" target="_blank" rel="external">http://rollupjs.org/guide/#creating-your-first-bundle</a><br><code>npm install rollup --global</code></p>
+<p><code>rollup src/main.js &gt; src/main.dist.js</code><br>it’s es6… ,so</p>
+<p>Buble(很像Babel)<br><a href="https://www.npmjs.com/package/rollup-plugin-buble" target="_blank" rel="external">https://www.npmjs.com/package/rollup-plugin-buble</a><br><code>npm install --save-dev rollup-plugin-buble</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// rollup.config.js</span></div><div class="line"><span class="keyword">import</span> buble <span class="keyword">from</span> <span class="string">'rollup-plugin-buble'</span>;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">  <span class="attr">entry</span>: <span class="string">'src/main.js'</span>,</div><div class="line">  <span class="attr">plugins</span>: [ buble() ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>rollup --config</code> or <code>rollup -c</code><br><code>rollup -c &gt; src/main.dist.js</code></p>
+<h3 id="Webpack-js"><a href="#Webpack-js" class="headerlink" title="Webpack.js"></a>Webpack.js</h3><p><code>npm install webpack@2.2.0-rc.7 --save-dev</code></p>
+<p>test<br><code>./node_modules/.bin/webpack src/main.js dist/main.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// webpack.config.js</span></div><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">entry</span>: <span class="string">'./src/main.js'</span>,</div><div class="line">  <span class="attr">devtool</span>: <span class="string">'source-map'</span>,</div><div class="line">  <span class="attr">output</span>: &#123;</div><div class="line">    <span class="attr">filename</span>: <span class="string">'./dist/main.js'</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>./node_modules/.bin/webpack</code><br>it’s es6… ,so</p>
+<p><a href="https://www.npmjs.com/package/buble-loader" target="_blank" rel="external">https://www.npmjs.com/package/buble-loader</a><br><code>npm install buble-loader buble --save-dev</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// webpack.config.js</span></div><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">entry</span>: <span class="string">'./src/main.js'</span>,</div><div class="line">  <span class="attr">devtool</span>: <span class="string">'source-map'</span>,</div><div class="line">  <span class="attr">output</span>: &#123;</div><div class="line">    <span class="attr">filename</span>: <span class="string">'./dist/main.js'</span></div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  <span class="attr">module</span>: &#123;</div><div class="line">    <span class="attr">loaders</span>: [</div><div class="line">      &#123;</div><div class="line">        <span class="attr">test</span>: <span class="regexp">/\.js$/</span>, <span class="comment">// which file type should run</span></div><div class="line">        loader: <span class="string">'buble-loader'</span></div><div class="line">      &#125;</div><div class="line">    ]</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>./node_modules/.bin/webpack</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// package.json</span></div><div class="line"><span class="string">"scripts"</span>: &#123;</div><div class="line">  <span class="string">"webpack"</span>: <span class="string">"webpack"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>npm run webpack</code></p>
+<h2 id="Promises"><a href="#Promises" class="headerlink" title="Promises"></a>Promises</h2><p>避免Callback hell</p>
+<h3 id="Ex1"><a href="#Ex1" class="headerlink" title="Ex1"></a>Ex1</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// main.js</span></div><div class="line"><span class="keyword">let</span> start, end;</div><div class="line"><span class="keyword">var</span> timer = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</div><div class="line">  start = <span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'Init'</span>);</div><div class="line"></div><div class="line">  setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    end = <span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Done'</span>);</div><div class="line">    resolve();</div><div class="line">  &#125;, <span class="number">3000</span>);</div><div class="line">&#125;)</div><div class="line"></div><div class="line">timer.then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'花費時間：'</span> + (end - start));</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="Ex2-1"><a href="#Ex2-1" class="headerlink" title="Ex2"></a>Ex2</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// main.js</span></div><div class="line"><span class="keyword">let</span> start, end;</div><div class="line"><span class="keyword">var</span> timer = <span class="function"><span class="keyword">function</span> (<span class="params">length</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</div><div class="line">    start = <span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Init'</span>);</div><div class="line"></div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">      end = <span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">      <span class="built_in">console</span>.log(<span class="string">'Done'</span>);</div><div class="line">      resolve();</div><div class="line">    &#125;, length);</div><div class="line">  &#125;);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">timer(<span class="number">3000</span>).then( <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'花費時間：'</span> + (end - start)) );</div></pre></td></tr></table></figure>
+<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><p>新字串函式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// main.js</span></div><div class="line"><span class="keyword">let</span> title = <span class="string">'Red QQ'</span>;</div><div class="line"></div><div class="line"><span class="comment">// es5</span></div><div class="line"><span class="comment">// if (title.indexOf('R') == 0) &#123;</span></div><div class="line"><span class="comment">//   console.log('R is first.');</span></div><div class="line"><span class="comment">// &#125;</span></div><div class="line"><span class="comment">// if (title.indexOf('Blue') == -1) &#123;</span></div><div class="line"><span class="comment">//   console.log('It is not blue begin.');</span></div><div class="line"><span class="comment">// &#125;</span></div><div class="line"></div><div class="line"><span class="comment">// es6</span></div><div class="line"><span class="keyword">if</span> (title.includes(<span class="string">'Red'</span>)) &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'Includes Red'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (title.startsWith(<span class="string">'Red'</span>)) &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'Start with Red'</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (title.startsWith(<span class="string">'QQ'</span>, <span class="number">4</span>)) &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'4個字之後存在QQ'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (title.endsWith(<span class="string">'QQ'</span>)) &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'End with QQ'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> str = <span class="string">'hihi'</span>;</div><div class="line"><span class="built_in">console</span>.log(str.repeat(<span class="number">100</span>));</div></pre></td></tr></table></figure></p>
+<h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><p>新陣列函式</p>
+<h3 id="Ex1-1"><a href="#Ex1-1" class="headerlink" title="Ex1"></a>Ex1</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// main.js</span></div><div class="line"><span class="keyword">let</span> arr = [<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>];</div><div class="line"></div><div class="line"><span class="comment">// es5</span></div><div class="line"><span class="built_in">console</span>.log(arr.indexOf(<span class="number">8</span>) &gt; <span class="number">-1</span>);</div><div class="line"><span class="built_in">console</span>.log(arr.indexOf(<span class="number">28</span>) &gt; <span class="number">-1</span>);</div><div class="line"></div><div class="line"><span class="comment">// es6</span></div><div class="line"><span class="comment">// get first one itme &gt; 4</span></div><div class="line"><span class="built_in">console</span>.log(arr.find(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> item &gt; <span class="number">4</span>;</div><div class="line">&#125;));</div><div class="line"></div><div class="line"><span class="comment">// es7 非es6, 雖然chrome已實作</span></div><div class="line"><span class="built_in">console</span>.log(arr.includes(<span class="number">22</span>));</div></pre></td></tr></table></figure>
+<h3 id="Ex2-2"><a href="#Ex2-2" class="headerlink" title="Ex2"></a>Ex2</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(name, isAdmin) &#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">    <span class="keyword">this</span>.isAdmin = isAdmin;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> users = [</div><div class="line">  <span class="keyword">new</span> User(<span class="string">'Ken'</span>, <span class="literal">false</span>),</div><div class="line">  <span class="keyword">new</span> User(<span class="string">'Kenne'</span>, <span class="literal">true</span>)</div><div class="line">];</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log( users.find(<span class="function"><span class="params">user</span> =&gt;</span> user.isAdmin).name );</div></pre></td></tr></table></figure>
+<h2 id="Generators"><a href="#Generators" class="headerlink" title="Generators"></a>Generators</h2><p>神奇的東西</p>
+<h3 id="Ex1-2"><a href="#Ex1-2" class="headerlink" title="Ex1"></a>Ex1</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// main.js</span></div><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">numbers</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'Begin'</span>);</div><div class="line"></div><div class="line">  <span class="keyword">yield</span> <span class="number">1</span>;</div><div class="line">  <span class="keyword">yield</span> <span class="number">2</span>;</div><div class="line">  <span class="keyword">yield</span> <span class="number">3</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> iterator = numbers();</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(iterator.next());</div><div class="line"><span class="built_in">console</span>.log(iterator.next());</div><div class="line"><span class="built_in">console</span>.log(iterator.next().value);</div></pre></td></tr></table></figure>
+<h3 id="Ex2-3"><a href="#Ex2-3" class="headerlink" title="Ex2"></a>Ex2</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// main.js</span></div><div class="line"><span class="function"><span class="keyword">function</span> *<span class="title">range</span>(<span class="params">start, end</span>) </span>&#123;</div><div class="line">  <span class="keyword">while</span> (start &lt;= end) &#123;</div><div class="line">    <span class="keyword">yield</span> start;</div><div class="line"></div><div class="line">    start++;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> iterator = range(<span class="number">1</span>, <span class="number">5</span>);</div><div class="line"></div><div class="line"><span class="comment">// console.log(iterator.next());</span></div><div class="line"><span class="comment">// console.log(iterator.next());</span></div><div class="line"><span class="comment">// console.log(iterator.next());</span></div><div class="line"><span class="comment">// console.log(iterator.next());</span></div><div class="line"><span class="comment">// console.log(iterator.next());</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">of</span> iterator) &#123;</div><div class="line">  <span class="built_in">console</span>.log(i);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log( [...range(<span class="number">1</span>, <span class="number">5</span>)] );</div></pre></td></tr></table></figure>
+<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><p>一個不重複的陣列<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// main.js</span></div><div class="line"></div><div class="line"><span class="keyword">let</span> items = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'three'</span>, <span class="string">'one'</span>]);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(items);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(items.size);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(items.add(<span class="string">'four'</span>));</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(items.delete(<span class="string">'two'</span>));</div><div class="line"><span class="built_in">console</span>.log(items);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(items.has(<span class="string">'four'</span>));</div><div class="line"></div><div class="line">items.forEach(<span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">console</span>.log(item));</div><div class="line"></div><div class="line">items.clear();</div><div class="line"><span class="built_in">console</span>.log(items);</div></pre></td></tr></table></figure></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/01/04/sql-notes/" rel="prev" title="SQL 筆記">
+      <i class="fa fa-chevron-left"></i> SQL 筆記
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/01/17/laravel-with-redis-and-socketio/" rel="next" title="Laravel with Redis and Socket.io">
+      Laravel with Redis and Socket.io <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ES6"><span class="nav-number">1.</span> <span class="nav-text">ES6</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Babel"><span class="nav-number">1.1.</span> <span class="nav-text">Babel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Varibale-變數"><span class="nav-number">1.2.</span> <span class="nav-text">Varibale 變數</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Arror-箭頭函式"><span class="nav-number">1.3.</span> <span class="nav-text">Arror 箭頭函式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ex-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">Ex 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ex2"><span class="nav-number">1.3.2.</span> <span class="nav-text">Ex2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Default-Parameters-預設參數"><span class="nav-number">1.4.</span> <span class="nav-text">Default Parameters 預設參數</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rest-and-Spread-其餘參數與展開運算子"><span class="nav-number">1.5.</span> <span class="nav-text">Rest and Spread 其餘參數與展開運算子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Rest"><span class="nav-number">1.5.1.</span> <span class="nav-text">Rest</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spread"><span class="nav-number">1.5.2.</span> <span class="nav-text">Spread</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Template-Strings-字串模板"><span class="nav-number">1.6.</span> <span class="nav-text">Template Strings 字串模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-物件的改進"><span class="nav-number">1.7.</span> <span class="nav-text">Object 物件的改進</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ex1-Object-shorthand"><span class="nav-number">1.7.1.</span> <span class="nav-text">Ex1 Object shorthand</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ex2-Method-shorthand"><span class="nav-number">1.7.2.</span> <span class="nav-text">Ex2 Method shorthand</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ex3-Object-Destructuring"><span class="nav-number">1.7.3.</span> <span class="nav-text">Ex3 Object Destructuring</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Classes-類別"><span class="nav-number">1.8.</span> <span class="nav-text">Classes 類別</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#static"><span class="nav-number">1.8.1.</span> <span class="nav-text">static</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get-set-accessors"><span class="nav-number">1.8.2.</span> <span class="nav-text">get set accessors</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Modules-模組"><span class="nav-number">1.9.</span> <span class="nav-text">Modules 模組</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#語法"><span class="nav-number">1.9.1.</span> <span class="nav-text">語法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rollup-js"><span class="nav-number">1.9.2.</span> <span class="nav-text">rollup.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Webpack-js"><span class="nav-number">1.9.3.</span> <span class="nav-text">Webpack.js</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promises"><span class="nav-number">1.10.</span> <span class="nav-text">Promises</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ex1"><span class="nav-number">1.10.1.</span> <span class="nav-text">Ex1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ex2-1"><span class="nav-number">1.10.2.</span> <span class="nav-text">Ex2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String"><span class="nav-number">1.11.</span> <span class="nav-text">String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Array"><span class="nav-number">1.12.</span> <span class="nav-text">Array</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ex1-1"><span class="nav-number">1.12.1.</span> <span class="nav-text">Ex1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ex2-2"><span class="nav-number">1.12.2.</span> <span class="nav-text">Ex2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generators"><span class="nav-number">1.13.</span> <span class="nav-text">Generators</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ex1-2"><span class="nav-number">1.13.1.</span> <span class="nav-text">Ex1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ex2-3"><span class="nav-number">1.13.2.</span> <span class="nav-text">Ex2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Set"><span class="nav-number">1.14.</span> <span class="nav-text">Set</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

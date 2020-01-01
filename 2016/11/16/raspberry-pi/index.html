@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Raspberry Pi Notes本篇作業系統: Raspbian GNU/Linux 8.0 (jessie)硬體: RASPBERRY PI 3 MODEL B官方doc: https://www.raspberrypi.org/documentation/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Raspberry Pi Notes">
+<meta property="og:url" content="http://yoursite.com/2016/11/16/raspberry-pi/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="Raspberry Pi Notes本篇作業系統: Raspbian GNU/Linux 8.0 (jessie)硬體: RASPBERRY PI 3 MODEL B官方doc: https://www.raspberrypi.org/documentation/">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.473Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Raspberry Pi Notes">
+<meta name="twitter:description" content="Raspberry Pi Notes本篇作業系統: Raspbian GNU/Linux 8.0 (jessie)硬體: RASPBERRY PI 3 MODEL B官方doc: https://www.raspberrypi.org/documentation/">
+
+<link rel="canonical" href="http://yoursite.com/2016/11/16/raspberry-pi/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Raspberry Pi Notes | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/16/raspberry-pi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Raspberry Pi Notes
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-11-16 15:05:00" itemprop="dateCreated datePublished" datetime="2016-11-16T15:05:00+08:00">2016-11-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Raspberry-Pi-Notes"><a href="#Raspberry-Pi-Notes" class="headerlink" title="Raspberry Pi Notes"></a>Raspberry Pi Notes</h1><p>本篇作業系統: Raspbian GNU/Linux 8.0 (jessie)<br>硬體: RASPBERRY PI 3 MODEL B<br>官方doc: <a href="https://www.raspberrypi.org/documentation/" target="_blank" rel="external">https://www.raspberrypi.org/documentation/</a></p>
+<a id="more"></a>
+<h2 id="格式化SD卡"><a href="#格式化SD卡" class="headerlink" title="格式化SD卡"></a>格式化SD卡</h2><p>官方推薦可以用這個<br>SD Formatte<br><a href="https://www.sdcard.org/downloads/formatter_4/index.html" target="_blank" rel="external">https://www.sdcard.org/downloads/formatter_4/index.html</a></p>
+<h2 id="下載映像檔裝入SD卡"><a href="#下載映像檔裝入SD卡" class="headerlink" title="下載映像檔裝入SD卡"></a>下載映像檔裝入SD卡</h2><p>下載 NOOBS(New Out Of Box Software)<br><a href="https://www.raspberrypi.org/downloads/" target="_blank" rel="external">https://www.raspberrypi.org/downloads/</a><br>NOOBS是簡單的安裝器用來安裝Raspbian<br>解壓裡面的東西們丟到SD卡</p>
+<h2 id="連接硬體"><a href="#連接硬體" class="headerlink" title="連接硬體"></a>連接硬體</h2><ol>
+<li>SD卡</li>
+<li>滑鼠</li>
+<li>鍵盤</li>
+<li>螢幕(HDMI to VGA)</li>
+<li>網路線(或使用Wifi)</li>
+<li>電源線(mirco USB)接上電腦、行動電源等</li>
+</ol>
+<p>PS:電源線最後再接</p>
+<h2 id="開機安裝"><a href="#開機安裝" class="headerlink" title="開機安裝"></a>開機安裝</h2><p>插上電源即可開機<br>語言跟鍵盤選US<br>並安裝Raspbian<br>約20~30分鐘<br>按下確定之後會重開機</p>
+<h2 id="SSH-Login"><a href="#SSH-Login" class="headerlink" title="SSH Login"></a>SSH Login</h2><p>連上同一網路<br>找內網ip <code>$ ssh pi@192.168.0.xxx</code><br>或直接 <code>$ ssh pi@raspberrypi.local</code><br>預設密碼為raspberry<br>先改密碼<code>$ passwd pi</code></p>
+<h2 id="更改hostname"><a href="#更改hostname" class="headerlink" title="更改hostname"></a>更改hostname</h2><p>(一定兩個都要改)<br><code>$ sudo vim /etc/hosts</code><br><code>$ sudo vim /etc/hostname</code><br>改成想要的ex: raspberry<br>重開機後就可以<br><code>ssh pi@raspberry.local</code></p>
+<h2 id="自動連結隱藏SSID-Wifi"><a href="#自動連結隱藏SSID-Wifi" class="headerlink" title="自動連結隱藏SSID Wifi"></a>自動連結隱藏SSID Wifi</h2><p>ref: <a href="http://stackoverflow.com/questions/37312501/how-do-i-detect-and-connect-to-a-hidden-ssid-on-my-raspiberry-pi-3-raspbian" target="_blank" rel="external">http://stackoverflow.com/questions/37312501/how-do-i-detect-and-connect-to-a-hidden-ssid-on-my-raspiberry-pi-3-raspbian</a><br><code>$ sudo vi /etc/wpa_supplicant/wpa_supplicant.conf</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">network=&#123;</div><div class="line">        scan_ssid=1</div><div class="line">        ssid=<span class="string">"SSID"</span></div><div class="line">        psk=<span class="string">"PASSWORD"</span></div><div class="line">        key_mgmt=WPA-PSK</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>用<code>$ ifconfig</code>or<code>$ ip a</code>看一下, 通常叫wlan0<br>關掉再重啟<br><code>$ sudo ifdown wlan0</code><br><code>$ sudo ifup wlan0</code><br>檢查<br><code>$ ifconfig wlan0</code>or<code>$ ip a</code></p>
+<h2 id="固定IP"><a href="#固定IP" class="headerlink" title="固定IP"></a>固定IP</h2><p><a href="https://www.modmypi.com/blog/how-to-give-your-raspberry-pi-a-static-ip-address-update" target="_blank" rel="external">reference</a></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># /etc/dhcpcd.conf</div><div class="line">interface eth0</div><div class="line"><span class="keyword">static</span> ip_address=<span class="number">192.168</span><span class="number">.0</span><span class="number">.199</span>/<span class="number">24</span></div><div class="line"><span class="keyword">static</span> routers=<span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span></div><div class="line"><span class="keyword">static</span> domain_name_servers=<span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span></div><div class="line"></div><div class="line">interface wlan0</div><div class="line"><span class="keyword">static</span> ip_address=<span class="number">192.168</span><span class="number">.0</span><span class="number">.200</span>/<span class="number">24</span></div><div class="line"><span class="keyword">static</span> routers=<span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span></div><div class="line"><span class="keyword">static</span> domain_name_servers=<span class="number">192.168</span><span class="number">.0</span><span class="number">.1</span></div></pre></td></tr></table></figure>
+<h2 id="改內部設定"><a href="#改內部設定" class="headerlink" title="改內部設定"></a>改內部設定</h2><p><code>$ sudo raspi-config</code><br>選第一個<code>Expand FileSystem</code>將檔案系統擴展到整個SD卡<br>PS:如果是用NOOBS裝的就不用</p>
+<p>點左上的Menu找到Raspberry Pi Configuration<br>到Localisation</p>
+<ol>
+<li>Locale:<ul>
+<li>Language: zh(Chinese)</li>
+<li>Contry: TW(Republic of China)</li>
+<li>Character Set: UTF8</li>
+</ul>
+</li>
+<li>Timezone:<ul>
+<li>Area: Asia</li>
+<li>Location: Taipei</li>
+</ul>
+</li>
+<li>Keyboard:<ul>
+<li>Country: Taiwan</li>
+<li>Variant: Taiwanese</li>
+</ul>
+</li>
+<li>Wifi Country: TW Taiwan</li>
+</ol>
+<h2 id="安裝套件"><a href="#安裝套件" class="headerlink" title="安裝套件"></a>安裝套件</h2><p>更新資源庫: <code>sudo apt update -y</code><br>可更新的已安裝套件: <code>apt list --upgradable</code><br>更新已安裝的套件: <code>sudo apt upgrade -y</code></p>
+<h3 id="VIM"><a href="#VIM" class="headerlink" title="VIM"></a>VIM</h3><p>一般vim: <code>sudo apt install vim</code><br>GUI版: <code>sudo apt-get install vim-gnome</code></p>
+<h3 id="VNC-server"><a href="#VNC-server" class="headerlink" title="VNC server"></a>VNC server</h3><h4 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h4><p><code>$ sudo apt-get install tightvncserver</code><br><code>$ vncserver</code>or<code>$ tightvncserver</code> 輸入要連進去的密碼<br><code>$ vncserver -geometry 1680x1050 -depth 24</code> 更清楚<br><code>$ netstat -tnlp</code> 看port<br><code>$ vncserver -kill :編號</code> 可以關閉<br><code>$ vncpasswd</code> 可以改密碼</p>
+<h4 id="Client"><a href="#Client" class="headerlink" title="Client"></a>Client</h4><p>MAC: 打開finder-&gt;工具列-&gt;前往-&gt;連接伺服器-&gt;<br><code>vnc://raspberrypi.local:5901</code><br>Windows要裝Real VNC Viewer</p>
+<h2 id="回傳CPU溫度"><a href="#回傳CPU溫度" class="headerlink" title="回傳CPU溫度"></a>回傳CPU溫度</h2><p><code>$ vcgencmd measure_temp</code></p>
+<h2 id="關機"><a href="#關機" class="headerlink" title="關機"></a>關機</h2><p><code>$ sudo shutdown -h now</code></p>
+<h2 id="測試相機模組"><a href="#測試相機模組" class="headerlink" title="測試相機模組"></a>測試相機模組</h2><p>拍照 <code>$ raspistill -o cam.jpg</code><br>錄影五秒 <code>$ raspivid -o 1.h264</code><br>錄影十秒 <code>$ raspivid -o 2.h264 -t 10000s</code><br><code>$ raspivid -o 3.h264 -w 230 -h 240 -t 10000s</code><br>安裝vlc播放器<code>$ sudo apt-get install vlc</code></p>
+<h2 id="安裝web-interface"><a href="#安裝web-interface" class="headerlink" title="安裝web interface"></a>安裝web interface</h2><p><a href="http://elinux.org/RPi-Cam-Web-Interface" target="_blank" rel="external">http://elinux.org/RPi-Cam-Web-Interface</a><br><a href="https://github.com/silvanmelchior/RPi_Cam_Web_Interface" target="_blank" rel="external">https://github.com/silvanmelchior/RPi_Cam_Web_Interface</a></p>
+<p>new photo無限迴圈</p>
+<p><a href="https://github.com/silvanmelchior/RPi_Cam_Web_Interface/blob/master/www/cam_pic_new.php#L31" target="_blank" rel="external">https://github.com/silvanmelchior/RPi_Cam_Web_Interface/blob/master/www/cam_pic_new.php#L31</a></p>
+<p>照片</p>
+<p><a href="https://github.com/silvanmelchior/RPi_Cam_Web_Interface/blob/master/www/index.php#L199" target="_blank" rel="external">https://github.com/silvanmelchior/RPi_Cam_Web_Interface/blob/master/www/index.php#L199</a><br><a href="http://raspberrypi.local/html/cam_pic.php" target="_blank" rel="external">http://raspberrypi.local/html/cam_pic.php</a></p>
+<p>also good<br><a href="https://github.com/miguelgrinberg/flask-video-streaming" target="_blank" rel="external">https://github.com/miguelgrinberg/flask-video-streaming</a></p>
+<h2 id="安裝-node-js"><a href="#安裝-node-js" class="headerlink" title="安裝 node.js"></a>安裝 node.js</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -</div><div class="line">sudo apt install nodejs</div></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/11/15/mongodb-notes/" rel="prev" title="MongoDB 筆記">
+      <i class="fa fa-chevron-left"></i> MongoDB 筆記
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/11/17/laravel-api-jwt/" rel="next" title="Laravel API+JWT">
+      Laravel API+JWT <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Raspberry-Pi-Notes"><span class="nav-number">1.</span> <span class="nav-text">Raspberry Pi Notes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#格式化SD卡"><span class="nav-number">1.1.</span> <span class="nav-text">格式化SD卡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下載映像檔裝入SD卡"><span class="nav-number">1.2.</span> <span class="nav-text">下載映像檔裝入SD卡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#連接硬體"><span class="nav-number">1.3.</span> <span class="nav-text">連接硬體</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#開機安裝"><span class="nav-number">1.4.</span> <span class="nav-text">開機安裝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH-Login"><span class="nav-number">1.5.</span> <span class="nav-text">SSH Login</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更改hostname"><span class="nav-number">1.6.</span> <span class="nav-text">更改hostname</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自動連結隱藏SSID-Wifi"><span class="nav-number">1.7.</span> <span class="nav-text">自動連結隱藏SSID Wifi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#固定IP"><span class="nav-number">1.8.</span> <span class="nav-text">固定IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改內部設定"><span class="nav-number">1.9.</span> <span class="nav-text">改內部設定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安裝套件"><span class="nav-number">1.10.</span> <span class="nav-text">安裝套件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#VIM"><span class="nav-number">1.10.1.</span> <span class="nav-text">VIM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VNC-server"><span class="nav-number">1.10.2.</span> <span class="nav-text">VNC server</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Server"><span class="nav-number">1.10.2.1.</span> <span class="nav-text">Server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Client"><span class="nav-number">1.10.2.2.</span> <span class="nav-text">Client</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回傳CPU溫度"><span class="nav-number">1.11.</span> <span class="nav-text">回傳CPU溫度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#關機"><span class="nav-number">1.12.</span> <span class="nav-text">關機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#測試相機模組"><span class="nav-number">1.13.</span> <span class="nav-text">測試相機模組</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安裝web-interface"><span class="nav-number">1.14.</span> <span class="nav-text">安裝web interface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安裝-node-js"><span class="nav-number">1.15.</span> <span class="nav-text">安裝 node.js</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

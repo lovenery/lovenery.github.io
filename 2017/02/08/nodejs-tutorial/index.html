@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Let’s Node.js!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js Tutorial">
+<meta property="og:url" content="http://yoursite.com/2017/02/08/nodejs-tutorial/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="Let’s Node.js!">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.476Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node.js Tutorial">
+<meta name="twitter:description" content="Let’s Node.js!">
+
+<link rel="canonical" href="http://yoursite.com/2017/02/08/nodejs-tutorial/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Node.js Tutorial | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/08/nodejs-tutorial/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Node.js Tutorial
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-02-08 15:25:00" itemprop="dateCreated datePublished" datetime="2017-02-08T15:25:00+08:00">2017-02-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Let’s Node.js!</p>
+<a id="more"></a>
+<p><code>node app.js</code></p>
+<h1 id="Global-Object"><a href="#Global-Object" class="headerlink" title="Global Object"></a>Global Object</h1><p><a href="https://nodejs.org/dist/latest-v6.x/docs/api/globals.html" target="_blank" rel="external">https://nodejs.org/dist/latest-v6.x/docs/api/globals.html</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line"><span class="built_in">console</span>.log(__dirname);</div><div class="line"><span class="built_in">console</span>.log(__filename);</div><div class="line"></div><div class="line"><span class="comment">/* output</span></div><div class="line">/Users/Hsu/code/nodejs/practice</div><div class="line">/Users/Hsu/code/nodejs/practice/app.js</div><div class="line">*/</div></pre></td></tr></table></figure>
+<h1 id="Modules-and-require"><a href="#Modules-and-require" class="headerlink" title="Modules and require()"></a>Modules and require()</h1><p><a href="https://nodejs.org/dist/latest-v6.x/docs/api/modules.html" target="_blank" rel="external">https://nodejs.org/dist/latest-v6.x/docs/api/modules.html</a></p>
+<h2 id="EX1"><a href="#EX1" class="headerlink" title="EX1"></a>EX1</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// stuff.js</span></div><div class="line"><span class="keyword">var</span> counter = <span class="function"><span class="keyword">function</span> (<span class="params">arr</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="string">'有 '</span> + arr.length + <span class="string">' 個元素在這個陣列。'</span>;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = counter; <span class="comment">// return counter</span></div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line"><span class="keyword">var</span> you_can_use_other_name = <span class="built_in">require</span>(<span class="string">'./stuff'</span>);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(you_can_use_other_name([<span class="string">'hi'</span>, <span class="string">'bye'</span>, <span class="string">'good'</span>]));</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line">有 3 個元素在這個陣列。</div><div class="line"> */</div></pre></td></tr></table></figure>
+<h2 id="EX2"><a href="#EX2" class="headerlink" title="EX2"></a>EX2</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// stuff.js</span></div><div class="line"><span class="keyword">var</span> counter = <span class="function"><span class="keyword">function</span> (<span class="params">arr</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="string">'有 '</span> + arr.length + <span class="string">' 個元素在這個陣列。'</span>;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> adder = <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;a&#125;</span>與<span class="subst">$&#123;b&#125;</span>的總和是<span class="subst">$&#123;a+b&#125;</span>。`</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> pi = <span class="number">3.1415926535</span>;</div><div class="line"></div><div class="line"><span class="comment">// module.exports.counter = counter;</span></div><div class="line"><span class="comment">// module.exports.adder = adder;</span></div><div class="line"><span class="comment">// module.exports.pi = pi;</span></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">counter</span>: counter,</div><div class="line">  <span class="attr">adder</span>: adder,</div><div class="line">  <span class="attr">pi</span>: pi</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> stuff = <span class="built_in">require</span>(<span class="string">'./stuff'</span>);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(stuff.counter([<span class="string">'hi'</span>, <span class="string">'bye'</span>, <span class="string">'good'</span>]));</div><div class="line"><span class="built_in">console</span>.log(stuff.adder(<span class="number">4</span>, <span class="number">1</span>));</div><div class="line"><span class="built_in">console</span>.log(stuff.adder(stuff.pi, <span class="number">1</span>));</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line">有 3 個元素在這個陣列。</div><div class="line">4與1的總和是5。</div><div class="line">3.1415926535與1的總和是4.1415926535。</div><div class="line">*/</div></pre></td></tr></table></figure>
+<h1 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h1><p><a href="https://nodejs.org/dist/latest-v6.x/docs/api/events.html" target="_blank" rel="external">https://nodejs.org/dist/latest-v6.x/docs/api/events.html</a></p>
+<h2 id="EX1-1"><a href="#EX1-1" class="headerlink" title="EX1"></a>EX1</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line"><span class="keyword">var</span> events = <span class="built_in">require</span>(<span class="string">'events'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> myEmitter = <span class="keyword">new</span> events.EventEmitter();</div><div class="line"></div><div class="line">myEmitter.on(<span class="string">'someEvent'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">msg</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(msg);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">myEmitter.emit(<span class="string">'someEvent'</span>, <span class="string">'the event was emmitted'</span>);</div></pre></td></tr></table></figure>
+<h2 id="EX2-1"><a href="#EX2-1" class="headerlink" title="EX2"></a>EX2</h2><p><a href="https://nodejs.org/dist/latest-v6.x/docs/api/util.html#util_util_inherits_constructor_superconstructor" target="_blank" rel="external">https://nodejs.org/dist/latest-v6.x/docs/api/util.html#util_util_inherits_constructor_superconstructor</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line"><span class="keyword">var</span> events = <span class="built_in">require</span>(<span class="string">'events'</span>);</div><div class="line"><span class="keyword">var</span> util = <span class="built_in">require</span>(<span class="string">'util'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> Person = <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.name = name;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">util.inherits(Person, events.EventEmitter);</div><div class="line"></div><div class="line"><span class="keyword">var</span> james = <span class="keyword">new</span> Person(<span class="string">'james'</span>);</div><div class="line"><span class="keyword">var</span> mary = <span class="keyword">new</span> Person(<span class="string">'mary'</span>);</div><div class="line"><span class="keyword">var</span> ryu = <span class="keyword">new</span> Person(<span class="string">'ryu'</span>);</div><div class="line"><span class="keyword">var</span> people = [james, mary , ryu];</div><div class="line"></div><div class="line">people.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">person</span>) </span>&#123;</div><div class="line">  person.on(<span class="string">'speak'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">msg</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(person.name + <span class="string">' 說：'</span> + msg);</div><div class="line">  &#125;)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">james.emit(<span class="string">'speak'</span>, <span class="string">'你好啊'</span>);</div></pre></td></tr></table></figure>
+<h2 id="EX2-ES6"><a href="#EX2-ES6" class="headerlink" title="EX2-ES6"></a>EX2-ES6</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line"><span class="keyword">const</span> EventEmitter = <span class="built_in">require</span>(<span class="string">'events'</span>);</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">extends</span> <span class="title">EventEmitter</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(name) &#123;</div><div class="line">    <span class="keyword">super</span>();</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> james = <span class="keyword">new</span> Person(<span class="string">'james'</span>);</div><div class="line"><span class="keyword">const</span> mary = <span class="keyword">new</span> Person(<span class="string">'mary'</span>);</div><div class="line"><span class="keyword">const</span> ryu = <span class="keyword">new</span> Person(<span class="string">'ryu'</span>);</div><div class="line"><span class="keyword">let</span> people = [james, mary , ryu];</div><div class="line"></div><div class="line">people.forEach( <span class="function">(<span class="params">person</span>) =&gt;</span> &#123;</div><div class="line">  person.on(<span class="string">'speak'</span>, (msg) =&gt; &#123;</div><div class="line">    <span class="built_in">console</span>.log(person.name + <span class="string">' 說：'</span> + msg);</div><div class="line">  &#125;)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">james.emit(<span class="string">'speak'</span>, <span class="string">'你好啊'</span>);</div></pre></td></tr></table></figure>
+<h1 id="File-System"><a href="#File-System" class="headerlink" title="File System"></a>File System</h1><h2 id="了解同步、非同步"><a href="#了解同步、非同步" class="headerlink" title="了解同步、非同步"></a>了解同步、非同步</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"></div><div class="line">fs.readFile(<span class="string">'README.md'</span>, <span class="string">'utf-8'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, data</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">"readFile"</span>);</div><div class="line">&#125;);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'end. of readFile'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> data2 = fs.readFileSync(<span class="string">'README.md'</span>, <span class="string">'utf-8'</span>);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">"readFileSync"</span>);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'end. of readFileSync'</span>);</div><div class="line"><span class="comment">/*</span></div><div class="line">end. of readFile</div><div class="line">readFileSync</div><div class="line">end. of readFileSync</div><div class="line">readFile</div><div class="line"> */</div></pre></td></tr></table></figure>
+<h2 id="EX：讀寫檔案"><a href="#EX：讀寫檔案" class="headerlink" title="EX：讀寫檔案"></a>EX：讀寫檔案</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"></div><div class="line"><span class="comment">// 同步執行要一行一行很慢</span></div><div class="line"><span class="comment">// const readme = fs.readFileSync('README.md', 'utf8');</span></div><div class="line"><span class="comment">// fs.writeFileSync('WRITEME.md', readme);</span></div><div class="line"></div><div class="line"><span class="comment">// 異步執行可以達到 non-blocking</span></div><div class="line"><span class="keyword">const</span> readme = fs.readFile(<span class="string">'README.md'</span>, <span class="string">'utf8'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err, data</span>) </span>&#123;</div><div class="line">  fs.writeFile(<span class="string">'WRITEME.md'</span>, data);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="EX：資料夾、刪除檔案"><a href="#EX：資料夾、刪除檔案" class="headerlink" title="EX：資料夾、刪除檔案"></a>EX：資料夾、刪除檔案</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"></div><div class="line"><span class="comment">// delete file</span></div><div class="line"><span class="comment">// fs.unlink('WRITEME.md');</span></div><div class="line"></div><div class="line"><span class="comment">// fs.mkdirSync('stuff');</span></div><div class="line"><span class="comment">// fs.rmdirSync('stuff');</span></div><div class="line"></div><div class="line"><span class="comment">// create /stuff/WRITEME.md</span></div><div class="line">fs.mkdir(<span class="string">'stuff'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  fs.readFile(<span class="string">'README.md'</span>, <span class="string">'utf8'</span> ,<span class="function"><span class="keyword">function</span> (<span class="params">err, data</span>) </span>&#123;</div><div class="line">    fs.writeFile(<span class="string">'./stuff/WRITEME.md'</span>, data);</div><div class="line">  &#125;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// delete /stuff/WRITEME.md</span></div><div class="line">fs.unlink(<span class="string">'./stuff/WRITEME.md'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  fs.rmdir(<span class="string">'stuff'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h1 id="Http"><a href="#Http" class="headerlink" title="Http"></a>Http</h1><p><a href="https://nodejs.org/dist/latest-v6.x/docs/api/http.html" target="_blank" rel="external">https://nodejs.org/dist/latest-v6.x/docs/api/http.html</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> server = http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'有人連進來囉～'</span> + req.url);</div><div class="line">  res.writeHead(<span class="number">200</span>, &#123; <span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span> &#125;);</div><div class="line">  res.end(<span class="string">'HiHi'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">server.listen(<span class="number">3000</span>, <span class="string">'localhost'</span>);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'現在監聽著 Port 3000'</span>);</div></pre></td></tr></table></figure>
+<h1 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h1><p><a href="https://nodejs.org/dist/latest-v6.x/docs/api/stream.html" target="_blank" rel="external">https://nodejs.org/dist/latest-v6.x/docs/api/stream.html</a></p>
+<h2 id="Read-Stream"><a href="#Read-Stream" class="headerlink" title="Read Stream"></a>Read Stream</h2><p>讀檔的時候可以一片段一片段的傳給使用者<br><a href="https://nodejs.org/dist/latest-v6.x/docs/api/stream.html#stream_event_data" target="_blank" rel="external">https://nodejs.org/dist/latest-v6.x/docs/api/stream.html#stream_event_data</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> myReadStream = fs.createReadStream(__dirname + <span class="string">'/README.md'</span>, <span class="string">'utf8'</span>); <span class="comment">// 一個非常大的檔案</span></div><div class="line"></div><div class="line">myReadStream.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">chunk</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'new chunk received'</span>);</div><div class="line">  <span class="comment">// console.log(chunk);</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<h2 id="Write-Stream"><a href="#Write-Stream" class="headerlink" title="Write Stream"></a>Write Stream</h2><p><a href="https://nodejs.org/dist/latest-v6.x/docs/api/stream.html#stream_writable_streams" target="_blank" rel="external">https://nodejs.org/dist/latest-v6.x/docs/api/stream.html#stream_writable_streams</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> myReadStream = fs.createReadStream(__dirname + <span class="string">'/README.md'</span>, <span class="string">'utf8'</span>);</div><div class="line"><span class="keyword">var</span> myWriteStream = fs.createWriteStream(__dirname + <span class="string">'/WRITEME.md'</span>);</div><div class="line"></div><div class="line">myReadStream.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">chunk</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'new chunk received'</span>);</div><div class="line">  myWriteStream.write(chunk);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h2 id="Write-Stream-Pipe"><a href="#Write-Stream-Pipe" class="headerlink" title="Write Stream: Pipe"></a>Write Stream: Pipe</h2><p><a href="https://nodejs.org/dist/latest-v6.x/docs/api/stream.html#stream_readable_pipe_destination_options" target="_blank" rel="external">https://nodejs.org/dist/latest-v6.x/docs/api/stream.html#stream_readable_pipe_destination_options</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> myReadStream = fs.createReadStream(__dirname + <span class="string">'/README.md'</span>, <span class="string">'utf8'</span>);</div><div class="line"><span class="keyword">var</span> myWriteStream = fs.createWriteStream(__dirname + <span class="string">'/WRITEME.md'</span>);</div><div class="line"></div><div class="line">myReadStream.pipe(myWriteStream);</div></pre></td></tr></table></figure>
+<h1 id="Http-Stream"><a href="#Http-Stream" class="headerlink" title="Http + Stream"></a>Http + Stream</h1><h2 id="Read-File"><a href="#Read-File" class="headerlink" title="Read File"></a>Read File</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> server = http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123; <span class="comment">// response is Writable Stream</span></div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'有人連進來囉～'</span> + req.url);</div><div class="line">  res.writeHead(<span class="number">200</span>, &#123; <span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span> &#125;);</div><div class="line"></div><div class="line">  <span class="keyword">var</span> myReadStream = fs.createReadStream(__dirname + <span class="string">'/README.md'</span>, <span class="string">'utf8'</span>);</div><div class="line">  myReadStream.pipe(res);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">server.listen(<span class="number">3000</span>, <span class="string">'localhost'</span>);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'現在監聽著 Port 3000'</span>);</div></pre></td></tr></table></figure>
+<h2 id="Read-HTML"><a href="#Read-HTML" class="headerlink" title="Read HTML"></a>Read HTML</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> server = http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'有人連進來囉～'</span> + req.url);</div><div class="line">  res.writeHead(<span class="number">200</span>, &#123; <span class="string">'Content-Type'</span>: <span class="string">'text/html'</span> &#125;); <span class="comment">// 改為 text/html ！！</span></div><div class="line"></div><div class="line">  <span class="keyword">var</span> myReadStream = fs.createReadStream(__dirname + <span class="string">'/index.html'</span>, <span class="string">'utf8'</span>);</div><div class="line">  myReadStream.pipe(res);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">server.listen(<span class="number">3000</span>, <span class="string">'localhost'</span>);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'現在監聽著 Port 3000'</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;!-- index.html --&gt;</div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">    &lt;title&gt;&lt;/title&gt;</div><div class="line">    &lt;style media=&quot;screen&quot;&gt;</div><div class="line">      body &#123;</div><div class="line">        background: skyblue;</div><div class="line">        color: #fff;</div><div class="line">        padding: 30px;</div><div class="line">      &#125;</div><div class="line">      .text-center &#123;</div><div class="line">        text-align: center;</div><div class="line">      &#125;</div><div class="line">    &lt;/style&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">    &lt;h1 class=&quot;text-center&quot;&gt;Aha&lt;/h1&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h1 id="綜合應用"><a href="#綜合應用" class="headerlink" title="綜合應用"></a>綜合應用</h1><h2 id="Return-JSON"><a href="#Return-JSON" class="headerlink" title="Return JSON"></a>Return JSON</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> server = http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'有人連進來囉～'</span> + req.url);</div><div class="line">  res.writeHead(<span class="number">200</span>, &#123; <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span> &#125;);</div><div class="line">  <span class="keyword">var</span> myObj = &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'QQ'</span>,</div><div class="line">    <span class="attr">job</span>: <span class="string">'Sing'</span></div><div class="line">  &#125;;</div><div class="line">  res.end(<span class="built_in">JSON</span>.stringify(myObj));</div><div class="line">&#125;);</div><div class="line">server.listen(<span class="number">3000</span>, <span class="string">'localhost'</span>);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'現在監聽著 Port 3000'</span>);</div></pre></td></tr></table></figure>
+<h2 id="Routing-原理"><a href="#Routing-原理" class="headerlink" title="Routing 原理"></a>Routing 原理</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> server = http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'有人連進來囉～'</span> + req.url);</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (req.url === <span class="string">'/'</span>) &#123;</div><div class="line">    res.writeHead(<span class="number">200</span>, &#123; <span class="string">'Content-Type'</span>: <span class="string">'text/html'</span> &#125;);</div><div class="line">    fs.createReadStream(__dirname + <span class="string">'/index.html'</span>).pipe(res);</div><div class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (req.url === <span class="string">'/api/goods'</span>) &#123;</div><div class="line">    res.writeHead(<span class="number">200</span>, &#123; <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span> &#125;);</div><div class="line">    <span class="keyword">var</span> myObj = &#123; <span class="attr">name</span>: <span class="string">'QQ'</span> &#125;;</div><div class="line">    res.end(<span class="built_in">JSON</span>.stringify(myObj));</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    res.writeHead(<span class="number">404</span>, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>&#125;);</div><div class="line">    res.end(<span class="string">'404 Not Found'</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;);</div><div class="line">server.listen(<span class="number">3000</span>, <span class="string">'localhost'</span>);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'現在監聽著 Port 3000'</span>);</div></pre></td></tr></table></figure>
+<h1 id="MongoDB-相關"><a href="#MongoDB-相關" class="headerlink" title="MongoDB 相關"></a>MongoDB 相關</h1><h2 id="robomongo-GUI"><a href="#robomongo-GUI" class="headerlink" title="robomongo(GUI)"></a>robomongo(GUI)</h2><p><a href="https://robomongo.org" target="_blank" rel="external">https://robomongo.org</a><br>開源、跨平台</p>
+<h2 id="Mongoose"><a href="#Mongoose" class="headerlink" title="Mongoose"></a>Mongoose</h2><p><a href="https://www.npmjs.com/package/mongoose" target="_blank" rel="external">https://www.npmjs.com/package/mongoose</a><br><a href="http://mongoosejs.com/" target="_blank" rel="external">http://mongoosejs.com/</a></p>
+<h2 id="mLab"><a href="#mLab" class="headerlink" title="mLab"></a>mLab</h2><p><a href="https://mlab.com" target="_blank" rel="external">https://mlab.com</a></p>
+<h1 id="express"><a href="#express" class="headerlink" title="express"></a>express</h1><p><a href="https://www.npmjs.com/package/express" target="_blank" rel="external">https://www.npmjs.com/package/express</a><br><a href="https://expressjs.com" target="_blank" rel="external">https://expressjs.com</a></p>
+<h2 id="Init"><a href="#Init" class="headerlink" title="Init"></a>Init</h2><p><code>npm init</code><br><code>npm install express -S</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> app = express();</div><div class="line"></div><div class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">  res.send(<span class="string">'HiHi'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">app.listen(<span class="number">3000</span>);</div></pre></td></tr></table></figure>
+<p><code>nodemon app.js</code></p>
+<h2 id="SendFile"><a href="#SendFile" class="headerlink" title="SendFile"></a>SendFile</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</div><div class="line"><span class="keyword">var</span> app = express();</div><div class="line"></div><div class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">  res.sendFile(__dirname + <span class="string">'/index.html'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">app.listen(<span class="number">3000</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;!-- /index.html --&gt;</div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">    &lt;title&gt;&lt;/title&gt;</div><div class="line">    &lt;style media=&quot;screen&quot;&gt;</div><div class="line">      body &#123;</div><div class="line">        background: skyblue;</div><div class="line">        color: #fff;</div><div class="line">        padding: 30px;</div><div class="line">      &#125;</div><div class="line">      .text-center &#123;</div><div class="line">        text-align: center;</div><div class="line">      &#125;</div><div class="line">    &lt;/style&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">    &lt;h1 class=&quot;text-center&quot;&gt;Aha&lt;/h1&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h2 id="Route-Params"><a href="#Route-Params" class="headerlink" title="Route Params"></a>Route Params</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> app = express();</div><div class="line"></div><div class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">  res.sendFile(__dirname + <span class="string">'/index.html'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">app.get(<span class="string">'/profile/:id'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">  res.send(<span class="string">'HiHi '</span> + req.params.id);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">app.listen(<span class="number">3000</span>);</div></pre></td></tr></table></figure>
+<h2 id="Template-Engines-ejs"><a href="#Template-Engines-ejs" class="headerlink" title="Template Engines: ejs"></a>Template Engines: ejs</h2><p><a href="https://expressjs.com/en/4x/api.html#res.sendFile" target="_blank" rel="external">https://expressjs.com/en/4x/api.html#res.sendFile</a></p>
+<p><code>npm install ejs -S</code></p>
+<h3 id="傳參數"><a href="#傳參數" class="headerlink" title="傳參數"></a>傳參數</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</div><div class="line"><span class="keyword">var</span> app = express();</div><div class="line"></div><div class="line">app.set(<span class="string">'view engine'</span>, <span class="string">'ejs'</span>); <span class="comment">// add me</span></div><div class="line"></div><div class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">  res.sendFile(__dirname + <span class="string">'/index.html'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">app.get(<span class="string">'/profile/:id'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> data = &#123; <span class="attr">name</span>: <span class="string">'QQQ'</span>, <span class="attr">age</span>: <span class="number">99</span>, <span class="attr">array</span>: [<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>] &#125;;</div><div class="line">  <span class="keyword">let</span> array = [ &#123; <span class="attr">name</span>: <span class="string">'Q'</span>&#125;, &#123; <span class="attr">name</span>: <span class="string">'QQ'</span>&#125;, &#123; <span class="attr">name</span>: <span class="string">'QQQ'</span>&#125; ];</div><div class="line">  res.render(<span class="string">'profile'</span>, &#123; <span class="attr">id</span>: req.params.id, <span class="attr">data</span>: data, <span class="attr">array</span>: array &#125;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">app.listen(<span class="number">3000</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">&lt;!-- views/profile.html --&gt;</div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">    &lt;title&gt;&lt;/title&gt;</div><div class="line">    &lt;style media=&quot;screen&quot;&gt;</div><div class="line">      body &#123;</div><div class="line">        background: skyblue;</div><div class="line">        color: #fff;</div><div class="line">        padding: 30px;</div><div class="line">      &#125;</div><div class="line">      .text-center &#123;</div><div class="line">        text-align: center;</div><div class="line">      &#125;</div><div class="line">    &lt;/style&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">    &lt;h1 class=&quot;text-center&quot;&gt;Welcome! &lt;%= id %&gt;&lt;/h1&gt;</div><div class="line">    &lt;p&gt;Name: &lt;%= data.name %&gt;&lt;/p&gt;</div><div class="line">    &lt;p&gt;Age: &lt;%= data.age %&gt;&lt;/p&gt;</div><div class="line">    &lt;ul&gt;</div><div class="line">      &lt;% data.array.forEach(item =&gt; &#123; %&gt;</div><div class="line">        &lt;li&gt;&lt;%= item %&gt;&lt;/li&gt;</div><div class="line">      &lt;% &#125;); %&gt;</div><div class="line">    &lt;/ul&gt;</div><div class="line">    &lt;ul&gt;</div><div class="line">      &lt;% array.forEach(item =&gt; &#123; %&gt;</div><div class="line">        &lt;li&gt;&lt;%= item.name %&gt;&lt;/li&gt;</div><div class="line">      &lt;% &#125;); %&gt;</div><div class="line">    &lt;/ul&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h3 id="Partial-Templates"><a href="#Partial-Templates" class="headerlink" title="Partial Templates"></a>Partial Templates</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;% include partials/nav.ejs %&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;!-- views/partials/nav.ejs --&gt;</div><div class="line">&lt;nav&gt;</div><div class="line">  &lt;ul&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/profile/QQQ&quot;&gt;Profile&lt;/a&gt;&lt;/li&gt;</div><div class="line">  &lt;/ul&gt;</div><div class="line">&lt;/nav&gt;</div></pre></td></tr></table></figure>
+<h2 id="Middleware"><a href="#Middleware" class="headerlink" title="Middleware"></a>Middleware</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line">app.use(<span class="string">'/assets'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(req.url);</div><div class="line">  next();</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h2 id="Static-Files"><a href="#Static-Files" class="headerlink" title="Static Files"></a>Static Files</h2><p><a href="https://expressjs.com/en/starter/static-files.html" target="_blank" rel="external">https://expressjs.com/en/starter/static-files.html</a></p>
+<p>link directory /assets<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line">app.use(<span class="string">'/assets'</span>, express.static(<span class="string">'assets'</span>));</div></pre></td></tr></table></figure></p>
+<h2 id="Query-Strings"><a href="#Query-Strings" class="headerlink" title="Query Strings"></a>Query Strings</h2><p><a href="https://expressjs.com/en/4x/api.html#req.query" target="_blank" rel="external">https://expressjs.com/en/4x/api.html#req.query</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app.get(<span class="string">'/query'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">  res.render(<span class="string">'query'</span>, &#123; <span class="attr">qs</span>: req.query &#125; );</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p><code>http://localhost:3000/query?qq=qqqqqqqqqqqq</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;%= qs.qq %&gt;</div></pre></td></tr></table></figure>
+<h2 id="POST-REQUEST"><a href="#POST-REQUEST" class="headerlink" title="POST REQUEST"></a>POST REQUEST</h2><p><a href="https://expressjs.com/en/4x/api.html#req.body" target="_blank" rel="external">https://expressjs.com/en/4x/api.html#req.body</a><br><a href="https://www.npmjs.com/package/body-parser" target="_blank" rel="external">https://www.npmjs.com/package/body-parser</a></p>
+<p><code>npm install body-parser</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line"><span class="keyword">var</span> bodyParser = <span class="built_in">require</span>(<span class="string">'body-parser'</span>)</div><div class="line"></div><div class="line"><span class="keyword">var</span> urlencodedParser = bodyParser.urlencoded(&#123; <span class="attr">extended</span>: <span class="literal">false</span> &#125;)</div><div class="line"></div><div class="line">app.post(<span class="string">'/query'</span>, urlencodedParser, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(req.body);</div><div class="line">  res.end(<span class="string">'post-success '</span> + <span class="built_in">JSON</span>.stringify(req.body));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="Express-Generate"><a href="#Express-Generate" class="headerlink" title="Express Generate"></a>Express Generate</h2><p><code>npm install express-generator -g</code><br><code>express -h</code></p>
+<h1 id="Express-Todo-List"><a href="#Express-Todo-List" class="headerlink" title="Express Todo List"></a>Express Todo List</h1><p><code>npm init</code><br><code>npm install express --save</code><br><code>npm install ejs --save</code><br><code>npm install body-parser --save</code><br><code>npm install mongoose --save</code></p>
+<p><a href="https://github.com/lovenery/express-todo" target="_blank" rel="external">https://github.com/lovenery/express-todo</a></p>
+<p>very brief and basic api format example.</p>
+<h1 id="NPM"><a href="#NPM" class="headerlink" title="NPM"></a>NPM</h1><p><a href="https://www.npmjs.com" target="_blank" rel="external">https://www.npmjs.com</a></p>
+<h2 id="nodemon"><a href="#nodemon" class="headerlink" title="nodemon"></a>nodemon</h2><p><a href="https://www.npmjs.com/package/nodemon" target="_blank" rel="external">https://www.npmjs.com/package/nodemon</a></p>
+<p>開發階段可以不重開node.js<br><code>npm install -g nodemon</code></p>
+<h2 id="morgan"><a href="#morgan" class="headerlink" title="morgan"></a>morgan</h2><p>logger<br><code>npm install morgan -S</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// express</span></div><div class="line"><span class="keyword">var</span> morgan = <span class="built_in">require</span>(<span class="string">'morgan'</span>);</div><div class="line">app.use(morgan(<span class="string">'dev'</span>));</div></pre></td></tr></table></figure></p>
+<h2 id="cookie-session"><a href="#cookie-session" class="headerlink" title="cookie, session"></a>cookie, session</h2><p><a href="https://www.npmjs.com/package/cookie-parser" target="_blank" rel="external">https://www.npmjs.com/package/cookie-parser</a><br><a href="https://www.npmjs.com/package/express-session" target="_blank" rel="external">https://www.npmjs.com/package/express-session</a></p>
+<h2 id="passport-js"><a href="#passport-js" class="headerlink" title="passport.js"></a>passport.js</h2><p><a href="http://passportjs.org/" target="_blank" rel="external">http://passportjs.org/</a></p>
+<h4 id="Facobook-Login"><a href="#Facobook-Login" class="headerlink" title="Facobook Login"></a>Facobook Login</h4><p><a href="https://github.com/jaredhanson/passport-facebook" target="_blank" rel="external">https://github.com/jaredhanson/passport-facebook</a></p>
+<h4 id="For-API"><a href="#For-API" class="headerlink" title="For API"></a>For API</h4><p><a href="https://github.com/jaredhanson/passport-http-bearer" target="_blank" rel="external">https://github.com/jaredhanson/passport-http-bearer</a></p>
+<h2 id="express-message"><a href="#express-message" class="headerlink" title="express-message"></a>express-message</h2><p>快閃資料<br><a href="https://github.com/expressjs/express-messages" target="_blank" rel="external">https://github.com/expressjs/express-messages</a></p>
+<h2 id="bcrypt"><a href="#bcrypt" class="headerlink" title="bcrypt"></a>bcrypt</h2><p><a href="https://www.npmjs.com/package/bcrypt" target="_blank" rel="external">https://www.npmjs.com/package/bcrypt</a></p>
+<h2 id="connect-mongo"><a href="#connect-mongo" class="headerlink" title="connect-mongo"></a>connect-mongo</h2><p>MongoDB session store for Express and Connect<br><a href="https://github.com/jdesboeufs/connect-mongo" target="_blank" rel="external">https://github.com/jdesboeufs/connect-mongo</a></p>
+<h2 id="pm2-forever"><a href="#pm2-forever" class="headerlink" title="pm2, forever"></a>pm2, forever</h2><p><a href="https://github.com/Unitech/pm2" target="_blank" rel="external">https://github.com/Unitech/pm2</a></p>
+<p><code>sudo npm install pm2 -g</code><br><code>pm2 start index.js</code><br><code>pm2 stop index.js</code></p>
+<p>需要sudo來使用1024以下之port<br><code>sudo npm install pm2 -g</code><br><code>sudo pm2 list</code><br><code>sudo pm2 start index.js</code><br><code>sudo pm2 stop index.js</code><br><code>sudo pm2 delete index.js</code><br><code>sudo pm2 startup</code><br><code>sudo pm2 unstartup</code></p>
+<h2 id="Debuger"><a href="#Debuger" class="headerlink" title="Debuger"></a>Debuger</h2><h4 id="budo-client-side"><a href="#budo-client-side" class="headerlink" title="budo (client side)"></a>budo (client side)</h4><p><a href="https://github.com/mattdesl/budo" target="_blank" rel="external">https://github.com/mattdesl/budo</a></p>
+<h4 id="node-inspector-server-side"><a href="#node-inspector-server-side" class="headerlink" title="node-inspector (server side)"></a>node-inspector (server side)</h4><p><a href="https://github.com/node-inspector/node-inspector" target="_blank" rel="external">https://github.com/node-inspector/node-inspector</a></p>
+<h4 id="內建的-不太好用"><a href="#內建的-不太好用" class="headerlink" title="內建的 不太好用"></a>內建的 不太好用</h4><p><code>node debug xxxx.js</code></p>
+<h4 id="還在實驗階段"><a href="#還在實驗階段" class="headerlink" title="還在實驗階段"></a>還在實驗階段</h4><p><code>node --inspect xxxx.js</code></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/01/27/install-mod-security-on-centos-7/" rel="prev" title="Install mod_security On CentOS 7">
+      <i class="fa fa-chevron-left"></i> Install mod_security On CentOS 7
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/02/22/web-socket-notes/" rel="next" title="Web Socket 筆記">
+      Web Socket 筆記 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Global-Object"><span class="nav-number">1.</span> <span class="nav-text">Global Object</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Modules-and-require"><span class="nav-number">2.</span> <span class="nav-text">Modules and require()</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#EX1"><span class="nav-number">2.1.</span> <span class="nav-text">EX1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EX2"><span class="nav-number">2.2.</span> <span class="nav-text">EX2</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Events"><span class="nav-number">3.</span> <span class="nav-text">Events</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#EX1-1"><span class="nav-number">3.1.</span> <span class="nav-text">EX1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EX2-1"><span class="nav-number">3.2.</span> <span class="nav-text">EX2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EX2-ES6"><span class="nav-number">3.3.</span> <span class="nav-text">EX2-ES6</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#File-System"><span class="nav-number">4.</span> <span class="nav-text">File System</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#了解同步、非同步"><span class="nav-number">4.1.</span> <span class="nav-text">了解同步、非同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EX：讀寫檔案"><span class="nav-number">4.2.</span> <span class="nav-text">EX：讀寫檔案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EX：資料夾、刪除檔案"><span class="nav-number">4.3.</span> <span class="nav-text">EX：資料夾、刪除檔案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Http"><span class="nav-number">5.</span> <span class="nav-text">Http</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Stream"><span class="nav-number">6.</span> <span class="nav-text">Stream</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Read-Stream"><span class="nav-number">6.1.</span> <span class="nav-text">Read Stream</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Write-Stream"><span class="nav-number">6.2.</span> <span class="nav-text">Write Stream</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Write-Stream-Pipe"><span class="nav-number">6.3.</span> <span class="nav-text">Write Stream: Pipe</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Http-Stream"><span class="nav-number">7.</span> <span class="nav-text">Http + Stream</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Read-File"><span class="nav-number">7.1.</span> <span class="nav-text">Read File</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Read-HTML"><span class="nav-number">7.2.</span> <span class="nav-text">Read HTML</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#綜合應用"><span class="nav-number">8.</span> <span class="nav-text">綜合應用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Return-JSON"><span class="nav-number">8.1.</span> <span class="nav-text">Return JSON</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Routing-原理"><span class="nav-number">8.2.</span> <span class="nav-text">Routing 原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB-相關"><span class="nav-number">9.</span> <span class="nav-text">MongoDB 相關</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#robomongo-GUI"><span class="nav-number">9.1.</span> <span class="nav-text">robomongo(GUI)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mongoose"><span class="nav-number">9.2.</span> <span class="nav-text">Mongoose</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mLab"><span class="nav-number">9.3.</span> <span class="nav-text">mLab</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#express"><span class="nav-number">10.</span> <span class="nav-text">express</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Init"><span class="nav-number">10.1.</span> <span class="nav-text">Init</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SendFile"><span class="nav-number">10.2.</span> <span class="nav-text">SendFile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Route-Params"><span class="nav-number">10.3.</span> <span class="nav-text">Route Params</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Template-Engines-ejs"><span class="nav-number">10.4.</span> <span class="nav-text">Template Engines: ejs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#傳參數"><span class="nav-number">10.4.1.</span> <span class="nav-text">傳參數</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Partial-Templates"><span class="nav-number">10.4.2.</span> <span class="nav-text">Partial Templates</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Middleware"><span class="nav-number">10.5.</span> <span class="nav-text">Middleware</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Static-Files"><span class="nav-number">10.6.</span> <span class="nav-text">Static Files</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Query-Strings"><span class="nav-number">10.7.</span> <span class="nav-text">Query Strings</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POST-REQUEST"><span class="nav-number">10.8.</span> <span class="nav-text">POST REQUEST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Express-Generate"><span class="nav-number">10.9.</span> <span class="nav-text">Express Generate</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Express-Todo-List"><span class="nav-number">11.</span> <span class="nav-text">Express Todo List</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NPM"><span class="nav-number">12.</span> <span class="nav-text">NPM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#nodemon"><span class="nav-number">12.1.</span> <span class="nav-text">nodemon</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#morgan"><span class="nav-number">12.2.</span> <span class="nav-text">morgan</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cookie-session"><span class="nav-number">12.3.</span> <span class="nav-text">cookie, session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#passport-js"><span class="nav-number">12.4.</span> <span class="nav-text">passport.js</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Facobook-Login"><span class="nav-number">12.4.0.1.</span> <span class="nav-text">Facobook Login</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#For-API"><span class="nav-number">12.4.0.2.</span> <span class="nav-text">For API</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#express-message"><span class="nav-number">12.5.</span> <span class="nav-text">express-message</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bcrypt"><span class="nav-number">12.6.</span> <span class="nav-text">bcrypt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#connect-mongo"><span class="nav-number">12.7.</span> <span class="nav-text">connect-mongo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pm2-forever"><span class="nav-number">12.8.</span> <span class="nav-text">pm2, forever</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Debuger"><span class="nav-number">12.9.</span> <span class="nav-text">Debuger</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#budo-client-side"><span class="nav-number">12.9.0.1.</span> <span class="nav-text">budo (client side)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#node-inspector-server-side"><span class="nav-number">12.9.0.2.</span> <span class="nav-text">node-inspector (server side)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#內建的-不太好用"><span class="nav-number">12.9.0.3.</span> <span class="nav-text">內建的 不太好用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#還在實驗階段"><span class="nav-number">12.9.0.4.</span> <span class="nav-text">還在實驗階段</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

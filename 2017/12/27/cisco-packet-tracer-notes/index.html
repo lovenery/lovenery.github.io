@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Cisco Packet Tracer Notes 靜態路由基本 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364# 先拉路由器、交換器、PC、線# 一開始問你要不要設定答 no# 進入 Privileged">
+<meta name="keywords" content="notes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cisco Packet Tracer Notes">
+<meta property="og:url" content="http://yoursite.com/2017/12/27/cisco-packet-tracer-notes/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="Cisco Packet Tracer Notes 靜態路由基本 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364# 先拉路由器、交換器、PC、線# 一開始問你要不要設定答 no# 進入 Privileged">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/img/cisco-0.png">
+<meta property="og:image" content="http://yoursite.com/img/cisco-1.png">
+<meta property="og:image" content="http://yoursite.com/img/cisco-2.png">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.483Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cisco Packet Tracer Notes">
+<meta name="twitter:description" content="Cisco Packet Tracer Notes 靜態路由基本 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364# 先拉路由器、交換器、PC、線# 一開始問你要不要設定答 no# 進入 Privileged">
+<meta name="twitter:image" content="http://yoursite.com/img/cisco-0.png">
+
+<link rel="canonical" href="http://yoursite.com/2017/12/27/cisco-packet-tracer-notes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Cisco Packet Tracer Notes | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/27/cisco-packet-tracer-notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Cisco Packet Tracer Notes
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-12-27 19:39:23" itemprop="dateCreated datePublished" datetime="2017-12-27T19:39:23+08:00">2017-12-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Cisco-Packet-Tracer-Notes"><a href="#Cisco-Packet-Tracer-Notes" class="headerlink" title="Cisco Packet Tracer Notes"></a>Cisco Packet Tracer Notes</h1><p><img src="/img/cisco-0.png" alt="三種mode"></p>
+<h2 id="靜態路由基本"><a href="#靜態路由基本" class="headerlink" title="靜態路由基本"></a>靜態路由基本</h2><p><img src="/img/cisco-1.png" alt="Question 1"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 先拉路由器、交換器、PC、線</span></div><div class="line"><span class="meta">#</span><span class="bash"> 一開始問你要不要設定答 no</span></div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 進入 Privileged Mode</span></div><div class="line">en</div><div class="line">enable</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 進入 Configure Mode</span></div><div class="line">conf t</div><div class="line">config terminal</div><div class="line"></div><div class="line">hostname 隨意名稱</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 左</span></div><div class="line">interface gigabitEthernet 0/0</div><div class="line">ip address 192.168.1.1 255.255.255.0</div><div class="line">no shutdown</div><div class="line">interface gigabitEthernet 0/1</div><div class="line">ip address 192.168.2.1 255.255.255.0</div><div class="line">no shutdown</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> privileged mode中儲存剛剛的設定</span></div><div class="line">wr</div><div class="line">write</div><div class="line">copy running-config startup-config</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 右</span></div><div class="line">interface gigabitEthernet 0/0</div><div class="line">ip address 192.168.2.2 255.255.255.0</div><div class="line">no shutdown</div><div class="line">interface gigabitEthernet 0/1</div><div class="line">ip address 192.168.3.1 255.255.255.0</div><div class="line">no shutdown</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 看一下剛剛有沒有設對</span></div><div class="line">show ip interface brief</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 設定PC ip 靜態的</span></div><div class="line"><span class="meta">#</span><span class="bash"> 太遠傳不到</span></div><div class="line"><span class="meta">#</span><span class="bash"> (左) 先看看routing table長怎樣</span></div><div class="line">show ip route</div><div class="line"><span class="meta">#</span><span class="bash"> 果然沒有192.168.3.x這個網段，因此這裡設靜態路由</span></div><div class="line"><span class="meta">#</span><span class="bash"> Configure Mode下</span></div><div class="line"><span class="meta">#</span><span class="bash"> 左</span></div><div class="line">ip route 192.168.3.0 255.255.255.0 192.168.2.2</div><div class="line"><span class="meta">#</span><span class="bash"> S    192.168.3.0/24 [1/0] via 192.168.2.2</span></div><div class="line"><span class="meta">#</span><span class="bash"> 意思是.3.0這個網段會經由.2.2的路由器負責射出</span></div><div class="line"><span class="meta">#</span><span class="bash"> 右</span></div><div class="line">ip route 192.168.1.0 255.255.255.0 192.168.2.1</div><div class="line"><span class="meta">#</span><span class="bash"> 暢通了</span></div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 設定user mode跟privileged mode的密碼</span></div><div class="line"><span class="meta">#</span><span class="bash"> 這個是剛進去時輸入的密碼</span></div><div class="line">conf t</div><div class="line">line console 0</div><div class="line">password 123</div><div class="line">login</div><div class="line"><span class="meta">#</span><span class="bash"> 打<span class="built_in">enable</span>後輸入的密碼</span></div><div class="line">conf t</div><div class="line">enable secret 123</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 檢查剛剛的所有設定，用空白鍵來換頁</span></div><div class="line">show running-config</div><div class="line">show startup-config</div></pre></td></tr></table></figure>
+<h2 id="靜態路由進階"><a href="#靜態路由進階" class="headerlink" title="靜態路由進階"></a>靜態路由進階</h2><p><img src="/img/cisco-2.png" alt="Question 2"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> subnetting a /24 Network(200.200.200.*)</span></div><div class="line"><span class="meta">#</span><span class="bash"> /27 = 255.255.255.224(.11100000)</span></div><div class="line"><span class="meta">#</span><span class="bash"> 最多可以分成8個子網路，一個子網路30個hosts</span></div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 左</span></div><div class="line">interface gigabitEthernet 0/0</div><div class="line">ip address 200.200.200.62 255.255.255.224</div><div class="line">no shutdown</div><div class="line">interface gigabitEthernet 0/1</div><div class="line">ip address 200.200.200.94 255.255.255.224</div><div class="line">no shutdown</div><div class="line">interface gigabitEthernet 0/2</div><div class="line">ip address 200.200.200.1 255.255.255.224</div><div class="line">no shutdown</div><div class="line"><span class="meta">#</span><span class="bash"> 200.200.200.96(.01100000), 200.200.200.128(.10000000)</span></div><div class="line">ip route 200.200.200.96 255.255.255.224 200.200.200.2</div><div class="line">ip route 200.200.200.128 255.255.255.224 200.200.200.2</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 右</span></div><div class="line">interface gigabitEthernet 0/0</div><div class="line">ip address 200.200.200.126 255.255.255.224</div><div class="line">no shutdown</div><div class="line">interface gigabitEthernet 0/1</div><div class="line">ip address 200.200.200.158 255.255.255.224</div><div class="line">no shutdown</div><div class="line">interface gigabitEthernet 0/2</div><div class="line">ip address 200.200.200.2 255.255.255.224</div><div class="line">no shutdown</div><div class="line"><span class="meta">#</span><span class="bash"> .32(.00100000)(.32~.63)</span></div><div class="line"><span class="meta">#</span><span class="bash"> (.32為網段 All 0s (binary) : Network segment)</span></div><div class="line"><span class="meta">#</span><span class="bash"> (.62當default gateway)</span></div><div class="line"><span class="meta">#</span><span class="bash"> (.63當All 1s (binary) : Broadcast address)</span></div><div class="line"><span class="meta">#</span><span class="bash"> 可用ip: .33~.62, 30個hosts</span></div><div class="line">ip route 200.200.200.32 255.255.255.224 200.200.200.1</div><div class="line"><span class="meta">#</span><span class="bash"> .64(.01000000)</span></div><div class="line"><span class="meta">#</span><span class="bash"> 可用ip: .65~.94</span></div><div class="line">ip route 200.200.200.64 255.255.255.224 200.200.200.1</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> PC 0</span></div><div class="line">IP Address: 200.200.200.33</div><div class="line">Subnet Mask: 255.255.255.224</div><div class="line">Default Gateway: 200.200.200.62</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 最後設密碼</span></div><div class="line">conf t</div><div class="line">line console 0</div><div class="line">password 123</div><div class="line">login</div><div class="line"></div><div class="line">conf t</div><div class="line">enable secret 123</div></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/notes/" rel="tag"># notes</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/11/03/new-in-laravel-5-5-notes/" rel="prev" title="New in Laravel 5.5 Notes">
+      <i class="fa fa-chevron-left"></i> New in Laravel 5.5 Notes
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/05/13/js-dates/" rel="next" title="JS Dates Notes">
+      JS Dates Notes <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Cisco-Packet-Tracer-Notes"><span class="nav-number">1.</span> <span class="nav-text">Cisco Packet Tracer Notes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#靜態路由基本"><span class="nav-number">1.1.</span> <span class="nav-text">靜態路由基本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#靜態路由進階"><span class="nav-number">1.2.</span> <span class="nav-text">靜態路由進階</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

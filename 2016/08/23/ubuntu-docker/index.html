@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="ref:https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04https://philipzheng.gitbooks.io/docker_practice/content/install/ubuntu.htmlDocker官方英文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu 16.04 Docker">
+<meta property="og:url" content="http://yoursite.com/2016/08/23/ubuntu-docker/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="ref:https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04https://philipzheng.gitbooks.io/docker_practice/content/install/ubuntu.htmlDocker官方英文">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.470Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu 16.04 Docker">
+<meta name="twitter:description" content="ref:https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04https://philipzheng.gitbooks.io/docker_practice/content/install/ubuntu.htmlDocker官方英文">
+
+<link rel="canonical" href="http://yoursite.com/2016/08/23/ubuntu-docker/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Ubuntu 16.04 Docker | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/23/ubuntu-docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ubuntu 16.04 Docker
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-08-23 17:46:00" itemprop="dateCreated datePublished" datetime="2016-08-23T17:46:00+08:00">2016-08-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>ref:<br><a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04" target="_blank" rel="external">https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04</a><br><a href="https://philipzheng.gitbooks.io/docker_practice/content/install/ubuntu.html" target="_blank" rel="external">https://philipzheng.gitbooks.io/docker_practice/content/install/ubuntu.html</a><br><a href="https://docs.docker.com/engine/installation/linux/ubuntulinux/" target="_blank" rel="external">Docker官方英文</a></p>
+<a id="more"></a>
+<h2 id="安裝"><a href="#安裝" class="headerlink" title="安裝"></a>安裝</h2><p>需求:<br>1.64-bit<br>2.kernel &gt; 3.10 ($ uname -r)</p>
+<p>更新套件資源<br><code>$ sudo apt-get update</code></p>
+<p>確保APT可以用https method, 和CA certificates (這兩個通常都有了)<br><code>$ sudo apt-get install apt-transport-https ca-certificates</code></p>
+<p>新增GPG key取得最新Docker官方的版本<br><code>$ sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</code></p>
+<p>Add the Docker repository to APT sources:<br>打開<code>/etc/apt/sources.list.d/docker.list</code>加入根據作業系統版本的repo<br>Ubuntu Xenial 16.04 (LTS) : <code>deb https://apt.dockerproject.org/repo ubuntu-xenial main</code><br>簡化之：<br><code>echo &quot;deb https://apt.dockerproject.org/repo ubuntu-xenial main&quot; | sudo tee /etc/apt/sources.list.d/docker.list</code></p>
+<p>把剛剛加的更新進去<br><code>$ sudo apt-get update</code></p>
+<p>(Optional)以前裝過就要下這個 : Purge the old repo if it exists.<br><code>$ sudo apt-get purge lxc-docker</code></p>
+<p>確認現在是不是指向新的Docker版本<br><code>$ apt-cache policy docker-engine</code><br>應該會看到類似下列訊息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">docker-engine:</div><div class="line">  Installed: (none)</div><div class="line">  Candidate: 1.11.1-0~xenial</div><div class="line">  Version table:</div><div class="line">     1.11.1-0~xenial 500</div><div class="line">        500 https://apt.dockerproject.org/repo ubuntu-xenial/main amd64 Packages</div><div class="line">     1.11.0-0~xenial 500</div><div class="line">        500 https://apt.dockerproject.org/repo ubuntu-xenial/main amd64 Packages</div></pre></td></tr></table></figure></p>
+<p>(Optional)官方表示Ubuntu16.04建議安裝這個：<code>linux-image-extra-*</code> (kernel packages,<br>allows you use the aufs storage driver)<br><code>$ sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual</code></p>
+<p>終於可以裝囉<br><code>$ sudo apt-get install docker-engine</code><br>查看狀態<br><code>$ sudo systemctl status docker</code></p>
+<h2 id="Optional-不sudo用docker"><a href="#Optional-不sudo用docker" class="headerlink" title="(Optional)不sudo用docker"></a>(Optional)不sudo用docker</h2><p>將使用者新增到docker群組<br><code>sudo usermod -aG docker $(whoami)</code><br><code>sudo usermod -aG docker [the username]</code><br>再重開terminal</p>
+<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World!"></a>Hello World!</h2><p><code>docker run hello-world</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">......</div><div class="line">Hello from Docker!</div><div class="line">This message shows that your installation appears to be working correctly.</div><div class="line">......</div></pre></td></tr></table></figure></p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>找尋你想要的套件<br><code>docker search ubuntu</code><br>棒<br><code>docker search -s 1 redis | more</code> (-s是stars)</p>
+<p>下載下來<br><code>docker pull ubuntu</code><br>==<code>docker pull registry.hub.docker.com/ubuntu:16.04</code></p>
+<p>看載了什麼<br><code>docker images</code></p>
+<p>建立一個container<br><code>docker run ubuntu</code><br>進去互動<br><code>docker run -it ubuntu</code><br>-i, –interactive, Keep STDIN open even if not attached<br>-t, –tty, Allocate a pseudo-TTY<br>完整指令讓他執行bash<br><code>sudo docker run -t -i ubuntu:16.04 /bin/bash</code><br>以Daemonized狀態執行 ： 加 <code>-d</code></p>
+<p>正在運行的container<br><code>docker ps</code><br>看所有的container<br><code>docker ps -a</code></p>
+<p>啟動container<br><code>docker start container-id</code></p>
+<p>進入container<br><code>docker exec -it container-id /bin/bash</code><br><code>docker attach container-id</code></p>
+<p>停止container<br><code>docker stop container-id</code></p>
+<p>刪除container<br><code>docker rm container-id</code></p>
+<p>刪除image<br><code>docker rmi image-id</code></p>
+<p>Commit(冒號後面加taag, tag不一定要加)<br><code>docker commit -m &quot;What did you do to the image&quot; -a &quot;Author Name&quot; container-id repository/new_image_name:tag</code><br>ex:<code>docker commit -m &quot;added node.js&quot; -a &quot;Sunday Ogwu-Chinuwa&quot; d9b100f2f636 finid/ubuntu-nodejs</code></p>
+<p>製作一個ubuntu-nodejs image步驟:<br><code>docker run -it ubuntu</code><br><code>apt-get update</code><br><code>apt-get install -y nodejs</code><br><code>exit</code><br><code>docker commit -m &quot;added node.js&quot; -a &quot;Name&quot; 23678e0625bd DockerHub的Username/ubuntu-nodejs</code></p>
+<p>上傳到Docker Hub<br><code>docker login -u DockerHub的Username</code><br><code>docker push DockerHub的Username/ubuntu-nodejs</code></p>
+<h2 id="利用-Dockerfile-建立映像檔"><a href="#利用-Dockerfile-建立映像檔" class="headerlink" title="利用 Dockerfile 建立映像檔"></a>利用 Dockerfile 建立映像檔</h2><p><code>vim Dockerfile</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># This is a comment 這是註解</div><div class="line">FROM ubuntu:14.04 #以哪個為基底</div><div class="line">MAINTAINER 名 姓 &lt;email@docker.com&gt; #維護者訊息</div><div class="line">RUN apt-get -qq update #會在建立中執行RUN</div><div class="line">RUN apt-get -qqy install ruby ruby-dev</div><div class="line">RUN gem install sinatra</div></pre></td></tr></table></figure></p>
+<p><code>docker build -t=&quot;lovenery/sinatra:v2&quot; .</code> -t可以指定新的tag, 第二個點 . 是Dockerfile所在目錄(當前目錄)<br>可以利用<code>docker tag 52680c5e789d lovenery/sinatra</code>任意修改tag</p>
+<h2 id="Nginx-Example"><a href="#Nginx-Example" class="headerlink" title="Nginx Example"></a>Nginx Example</h2><p><code>echo &quot;&lt;h1&gt;Hello!&lt;/h1&gt;&quot; | tee index.html</code></p>
+<p><code>vim Dockerfile</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">FROM nginx:alpine</div><div class="line">COPY . /usr/share/nginx/html</div></pre></td></tr></table></figure></p>
+<p><code>docker build -t webserver-image:v1 .</code><br><code>docker run -d -p 8080:80 webserver-image:v1</code><br><a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a></p>
+<h2 id="Nginx-Example-2"><a href="#Nginx-Example-2" class="headerlink" title="Nginx Example 2"></a>Nginx Example 2</h2><figure class="highlight bash"><figcaption><span>Dockerfile</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">FROM nginx:1.9</div><div class="line">COPY index.html /usr/share/nginx/html/index.html</div><div class="line">EXPOSE 80</div><div class="line">CMD [<span class="string">"nginx"</span>, <span class="string">"-g"</span>, <span class="string">"daemon off;"</span>]</div></pre></td></tr></table></figure>
+<p><code>docker build -t my-nginx-image:latest .</code><br><code>docker run -d -p 8080:80 my-nginx-image:latest</code></p>
+<h2 id="安裝-Docekr-Composer"><a href="#安裝-Docekr-Composer" class="headerlink" title="安裝 Docekr Composer"></a>安裝 Docekr Composer</h2><p><a href="https://docs.docker.com/compose/install/" target="_blank" rel="external">https://docs.docker.com/compose/install/</a><br><a href="https://github.com/docker/compose/releases" target="_blank" rel="external">https://github.com/docker/compose/releases</a></p>
+<p><code>sudo -i</code> or <code>sudo -s</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -L https://github.com/docker/compose/releases/download/1.8.0/docker-compose-`uname -s`-`uname -m` &gt; /usr/local/bin/docker-compose</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod +x /usr/local/bin/docker-compose</div></pre></td></tr></table></figure>
+<p><code>$ docker-compose --version</code><br>=&gt;docker-compose version: 1.8.0</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/07/31/laravel-validate-notes/" rel="prev" title="Laravel Validate 筆記">
+      <i class="fa fa-chevron-left"></i> Laravel Validate 筆記
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/08/28/docker-for-laravel/" rel="next" title="Docker for Laravel">
+      Docker for Laravel <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安裝"><span class="nav-number">1.</span> <span class="nav-text">安裝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Optional-不sudo用docker"><span class="nav-number">2.</span> <span class="nav-text">(Optional)不sudo用docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-World"><span class="nav-number">3.</span> <span class="nav-text">Hello World!</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Usage"><span class="nav-number">4.</span> <span class="nav-text">Usage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用-Dockerfile-建立映像檔"><span class="nav-number">5.</span> <span class="nav-text">利用 Dockerfile 建立映像檔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx-Example"><span class="nav-number">6.</span> <span class="nav-text">Nginx Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx-Example-2"><span class="nav-number">7.</span> <span class="nav-text">Nginx Example 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安裝-Docekr-Composer"><span class="nav-number">8.</span> <span class="nav-text">安裝 Docekr Composer</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

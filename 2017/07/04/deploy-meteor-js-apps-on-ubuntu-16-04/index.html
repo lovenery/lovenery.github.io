@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Deploy Meteor.js Apps on Ubuntu 16.04 Reference Test on meteor.js v1.5  Server Environment Ubuntu 16.04 Node.js v4 or higher Apache2.4 Passenger   MongoDB  Install PassengerHow to Install Passenger 12">
+<meta name="keywords" content="devops">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deploy Meteor.js Apps on Ubuntu 16.04">
+<meta property="og:url" content="http://yoursite.com/2017/07/04/deploy-meteor-js-apps-on-ubuntu-16-04/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="Deploy Meteor.js Apps on Ubuntu 16.04 Reference Test on meteor.js v1.5  Server Environment Ubuntu 16.04 Node.js v4 or higher Apache2.4 Passenger   MongoDB  Install PassengerHow to Install Passenger 12">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.481Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Deploy Meteor.js Apps on Ubuntu 16.04">
+<meta name="twitter:description" content="Deploy Meteor.js Apps on Ubuntu 16.04 Reference Test on meteor.js v1.5  Server Environment Ubuntu 16.04 Node.js v4 or higher Apache2.4 Passenger   MongoDB  Install PassengerHow to Install Passenger 12">
+
+<link rel="canonical" href="http://yoursite.com/2017/07/04/deploy-meteor-js-apps-on-ubuntu-16-04/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Deploy Meteor.js Apps on Ubuntu 16.04 | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/04/deploy-meteor-js-apps-on-ubuntu-16-04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Deploy Meteor.js Apps on Ubuntu 16.04
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-07-04 21:40:12" itemprop="dateCreated datePublished" datetime="2017-07-04T21:40:12+08:00">2017-07-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Deploy-Meteor-js-Apps-on-Ubuntu-16-04"><a href="#Deploy-Meteor-js-Apps-on-Ubuntu-16-04" class="headerlink" title="Deploy Meteor.js Apps on Ubuntu 16.04"></a>Deploy Meteor.js Apps on Ubuntu 16.04</h1><ul>
+<li><a href="https://www.phusionpassenger.com/library/walkthroughs/deploy/meteor/ownserver/nginx/oss/xenial/deploy_app.html" target="_blank" rel="external">Reference</a></li>
+<li>Test on meteor.js v1.5</li>
+</ul>
+<h2 id="Server-Environment"><a href="#Server-Environment" class="headerlink" title="Server Environment"></a>Server Environment</h2><ul>
+<li>Ubuntu 16.04</li>
+<li>Node.js v4 or higher</li>
+<li>Apache2.4<ul>
+<li>Passenger</li>
+</ul>
+</li>
+<li>MongoDB</li>
+</ul>
+<h2 id="Install-Passenger"><a href="#Install-Passenger" class="headerlink" title="Install Passenger"></a>Install Passenger</h2><p><a href="https://www.phusionpassenger.com/library/walkthroughs/deploy/meteor/ownserver/apache/oss/trusty/install_passenger.html" target="_blank" rel="external">How to Install Passenger</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> Install our PGP key and add HTTPS support <span class="keyword">for</span> APT</span></div><div class="line">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7</div><div class="line">sudo apt-get install -y apt-transport-https ca-certificates</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> Add our APT repository</span></div><div class="line">sudo sh -c 'echo deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main &gt; /etc/apt/sources.list.d/passenger.list'</div><div class="line">sudo apt-get update</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> Install Passenger + Apache module</span></div><div class="line">sudo apt-get install -y libapache2-mod-passenger</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> Enable</span></div><div class="line">sudo a2enmod passenger</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> Restart Apache</span></div><div class="line">sudo apache2ctl restart</div></pre></td></tr></table></figure>
+<h2 id="Build-Project"><a href="#Build-Project" class="headerlink" title="Build Project"></a>Build Project</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 打包</span></div><div class="line">meteor build --server-only ../new_package &amp;&amp; mv ../new_package/*.tar.gz ../new_package/package.tar.gz</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 移至打包檔位置</span></div><div class="line">cd ../new_package</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 上傳至遠端家目錄</span></div><div class="line">scp -P &lt;PORT&gt; package.tar.gz &lt;USER&gt;@&lt;HOST&gt;:</div></pre></td></tr></table></figure>
+<h2 id="Deploy"><a href="#Deploy" class="headerlink" title="Deploy"></a>Deploy</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 到網頁根目錄</span></div><div class="line">cd &lt;DOCUMENT_ROOT&gt;</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 解壓縮 成 bundle/</span></div><div class="line">tar xzf ~/package.tar.gz</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 改權限</span></div><div class="line">sudo chown -R &lt;USER&gt;:&lt;GROUP&gt; bundle/</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 安裝必要套件</span></div><div class="line">cd bundle/programs/server</div><div class="line">npm install --production</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> Apache 設定</span></div><div class="line">sudo vim /etc/apache2/sites-available/meteorjs.conf</div><div class="line">sudo a2ensite meteorjs.conf</div><div class="line">sudo systemctl restart apache2.service</div></pre></td></tr></table></figure>
+<h2 id="Config-file"><a href="#Config-file" class="headerlink" title="Config file"></a>Config file</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> /etc/apache2/sites-available/meteorjs.conf</span></div><div class="line">Listen 8088</div><div class="line">&lt;VirtualHost *:8088&gt;</div><div class="line"><span class="meta">  #</span><span class="bash">ServerName &lt;HOST&gt;</span></div><div class="line"><span class="meta">  #</span><span class="bash">ServerAdmin john@example.com</span></div><div class="line"></div><div class="line">  PassengerAppType node</div><div class="line">  PassengerStartupFile main.js</div><div class="line"></div><div class="line">  SetEnv MONGO_URL mongodb://localhost:27017/meteorjs</div><div class="line">  SetEnv ROOT_URL http://&lt;HOST&gt;</div><div class="line"></div><div class="line">  PassengerAppRoot &lt;DOCUMENT_ROOT&gt;/bundle</div><div class="line">  DocumentRoot &lt;DOCUMENT_ROOT&gt;/bundle/public</div><div class="line">  &lt;Directory "&lt;DOCUMENT_ROOT&gt;/bundle/public"&gt;</div><div class="line">    Allow from all</div><div class="line">    Options -MultiViews</div><div class="line">    Require all granted</div><div class="line">  &lt;/Directory&gt;</div><div class="line"></div><div class="line">  ErrorLog $&#123;APACHE_LOG_DIR&#125;/error.log</div><div class="line">  CustomLog $&#123;APACHE_LOG_DIR&#125;/access.log combined</div><div class="line">&lt;/VirtualHost&gt;</div></pre></td></tr></table></figure>
+<h2 id="Done"><a href="#Done" class="headerlink" title="Done"></a>Done</h2><p><code>http://&lt;HOST&gt;:8088</code></p>
+<h2 id="Deploy-updates-shortcuts"><a href="#Deploy-updates-shortcuts" class="headerlink" title="Deploy updates shortcuts"></a>Deploy updates shortcuts</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> Local</span></div><div class="line">meteor build --server-only ../new_package &amp;&amp; mv ../new_package/*.tar.gz ../new_package/package.tar.gz</div><div class="line"></div><div class="line">cd ../new_package</div><div class="line"></div><div class="line">scp -P &lt;PORT&gt; package.tar.gz &lt;USER&gt;@&lt;HOST&gt;:</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> Remote</span></div><div class="line">cd &lt;DOCUMENT_ROOT&gt;</div><div class="line"></div><div class="line">sudo rm -rf bundle/</div><div class="line"></div><div class="line">sudo tar xzf ~/package.tar.gz</div><div class="line"></div><div class="line">sudo chown -R &lt;USER&gt;:www-data bundle/</div><div class="line"></div><div class="line">cd bundle/programs/server</div><div class="line">npm install --production</div><div class="line">npm prune --production</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> <span class="keyword">do</span> not add slash at the end path</span></div><div class="line">passenger-config restart-app &lt;DOCUMENT_ROOT&gt;/bundle</div></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/devops/" rel="tag"># devops</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/06/16/lex-and-yacc-notes/" rel="prev" title="Lex and Yacc Notes">
+      <i class="fa fa-chevron-left"></i> Lex and Yacc Notes
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/07/26/how-to-keep-ssh-sessions-alive/" rel="next" title="How to keep ssh sessions alive">
+      How to keep ssh sessions alive <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Deploy-Meteor-js-Apps-on-Ubuntu-16-04"><span class="nav-number">1.</span> <span class="nav-text">Deploy Meteor.js Apps on Ubuntu 16.04</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Server-Environment"><span class="nav-number">1.1.</span> <span class="nav-text">Server Environment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Install-Passenger"><span class="nav-number">1.2.</span> <span class="nav-text">Install Passenger</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-Project"><span class="nav-number">1.3.</span> <span class="nav-text">Build Project</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deploy"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Config-file"><span class="nav-number">1.5.</span> <span class="nav-text">Config file</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Done"><span class="nav-number">1.6.</span> <span class="nav-text">Done</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deploy-updates-shortcuts"><span class="nav-number">1.7.</span> <span class="nav-text">Deploy updates shortcuts</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

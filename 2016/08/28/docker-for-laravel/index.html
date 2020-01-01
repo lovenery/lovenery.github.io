@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="ref:http://blog.chengweichen.com/2016/03/docker-laravel.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker for Laravel">
+<meta property="og:url" content="http://yoursite.com/2016/08/28/docker-for-laravel/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="ref:http://blog.chengweichen.com/2016/03/docker-laravel.html">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.470Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker for Laravel">
+<meta name="twitter:description" content="ref:http://blog.chengweichen.com/2016/03/docker-laravel.html">
+
+<link rel="canonical" href="http://yoursite.com/2016/08/28/docker-for-laravel/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Docker for Laravel | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/28/docker-for-laravel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Docker for Laravel
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-08-28 00:29:00" itemprop="dateCreated datePublished" datetime="2016-08-28T00:29:00+08:00">2016-08-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>ref:<a href="http://blog.chengweichen.com/2016/03/docker-laravel.html" target="_blank" rel="external">http://blog.chengweichen.com/2016/03/docker-laravel.html</a><br><a id="more"></a></p>
+<p>laravel資料夾權限<br><code>sudo chgrp -R www-data blog</code></p>
+<h1 id="Use-Docker"><a href="#Use-Docker" class="headerlink" title="Use Docker"></a>Use Docker</h1><h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><p>MySQL : name,volume,MYSQL_ROOT_PASSWORD,port<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">docker run -d \</div><div class="line">--restart=always \</div><div class="line">--name dev_mysql \</div><div class="line">-p 3307:3306 \</div><div class="line">-v /home/hsu/dockerdata:/var/lib/mysql \</div><div class="line">-e MYSQL_ROOT_PASSWORD=yourpassword \</div><div class="line">mysql:latest</div></pre></td></tr></table></figure></p>
+<p>這樣不錯 : <code>-e</code> 輸入的 <code>environment variables</code> 分別是 root 帳號的密碼、新建一個名為 homestead 的 DB、新建一個 User 並設定此 User 的 Password。<br>沒掛載volume刪除容器後資料就消失了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">docker run -d \</div><div class="line">--restart=always \</div><div class="line">--name dev_mysql \</div><div class="line">-p 3307:3306 \</div><div class="line">-e MYSQL_ROOT_PASSWORD=yourpassword \</div><div class="line">-e MYSQL_DATABASE=homestead \</div><div class="line">-e MYSQL_USER=homestead \</div><div class="line">-e MYSQL_PASSWORD=secret \</div><div class="line">mysql:latest</div></pre></td></tr></table></figure></p>
+<h2 id="PhpMyAdmin"><a href="#PhpMyAdmin" class="headerlink" title="PhpMyAdmin"></a>PhpMyAdmin</h2><p>PhpMyAdmin : port<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">docker run -d \</div><div class="line">--restart=always \</div><div class="line">--name phpmyadmin \</div><div class="line">--link dev_mysql \</div><div class="line">-p 8080:80 \</div><div class="line">-e PMA_HOST=dev_mysql \</div><div class="line">phpmyadmin/phpmyadmin</div></pre></td></tr></table></figure></p>
+<p>ref:<a href="https://github.com/phpmyadmin/docker" target="_blank" rel="external">https://github.com/phpmyadmin/docker</a></p>
+<h2 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h2><figure class="highlight bash"><figcaption><span>Dockerfile</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">FROM php:7.0-fpm</div><div class="line">RUN docker-php-ext-install -j$(nproc) pdo_mysql</div><div class="line">RUN docker-php-ext-install -j$(nproc) mbstring</div><div class="line">RUN docker-php-ext-install -j$(nproc) tokenizer</div><div class="line">RUN curl -sS https://getcomposer.org/installer | php</div><div class="line">RUN mv composer.phar /usr/<span class="built_in">local</span>/bin/composer</div></pre></td></tr></table></figure>
+<p><code>docker build -t myphp:7.0-fpm .</code></p>
+<p>PHP : name,link,DB_HOST,volume,workdir<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">docker run -d \</div><div class="line">--restart=always \</div><div class="line">--name dev_phpfpm \</div><div class="line">--link dev_mysql:db \</div><div class="line">-e DB_HOST=dev_mysql \</div><div class="line">-v /home/hsu/blog:/var/project \</div><div class="line">-w /var/project \</div><div class="line">myphp:7.0-fpm</div></pre></td></tr></table></figure></p>
+<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><figure class="highlight c"><figcaption><span>nginx.conf</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">    listen <span class="number">80</span> default_server;</div><div class="line">    server_name lovenery.me;</div><div class="line">    root /var/project/<span class="keyword">public</span>;</div><div class="line">    index index.html index.htm index.php;</div><div class="line">    charset utf<span class="number">-8</span>;</div><div class="line">    location / &#123;</div><div class="line">        try_files $uri $uri/ /index.php?$query_string;</div><div class="line">    &#125;</div><div class="line">    error_page <span class="number">404</span> /index.php;</div><div class="line">    sendfile off;</div><div class="line">    location ~ \.php$ &#123;</div><div class="line">        fastcgi_split_path_info ^(.+\.php)(/.+)$;</div><div class="line">        fastcgi_pass dev_phpfpm:<span class="number">9000</span>;</div><div class="line">        fastcgi_index index.php;</div><div class="line">        include fastcgi_params;</div><div class="line">        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</div><div class="line">        fastcgi_param DB_HOST dev_mysql;</div><div class="line">    &#125;</div><div class="line">    location ~ /\.ht &#123;</div><div class="line">        deny all;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Nginx : port,link,volume<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">docker run -d \</div><div class="line">--restart=always \</div><div class="line">--name dev_nginx \</div><div class="line">--link dev_phpfpm:phpfpm \</div><div class="line">-p 8000:80 \</div><div class="line">-v /home/hsu/blog:/var/project \</div><div class="line">-v /home/hsu/nginx.conf:/etc/nginx/conf.d/default.conf \</div><div class="line">nginx:1.9</div></pre></td></tr></table></figure></p>
+<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><p><code>curl localhost:8000</code><br><code>docker exec dev_phpfpm php artisan</code><br><code>docker exec dev_phpfpm php artisan migrate</code></p>
+<h2 id="Summary-步驟"><a href="#Summary-步驟" class="headerlink" title="Summary 步驟"></a>Summary 步驟</h2><p><code>laravel new blog</code><br><code>sudo chgrp -R www-data blog</code></p>
+<figure class="highlight bash"><figcaption><span>MySQL</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">docker run -d \</div><div class="line">--restart=always \</div><div class="line">--name dev_mysql \</div><div class="line">-p 3307:3306 \</div><div class="line">-e MYSQL_ROOT_PASSWORD=yourpassword \</div><div class="line">-e MYSQL_DATABASE=homestead \</div><div class="line">-e MYSQL_USER=homestead \</div><div class="line">-e MYSQL_PASSWORD=secret \</div><div class="line">mysql:latest</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>PhpMyAdmin</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">docker run -d \</div><div class="line">--restart=always \</div><div class="line">--name phpmyadmin \</div><div class="line">--link dev_mysql \</div><div class="line">-p 8080:80 \</div><div class="line">-e PMA_HOST=dev_mysql \</div><div class="line">phpmyadmin/phpmyadmin</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>php-fpm</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">docker run -d \</div><div class="line">--restart=always \</div><div class="line">--name dev_phpfpm \</div><div class="line">--link dev_mysql:db \</div><div class="line">-e DB_HOST=dev_mysql \</div><div class="line">-v /home/hsu/blog:/var/project \</div><div class="line">-w /var/project \</div><div class="line">myphp:7.0-fpm</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>nginx</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">docker run -d \</div><div class="line">--restart=always \</div><div class="line">--name dev_nginx \</div><div class="line">--link dev_phpfpm:phpfpm \</div><div class="line">-p 8000:80 \</div><div class="line">-v /home/hsu/blog:/var/project \</div><div class="line">-v /home/hsu/nginx.conf:/etc/nginx/conf.d/default.conf \</div><div class="line">nginx:1.9</div></pre></td></tr></table></figure>
+<h1 id="Use-Docker-Compose"><a href="#Use-Docker-Compose" class="headerlink" title="Use Docker Compose"></a>Use Docker Compose</h1><figure class="highlight yml"><figcaption><span>docker-compose.yml</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="attr">dev_mysql:</span></div><div class="line"><span class="attr">  container_name:</span> <span class="string">dev_mysql</span></div><div class="line"><span class="attr">  restart:</span> <span class="string">always</span></div><div class="line"><span class="attr">  image:</span> <span class="attr">mysql:latest</span></div><div class="line"><span class="attr">  ports:</span></div><div class="line"><span class="bullet">    -</span> <span class="string">"3307:3306"</span></div><div class="line"><span class="attr">  environment:</span></div><div class="line"><span class="bullet">    -</span> <span class="string">MYSQL_ROOT_PASSWORD=YOURPASSWORD</span></div><div class="line"><span class="bullet">    -</span> <span class="string">MYSQL_DATABASE=homestead</span></div><div class="line"><span class="bullet">    -</span> <span class="string">MYSQL_USER=homestead</span></div><div class="line"><span class="bullet">    -</span> <span class="string">MYSQL_PASSWORD=secret</span></div><div class="line"><span class="attr">dev_phpmyadmin:</span></div><div class="line"><span class="attr">  container_name:</span> <span class="string">phpmyadmin</span></div><div class="line"><span class="attr">  restart:</span> <span class="string">always</span></div><div class="line"><span class="attr">  image:</span> <span class="string">phpmyadmin/phpmyadmin</span></div><div class="line"><span class="attr">  links:</span></div><div class="line"><span class="bullet">    -</span> <span class="string">dev_mysql</span></div><div class="line"><span class="attr">  ports:</span></div><div class="line"><span class="bullet">    -</span> <span class="number">8080</span><span class="string">:80</span></div><div class="line"><span class="attr">  environment:</span></div><div class="line"><span class="bullet">    -</span> <span class="string">PMA_HOST=dev_mysql</span></div><div class="line"><span class="attr">dev_phpfpm:</span></div><div class="line"><span class="attr">  container_name:</span> <span class="string">dev_phpfpm</span></div><div class="line"><span class="attr">  restart:</span> <span class="string">always</span></div><div class="line"><span class="attr">  image:</span> <span class="attr">myphp:7.0-fpm</span></div><div class="line"><span class="attr">  links:</span></div><div class="line"><span class="attr">    - dev_mysql:</span><span class="string">db</span></div><div class="line"><span class="attr">  environment:</span></div><div class="line"><span class="bullet">    -</span> <span class="string">DB_HOST=dev_mysql</span></div><div class="line"><span class="attr">  volumes:</span></div><div class="line"><span class="bullet">    -</span> <span class="string">/home/hsu/blog:/var/project</span></div><div class="line"><span class="attr">  working_dir:</span> <span class="string">/var/project</span></div><div class="line"><span class="attr">dev_nginx:</span></div><div class="line"><span class="attr">  container_name:</span> <span class="string">dev_nginx</span></div><div class="line"><span class="attr">  restart:</span> <span class="string">always</span></div><div class="line"><span class="attr">  image:</span> <span class="attr">nginx:1.9</span></div><div class="line"><span class="attr">  ports:</span></div><div class="line"><span class="bullet">    -</span> <span class="string">"8000:80"</span></div><div class="line"><span class="attr">  links:</span></div><div class="line"><span class="attr">    - dev_phpfpm:</span><span class="string">phpfpm</span></div><div class="line"><span class="attr">  volumes:</span></div><div class="line"><span class="bullet">    -</span> <span class="string">/home/hsu/nginx.conf:/etc/nginx/conf.d/default.conf</span></div><div class="line"><span class="bullet">    -</span> <span class="string">/home/hsu/blog:/var/project</span></div></pre></td></tr></table></figure>
+<p> <code>docker-compose up</code><br> <code>docker-compose up -d</code> detach放在背景執行</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/08/23/ubuntu-docker/" rel="prev" title="Ubuntu 16.04 Docker">
+      <i class="fa fa-chevron-left"></i> Ubuntu 16.04 Docker
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/09/10/docker-git-it/" rel="next" title="Docker for git-it">
+      Docker for git-it <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Use-Docker"><span class="nav-number">1.</span> <span class="nav-text">Use Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL"><span class="nav-number">1.1.</span> <span class="nav-text">MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PhpMyAdmin"><span class="nav-number">1.2.</span> <span class="nav-text">PhpMyAdmin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP"><span class="nav-number">1.3.</span> <span class="nav-text">PHP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx"><span class="nav-number">1.4.</span> <span class="nav-text">Nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Test"><span class="nav-number">1.5.</span> <span class="nav-text">Test</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-步驟"><span class="nav-number">1.6.</span> <span class="nav-text">Summary 步驟</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Use-Docker-Compose"><span class="nav-number">2.</span> <span class="nav-text">Use Docker Compose</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

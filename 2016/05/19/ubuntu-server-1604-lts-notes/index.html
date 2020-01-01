@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Ubuntu 16.04 LTS在上個月發佈了最近剛好要架設一個網站順便來個系統重整:P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu Server 16.04 LTS 安裝筆記">
+<meta property="og:url" content="http://yoursite.com/2016/05/19/ubuntu-server-1604-lts-notes/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="Ubuntu 16.04 LTS在上個月發佈了最近剛好要架設一個網站順便來個系統重整:P">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.464Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu Server 16.04 LTS 安裝筆記">
+<meta name="twitter:description" content="Ubuntu 16.04 LTS在上個月發佈了最近剛好要架設一個網站順便來個系統重整:P">
+
+<link rel="canonical" href="http://yoursite.com/2016/05/19/ubuntu-server-1604-lts-notes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Ubuntu Server 16.04 LTS 安裝筆記 | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/19/ubuntu-server-1604-lts-notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ubuntu Server 16.04 LTS 安裝筆記
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-05-19 13:20:00" itemprop="dateCreated datePublished" datetime="2016-05-19T13:20:00+08:00">2016-05-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Ubuntu 16.04 LTS在上個月發佈了<br>最近剛好要架設一個網站<br>順便來個系統重整:P</p>
+<a id="more"></a>
+<h2 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h2><p>剛灌好系統先讓系統可以SSH<br><code># sudo apt install openssh-server</code><br>設定檔在<br><code># sudo vim /etc/ssh/sshd_config</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PermitRootLogin prohibit-password <span class="comment">#禁止Root</span></div><div class="line">PasswordAuthentication no <span class="comment">#關閉密碼登入</span></div></pre></td></tr></table></figure>
+<p>限制使用者IP<br><code>AllowUsers [user1]@123.456.* [user2]@*</code><br>重新啟動<br><code># sudo systemctl restart sshd.service</code><br><code># sudo systemctl restart sshd</code><br>權限<br><code>chmod 700 ~/.ssh</code><br><code>chmod 600 ~/.ssh/authorized_keys</code></p>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>更新所有套件source<br><code># sudo apt-get update</code><br>自動安裝安全性更新(會跑很久)<br><code># sudo unattended-upgrade</code><br>Log位置<br><code># cat /var/log/unattended-upgrades/unattended-upgrades.log</code></p>
+<h2 id="新增使用者"><a href="#新增使用者" class="headerlink" title="新增使用者"></a>新增使用者</h2><p>新增一個有家目錄的使用者<br><code># sudo useradd -m [user]</code><br>改密碼<br><code># sudo passwd [user]</code><br>加入sudo群組<br><code># sudo usermod -a -G sudo [user]</code><br>如果要從sudo群組移除使用者的話<br><code># sudo gpasswd -d [user] sudo</code><br>看有沒有改對<br><code>id [user]</code></p>
+<h2 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h2><p>更改成bash<br><code># sudo usermod -s /bin/bash hsu</code><br>一般使用者無法使用<code>$ chsh</code>指令,或許加入adm群組就能用了吧(?)</p>
+<h2 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h2><p>安裝<br><code># sudo apt install apache2</code><br>重開<br><code># sudo systemctl restart apache2.service</code></p>
+<h2 id="PHP-7-版本號要自己去search"><a href="#PHP-7-版本號要自己去search" class="headerlink" title="PHP 7 (版本號要自己去search)"></a>PHP 7 (版本號要自己去search)</h2><p>安裝<br><code># sudo apt install php7.0</code><br>裝完apache就可讀php檔<br><code># sudo apt install libapache2-mod-php7.0</code><br>必要的套件(Laravel)<br><code># sudo apt install php7.0-zip</code></p>
+<h2 id="MySQL-版本號要自己去search"><a href="#MySQL-版本號要自己去search" class="headerlink" title="MySQL (版本號要自己去search)"></a>MySQL (版本號要自己去search)</h2><p>安裝<br><code># sudo apt install mysql-server-5.7</code><br><code># sudo apt install php7.0-mysql</code><br>查看目前狀態<br><code># sudo systemctl status mysql.service</code></p>
+<h2 id="PhpMyAdmin"><a href="#PhpMyAdmin" class="headerlink" title="PhpMyAdmin"></a>PhpMyAdmin</h2><p>安裝<br><code># sudo apt install phpmyadmin</code><br><code># sudo apt install php-mbstring</code><br><code># sudo apt install php-gettext</code><br>記得重啟不然還是不能用<br><code># sudo systemctl restart apache2.service</code></p>
+<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><p>安裝<br><code># sudo apt install git</code><br>設定<br><code>git config --global user.name &quot;Your Name&quot;</code><br><code>git config --global user.email &quot;youremail@domain.com&quot;</code><br><code># git config --list(git config -l)</code></p>
+<h2 id="Composer"><a href="#Composer" class="headerlink" title="Composer"></a>Composer</h2><p>下載<br><a href="https://getcomposer.org/download/" target="_blank" rel="external">https://getcomposer.org/download/</a><br><code># php composer.phar</code> 確認沒問題後<br><code># sudo mv composer.phar /usr/local/bin/composer</code><br>可以global <code># composer</code></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/05/18/masm-ms-windows-programming-3/" rel="prev" title="MASM : MS-Windows Programming (3)">
+      <i class="fa fa-chevron-left"></i> MASM : MS-Windows Programming (3)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/05/27/composer-notes/" rel="next" title="Composer 筆記">
+      Composer 筆記 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH"><span class="nav-number">1.</span> <span class="nav-text">SSH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新"><span class="nav-number">2.</span> <span class="nav-text">更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新增使用者"><span class="nav-number">3.</span> <span class="nav-text">新增使用者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell"><span class="nav-number">4.</span> <span class="nav-text">Shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Apache"><span class="nav-number">5.</span> <span class="nav-text">Apache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP-7-版本號要自己去search"><span class="nav-number">6.</span> <span class="nav-text">PHP 7 (版本號要自己去search)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-版本號要自己去search"><span class="nav-number">7.</span> <span class="nav-text">MySQL (版本號要自己去search)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PhpMyAdmin"><span class="nav-number">8.</span> <span class="nav-text">PhpMyAdmin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git"><span class="nav-number">9.</span> <span class="nav-text">Git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Composer"><span class="nav-number">10.</span> <span class="nav-text">Composer</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

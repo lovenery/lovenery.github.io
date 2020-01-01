@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="最小編輯距離Minimum Edit Distance (MED)or最小編輯成本 Minimum Edit Cost (MEC)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Minimum Edit Distance">
+<meta property="og:url" content="http://yoursite.com/2016/12/02/minimum-edit-cost/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="最小編輯距離Minimum Edit Distance (MED)or最小編輯成本 Minimum Edit Cost (MEC)">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://i.imgur.com/rojqXs2.png">
+<meta property="og:image" content="http://i.imgur.com/tOcdeLz.png">
+<meta property="og:image" content="http://i.imgur.com/vSTLXIQ.png">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.474Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Minimum Edit Distance">
+<meta name="twitter:description" content="最小編輯距離Minimum Edit Distance (MED)or最小編輯成本 Minimum Edit Cost (MEC)">
+<meta name="twitter:image" content="http://i.imgur.com/rojqXs2.png">
+
+<link rel="canonical" href="http://yoursite.com/2016/12/02/minimum-edit-cost/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Minimum Edit Distance | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/02/minimum-edit-cost/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Minimum Edit Distance
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-12-02 14:38:00" itemprop="dateCreated datePublished" datetime="2016-12-02T14:38:00+08:00">2016-12-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="最小編輯距離"><a href="#最小編輯距離" class="headerlink" title="最小編輯距離"></a>最小編輯距離</h1><p>Minimum Edit Distance (MED)<br>or<br>最小編輯成本 Minimum Edit Cost (MEC)</p>
+<a id="more"></a>
+<h2 id="應用"><a href="#應用" class="headerlink" title="應用"></a>應用</h2><p>字串相似、機器翻譯、資訊擷取、語音辨識</p>
+<h2 id="定義"><a href="#定義" class="headerlink" title="定義"></a>定義</h2><p>用最低成本將A字串轉乘B字串<br>可用操作法 :</p>
+<ul>
+<li>Deletion : 字串A刪除一個字元(Cost1 預設為1)</li>
+<li>Insertion : 字串A插入一個字元(Cost2 預設為1)</li>
+<li>Substitution : 字串A直接將字元替換成所需(Cost3 預設為2)</li>
+</ul>
+<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><p>Bottom-up<br>兩字串: X[m], Y[n]<br>最小編輯距離表: D[i][j], (0&lt;=i&lt;=n, 0&lt;=j&lt;=m), (X[1..i] Y[1..j])<br>最小編輯距離是: D[m][n]</p>
+<h2 id="Pseudo-Code"><a href="#Pseudo-Code" class="headerlink" title="Pseudo Code"></a>Pseudo Code</h2><ol>
+<li><p>初始化<br> D[i][0] = i <em> cost1 // 最左那排<br> D[0][j] = j </em> cost2 // 最下那排  </p>
+</li>
+<li><p>遞迴關係</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">for i=1 to m</div><div class="line">    for j=1 to n</div><div class="line">        D[i][j] = min(</div><div class="line">                    D[i-1][j]+cost1, // Insertion OR Deletion</div><div class="line">                    D[i][j-1]+cost2, // Insertion OR Deletion</div><div class="line">                    D[i-1][j-1]+ ( // Substitution</div><div class="line">                        if(X[i]!=Y[j]) cost3 </div><div class="line">                         if(X[i]==Y[j]) 0</div><div class="line">                     ) </div><div class="line">                    )</div><div class="line">return D[N][M]</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>時間複雜度: O(nm)<br>空間複雜度: O(nm)</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>X: INTENTION<br>Y: EXECUTION</p>
+<ol>
+<li><p>初始化後<br><img src="http://i.imgur.com/rojqXs2.png" alt="image alt"></p>
+</li>
+<li><p>開始算<br><img src="http://i.imgur.com/tOcdeLz.png" alt="image alt"></p>
+</li>
+<li><p>結果<br><img src="http://i.imgur.com/vSTLXIQ.png" alt="image alt"></p>
+</li>
+</ol>
+<h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">MEC</span><span class="params">(<span class="built_in">string</span> s1, <span class="built_in">string</span> s2)</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> m = s1.size();</div><div class="line">    <span class="keyword">int</span> n = s2.size();</div><div class="line"></div><div class="line">    <span class="keyword">int</span> **D = <span class="keyword">new</span> <span class="keyword">int</span>*[m + <span class="number">1</span>];</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m+<span class="number">1</span>; i++)</div><div class="line">    &#123;</div><div class="line">        D[i] = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 初始化</span></div><div class="line">    <span class="keyword">int</span> cost1 = <span class="number">2</span>; <span class="comment">// Deletion</span></div><div class="line">    <span class="keyword">int</span> cost2 = <span class="number">3</span>; <span class="comment">// Insertion</span></div><div class="line">    <span class="keyword">int</span> cost3 = <span class="number">4</span>; <span class="comment">// Substitution</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m; i++)</div><div class="line">    &#123;</div><div class="line">        D[i][<span class="number">0</span>] = i * cost1;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= n; j++)</div><div class="line">    &#123;</div><div class="line">        D[<span class="number">0</span>][j]= j * cost2;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 演算法</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span>  i = <span class="number">1</span>; i &lt;= m; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span> (s1[i - <span class="number">1</span>] == s2[j - <span class="number">1</span>])</div><div class="line">            &#123;</div><div class="line">                D[i][j] = D[i - <span class="number">1</span>][j - <span class="number">1</span>];</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span></div><div class="line">            &#123;</div><div class="line">                D[i][j] = min(min(D[i - <span class="number">1</span>][j] + cost1, D[i][j - <span class="number">1</span>] + cost2), D[i - <span class="number">1</span>][j - <span class="number">1</span>] + cost3);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// debug</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = m; i &gt;= <span class="number">0</span>; i--)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= n; j++)</div><div class="line">        &#123;</div><div class="line">            <span class="built_in">cout</span> &lt;&lt; setw(<span class="number">2</span>) &lt;&lt; D[i][j] &lt;&lt; <span class="string">" "</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; D[m][n] &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">&#125;;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> num_i = <span class="number">1</span>;</div><div class="line">    <span class="comment">//cin &gt;&gt; num_i;</span></div><div class="line">    <span class="comment">//cin.ignore();</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num_i; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">string</span> s1 = <span class="string">"HABCDACE"</span>;</div><div class="line">        <span class="built_in">string</span> s2 = <span class="string">"DABCDACE"</span>;</div><div class="line">        <span class="comment">//getline(cin, s1);</span></div><div class="line">        <span class="comment">//getline(cin, s2);</span></div><div class="line">        MEC(s1, s2);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    system(<span class="string">"pause"</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line">Sample input</div><div class="line">2</div><div class="line">HABCDACE</div><div class="line">DABCDACE</div><div class="line">QWERTY</div><div class="line">HWTDDGKY</div><div class="line">Sample output</div><div class="line">4</div><div class="line">20</div><div class="line">*/</div></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/12/01/0-1-knapsack/" rel="prev" title="0/1 Knapsack">
+      <i class="fa fa-chevron-left"></i> 0/1 Knapsack
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/12/21/kvm-live-migration-notes/" rel="next" title="KVM Live Migration 筆記">
+      KVM Live Migration 筆記 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#最小編輯距離"><span class="nav-number">1.</span> <span class="nav-text">最小編輯距離</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#應用"><span class="nav-number">1.1.</span> <span class="nav-text">應用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定義"><span class="nav-number">1.2.</span> <span class="nav-text">定義</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表格"><span class="nav-number">1.3.</span> <span class="nav-text">表格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pseudo-Code"><span class="nav-number">1.4.</span> <span class="nav-text">Pseudo Code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例子"><span class="nav-number">1.5.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C"><span class="nav-number">1.6.</span> <span class="nav-text">C++</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="整理一般常用:composer self-update 更新自己composer global update 更新全域套件composer install、composer update">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Composer 筆記">
+<meta property="og:url" content="http://yoursite.com/2016/05/27/composer-notes/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="整理一般常用:composer self-update 更新自己composer global update 更新全域套件composer install、composer update">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.464Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Composer 筆記">
+<meta name="twitter:description" content="整理一般常用:composer self-update 更新自己composer global update 更新全域套件composer install、composer update">
+
+<link rel="canonical" href="http://yoursite.com/2016/05/27/composer-notes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Composer 筆記 | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/27/composer-notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Composer 筆記
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-05-27 12:33:00" itemprop="dateCreated datePublished" datetime="2016-05-27T12:33:00+08:00">2016-05-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>整理一般常用:<br><code>composer self-update</code> 更新自己<br><code>composer global update</code> 更新全域套件<br><code>composer install</code>、<code>composer update</code></p>
+<a id="more"></a>
+<h2 id="一般-Laravel-安裝"><a href="#一般-Laravel-安裝" class="headerlink" title="一般 Laravel 安裝:"></a>一般 Laravel 安裝:</h2><p>// 先安裝相依套件<br><code>$ composer install --no-scripts</code><br>// 產  .env、APP_KEY 並最佳化應 程式<br><code>$ composer run-script post-root-package-install</code><br><code>$ composer run-script post-install-cmd</code><br><code>$ composer run-script post-create-project-cmd</code></p>
+<h2 id="尋找套件"><a href="#尋找套件" class="headerlink" title="尋找套件:"></a>尋找套件:</h2><p><a href="https://packagist.org/" target="_blank" rel="external">https://packagist.org/</a><br><a href="http://packalyst.com" target="_blank" rel="external">http://packalyst.com</a></p>
+<h2 id="查詢所有指令"><a href="#查詢所有指令" class="headerlink" title="查詢所有指令:"></a>查詢所有指令:</h2><p><code>composer</code> <code>composer list</code></p>
+<h2 id="有問題"><a href="#有問題" class="headerlink" title="有問題:"></a>有問題:</h2><p><code>composer help install</code> <code>composer install -h</code></p>
+<h2 id="列出已安裝的套件"><a href="#列出已安裝的套件" class="headerlink" title="列出已安裝的套件:"></a>列出已安裝的套件:</h2><p><code>composer show -i</code></p>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新:"></a>更新:</h2><p><code>composer self-update</code> <code>composer selfupdate</code><br><code>composer global update</code></p>
+<h2 id="整個流程"><a href="#整個流程" class="headerlink" title="整個流程:"></a>整個流程:</h2><p><code>composer init</code> 產生 <code>composer.json</code><br>版本號: <a href="http://semver.org/" target="_blank" rel="external">http://semver.org/</a></p>
+<p>更動<code>composer.json</code>後用<code>composer validate</code>檢查語法<br>或Packagist Semver Checker: <a href="https://semver.mwl.be/" target="_blank" rel="external">https://semver.mwl.be/</a></p>
+<p><code>composer install</code> 會先檢查 <code>composer.lock</code> 是否存在<br>不存在: <code>composer update</code><br>存在: 套件下載至 <code>/vendor</code><br><code>composer update</code> 會檢查 <code>composer.json</code> 安裝完更新 <code>composer.lock</code></p>
+<p>使用 Composer 自動載入:程式最頂端加上一行，引入 Composer 的 autoload.php 即可：<br><code>require __DIR__.&#39;/vendor/autoload.php&#39;;</code></p>
+<p>Composer 在解決完套件相依性後，會將最終決定安裝的版本號寫入 <code>composer.lock</code> 檔內<br>務必把 <code>composer.lock</code> 檔與 <code>composer.json</code> 檔一同放進git，其他開發者拿到 lock 檔後，只要用 <code>composer install</code> 就可以安裝與自己一模一樣的套件版本，而不會有套件衝突或不一致的情況</p>
+<p>只要專案內已經有<code>composer.lock</code>檔、而又不需要更新/安裝套件時，就是使用 <code>composer install</code><br>只有在安裝新套件、需要更新套件版本時，才需要使用 <code>composer update</code> 指令。這通常都是專案核心<br>開發/管理者才需要做的動作</p>
+<p>global 套件;</p>
+<hr>
+<h2 id="安裝-Packages-範例"><a href="#安裝-Packages-範例" class="headerlink" title="安裝 Packages 範例:"></a>安裝 Packages 範例:</h2><p>全:<a href="https://packagist.org/" target="_blank" rel="external">https://packagist.org/</a><br>Laravel:<a href="http://packalyst.com/" target="_blank" rel="external">http://packalyst.com/</a></p>
+<p><code>&quot;guidovanbiemen/laravel‐whoops&quot;: &quot;^1.0&quot;</code><br>整合 whoops 錯誤訊息處理套件至 Laravel 5.1<br><code>&quot;barryvdh/laravel-debugbar&quot;: &quot;^2.0&quot;</code><br>在 Laravel 開發過程中提供除錯訊息的功能列</p>
+<figure class="highlight javascript"><figcaption><span>composer.json</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="string">"require"</span>:</div><div class="line">&#123;</div><div class="line">    <span class="string">"php"</span>: <span class="string">"&gt;=5.5.9"</span>,</div><div class="line">    <span class="string">"laravel/framework"</span>: <span class="string">"5.1.*"</span>,</div><div class="line">    <span class="string">"guidovanbiemen/laravel-whoops"</span>: <span class="string">"^1.0"</span>,</div><div class="line">    <span class="string">"barryvdh/laravel-debugbar"</span>: <span class="string">"^2.0"</span></div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<p><code>composer validate</code><br><code>composer update</code></p>
+<figure class="highlight"><figcaption><span>config/app.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">'providers' =&gt; [</div><div class="line">    'Gvb\Whoops\ServiceProvider',</div><div class="line">    Barryvdh\Debugbar\ServiceProvider::class,</div><div class="line">    //'Barryvdh\Debugbar\ServiceProvider',</div><div class="line">],</div><div class="line">'aliases' =&gt; [</div><div class="line">		'Debugbar' =&gt; Barryvdh\Debugbar\Facade::class,</div><div class="line">		//'Debugbar' =&gt; 'Barryvdh\Debugbar\Facade',</div><div class="line">],</div></pre></td></tr></table></figure>
+<p>驗證安裝結果<br><code>guidovanbiemen/laravel-whoops</code><br>程式錯誤時，會出現 whoops 的 stack trace 畫面,但若是 HTTP 相關的錯誤 (404) 則不會處理<br><code>barryvdh/laravel-debugbar</code><br>若 .env 檔內的 APP_DEBUG 為 true 時，網頁下方會出現除錯工具列</p>
+<h2 id="開發時才想用的套件"><a href="#開發時才想用的套件" class="headerlink" title="開發時才想用的套件"></a>開發時才想用的套件</h2><p>放在<code>require-dev</code></p>
+<figure class="highlight ruby"><figcaption><span>app/Providers/AppServiceProvider.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public function register()</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> ($this‐&gt;app‐&gt;environment()==<span class="string">'local'</span>)&#123;</div><div class="line">      	$this‐&gt;app‐&gt;register(<span class="string">'/*Provider*/'</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Laravel-上線前"><a href="#Laravel-上線前" class="headerlink" title="Laravel 上線前"></a>Laravel 上線前</h2><p><code>composer install --no-dev</code> 記得加‐-no‐dev<br><figure class="highlight ruby"><figcaption><span>env</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">APP_ENV=production</div><div class="line">APP_DEBUG=<span class="literal">false</span></div></pre></td></tr></table></figure></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/05/19/ubuntu-server-1604-lts-notes/" rel="prev" title="Ubuntu Server 16.04 LTS 安裝筆記">
+      <i class="fa fa-chevron-left"></i> Ubuntu Server 16.04 LTS 安裝筆記
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/05/28/laravel-note/" rel="next" title="Laravel 筆記">
+      Laravel 筆記 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一般-Laravel-安裝"><span class="nav-number">1.</span> <span class="nav-text">一般 Laravel 安裝:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#尋找套件"><span class="nav-number">2.</span> <span class="nav-text">尋找套件:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查詢所有指令"><span class="nav-number">3.</span> <span class="nav-text">查詢所有指令:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有問題"><span class="nav-number">4.</span> <span class="nav-text">有問題:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列出已安裝的套件"><span class="nav-number">5.</span> <span class="nav-text">列出已安裝的套件:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新"><span class="nav-number">6.</span> <span class="nav-text">更新:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整個流程"><span class="nav-number">7.</span> <span class="nav-text">整個流程:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安裝-Packages-範例"><span class="nav-number">8.</span> <span class="nav-text">安裝 Packages 範例:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#開發時才想用的套件"><span class="nav-number">9.</span> <span class="nav-text">開發時才想用的套件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Laravel-上線前"><span class="nav-number">10.</span> <span class="nav-text">Laravel 上線前</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

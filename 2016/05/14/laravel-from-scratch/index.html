@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="參考影片Laravel From Scratch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Laravel From Scratch 筆記">
+<meta property="og:url" content="http://yoursite.com/2016/05/14/laravel-from-scratch/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="參考影片Laravel From Scratch">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.462Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Laravel From Scratch 筆記">
+<meta name="twitter:description" content="參考影片Laravel From Scratch">
+
+<link rel="canonical" href="http://yoursite.com/2016/05/14/laravel-from-scratch/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Laravel From Scratch 筆記 | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/14/laravel-from-scratch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Laravel From Scratch 筆記
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-05-14 12:50:00" itemprop="dateCreated datePublished" datetime="2016-05-14T12:50:00+08:00">2016-05-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>參考影片<br><a href="https://laracasts.com/series/laravel-5-from-scratch" target="_blank" rel="external">Laravel From Scratch</a></p>
+<a id="more"></a>
+<h1 id="1-Initial-Setup"><a href="#1-Initial-Setup" class="headerlink" title="1. Initial Setup"></a>1. Initial Setup</h1><p>官方文件上面寫<br><code>請確定把 ~/.composer/vendor/bin 路徑放置於你的 PATH 裡，這樣你的系統才能找到 laravel 執行檔。</code><br>是這個意思<br><figure class="highlight bash"><figcaption><span>~/.bashrc</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> PATH=<span class="string">"~/.composer/vendor/bin:<span class="variable">$PATH</span>"</span></div></pre></td></tr></table></figure></p>
+<p>就能使用<code>laravel new blog</code>比composer安裝還快</p>
+<h1 id="2-Your-First-View-and-Route"><a href="#2-Your-First-View-and-Route" class="headerlink" title="2. Your First View and Route"></a>2. Your First View and Route</h1><p><code>return view(page.about);</code>=<code>return view(page/about);</code></p>
+<h1 id="3-View-Data-and-Blade"><a href="#3-View-Data-and-Blade" class="headerlink" title="3. View Data and Blade"></a>3. View Data and Blade</h1><figure class="highlight ruby"><figcaption><span>route.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">Route:</span>get(<span class="string">'/'</span>, function()&#123;</div><div class="line">	$people = [<span class="string">'hi'</span>,<span class="string">'hihi'</span>];</div><div class="line">	<span class="regexp">//</span>很多方法,推最後一種</div><div class="line">	<span class="keyword">return</span> View::make();</div><div class="line">	<span class="keyword">return</span> view(<span class="string">'welcome'</span>, compact(<span class="string">'people'</span>));</div><div class="line">	<span class="keyword">return</span> view(<span class="string">'welcome'</span>)-&gt;with(<span class="string">'people'</span>,$people);</div><div class="line">	<span class="keyword">return</span> view(<span class="string">'welcome'</span>, [<span class="string">'people'</span>=&gt;$people]);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight"><figcaption><span>welcome.blade.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">@if (empty($people))</div><div class="line">	no people</div><div class="line">@else</div><div class="line">	something else</div><div class="line">@endif</div><div class="line"></div><div class="line">@foreach ($people as $person)</div><div class="line">	&lt;li&gt;&#123;&#123; $person &#125;&#125;&lt;/li&gt;</div><div class="line">@endforeach</div></pre></td></tr></table></figure>
+<h1 id="4-Routing-to-Controllers"><a href="#4-Routing-to-Controllers" class="headerlink" title="4. Routing to Controllers"></a>4. Routing to Controllers</h1><p><code>php artisan</code>可以看到所有指令,並用它來產生controller</p>
+<h1 id="5-Layout-Files"><a href="#5-Layout-Files" class="headerlink" title="5. Layout Files"></a>5. Layout Files</h1><p>可以<code>@yield(&#39;content&#39;)</code> <code>@yield(&#39;footer&#39;)</code> <code>@yield(&#39;header&#39;)</code>很多區塊</p>
+<h1 id="6-How-to-Manage-Your-CSS-and-JS"><a href="#6-How-to-Manage-Your-CSS-and-JS" class="headerlink" title="6. How to Manage Your CSS and JS"></a>6. How to Manage Your CSS and JS</h1><p>灌好nodejs之後<br>全域安裝gulp的npm套件 <code># sudo npm install --global gulp</code><br>安裝Laravel Elixir <code># sudo npm install</code><br><code># gulp</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">出現錯誤的話</div><div class="line">https://laracasts.com/discuss/channels/general-discussion/gulp-notify-error-in-notifier-error-in-plugin-gulp-notify-not-found-notify-send</div><div class="line">From the VM, this worked for me:</div><div class="line">sudo apt-add-repository ppa:izx/askubuntu</div><div class="line">sudo apt-get update</div><div class="line">sudo apt-get install libnotify-bin</div></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"&#123;&#123; elixir('css/app.css') &#125;&#125;"</span>&gt;</span>搭配</div></pre></td></tr></table></figure>
+<figure class="highlight ruby"><figcaption><span>gulpfile.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">elixir(function(mix) &#123;</div><div class="line">    mix.sass(<span class="string">'app.scss'</span>).version(<span class="string">'css/app.css'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>結論:<br>在<code>resources/assets/sass/......</code>寫很多scss或純css檔案<br>然後編譯至<code>public/css/</code>底下合成一個檔案(view只需引用一個檔案)(使用<code>asset(&#39;css/app.css&#39;)</code>)<br>再使用<code>mix.version()</code>來加上獨特的雜湊值,以防止檔案被快取(使用<code>elixir(&#39;css/app.css&#39;)</code>)</p>
+<h1 id="7-Fetching-Data"><a href="#7-Fetching-Data" class="headerlink" title="7. Fetching Data"></a>7. Fetching Data</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Route:put(&apos;xxx&apos;,&apos;Controller@update&apos;);</div></pre></td></tr></table></figure>
+<p><code>config/database.php</code>可看到可使用的資料庫(編碼注意!)，可把<code>default</code>的mysql換掉<br>看說明<code>php artisan help make:migration</code><br>命名方式就說你要幹麻<br><code>php artisan help make:migration create_cards_table</code><br><code>php artisan help make:migration add_username_to_users_table</code></p>
+<p>這個方式可以幫你打scheme<br><code>php artisan help make:migration create_cards_table --create=cards</code></p>
+<p>互動式工具<br><code>php artisan tinker</code>然後可以輸入<br><code>DB::table(&#39;messages&#39;)-&gt;get();</code><br><code>$card = App\Card::first();</code><br><code>$note = new App\Note;</code> <code>$note-&gt;body=&#39;something&#39;</code> <code>$note-&gt;card_id=1;</code> <code>$note-&gt;save();</code><br>等等</p>
+<p>重要!:namespace概念在12:00左右,use很重要<br>如果沒有用use會自動套用namespace的路徑,有用use才會套用use的路徑</p>
+<p>如果table叫做<code>cards</code>,model習慣叫做<code>Card</code></p>
+<p>記得要取一樣的名字<br><code>Route::get(&#39;messages/{ABCDEFG}&#39;, &#39;MessageController@show&#39;);</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public function show(Message $ABCDEFG) // ($id)</div><div class="line">&#123;</div><div class="line">    // $message = Message::find($id);</div><div class="line">    return $message;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="8-Defining-Relationships-With-Eloquent"><a href="#8-Defining-Relationships-With-Eloquent" class="headerlink" title="8. Defining Relationships With Eloquent"></a>8. Defining Relationships With Eloquent</h1><p>有了<code>Relationships</code>就很容易create and save them<br><code>$card-&gt;notes()-&gt;save($note);</code><br><code>$card-&gt;notes()-&gt;create([&#39;body&#39;=&gt;&#39;XDD&#39;]);</code></p>
+<p>在model中加入<code>protected $fillable = [&#39;body&#39;];</code>才可被填</p>
+<h1 id="9-Forms"><a href="#9-Forms" class="headerlink" title="9. Forms"></a>9. Forms</h1><p><code>return redirect(&#39;foo/&#39;);</code> 跳轉<br><code>return back();</code> 回到上一頁</p>
+<p>以下寫法都相同<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">public function store(Request $request, Message $message)</div><div class="line">&#123;</div><div class="line">    // 1</div><div class="line">    $note = new Note;</div><div class="line">    $note-&gt;body = $request-&gt;body;</div><div class="line">    $message-&gt;notes()-&gt;save($note);</div><div class="line"></div><div class="line">    // 2</div><div class="line">    $note = new Note(['body =&gt; $request-&gt;body']);</div><div class="line">    $message-&gt;notes()-&gt;save($note);</div><div class="line"></div><div class="line">    // 3</div><div class="line">    $message-&gt;notes()-&gt;save(</div><div class="line">        new Note(['body =&gt; $request-&gt;body'])</div><div class="line">    );</div><div class="line"></div><div class="line">    // 4</div><div class="line">    $message-&gt;notes()-&gt;create([</div><div class="line">        'body' =&gt; $request-&gt;body</div><div class="line">    ])</div><div class="line"></div><div class="line">    // 5</div><div class="line">    $message-&gt;notes()-&gt;create([$request-&gt;all()]);</div><div class="line"></div><div class="line">    return back();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>最厲害的是<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">model</div><div class="line">public function addNote()</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> $this-&gt;notes()-&gt;save($note);</div><div class="line">&#125;</div><div class="line">controller</div><div class="line">public function store(Request $request, Message $message)</div><div class="line">&#123;</div><div class="line">    $message-&gt;addNote(</div><div class="line">        new Note($request-&gt;all())</div><div class="line">    );</div><div class="line">    <span class="keyword">return</span> back();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="10-Updating-Records-and-Eager-Loading"><a href="#10-Updating-Records-and-Eager-Loading" class="headerlink" title="10. Updating Records and Eager Loading"></a>10. Updating Records and Eager Loading</h1><p>更新方法<br><code>Route::patch(&#39;notes/{note}&#39;, &#39;NotesController@update&#39;);</code></p>
+<p><code>dd(&#39;something_return&#39;)</code>可以拿來debug</p>
+<p>把上一次migrate取消<br><code>php artisan migrate:rollback</code></p>
+<p>清除所有資料表以及其資料並全部重新migrate<br><code>php artisan migrate:refresh</code></p>
+<p>Eager Loading<br>抓取留言的回覆的使用者</p>
+<p>不一樣唷<br><code>$card = Card::with(&#39;notes&#39;)-&gt;get();</code> // ret an array<br><code>$card = Card::with(&#39;notes&#39;)-&gt;find(1);</code> // ret an object</p>
+<p><code>$card = Card::with(&#39;notes.user&#39;)-&gt;find(1);</code> 等同於 <code>$card-&gt;load(&#39;notes.user&#39;);</code>,<code>Eager Loading !</code></p>
+<hr>
+<p>顯示留言的回覆 會回傳陣列<br><code>$message = Message::with(&#39;notes&#39;)-&gt;get();
+return $message;</code></p>
+<p><code>anytime call chaining can&#39;t call all() anymore
+so change to get()</code></p>
+<p>不用出現陣列 只要出現一則就好<br><code>$message = Message::with(&#39;notes&#39;)-&gt;find(1);
+return $message;</code></p>
+<h1 id="11-Validation-and-More"><a href="#11-Validation-and-More" class="headerlink" title="11. Validation and More"></a>11. Validation and More</h1><p>約莫50行,告訴我們可以用<code>validate</code>method<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Validate the given request with the given rules.</div><div class="line"> *</div><div class="line"> * @param  \Illuminate\Http\Request  $request</div><div class="line"> * @param  array  $rules</div><div class="line"> * @param  array  $messages</div><div class="line"> * @param  array  $customAttributes</div><div class="line"> * @return void</div><div class="line"> */</div><div class="line">public function validate(Request $request, array $rules, array $messages = [], array $customAttributes = [])</div><div class="line">&#123;</div><div class="line">    $validator = $this-&gt;getValidationFactory()-&gt;make($request-&gt;all(), $rules, $messages, $customAttributes);</div><div class="line"></div><div class="line">    if ($validator-&gt;fails()) &#123;</div><div class="line">        $this-&gt;throwValidationException($request, $validator);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>約莫100行,告訴我們當驗證出錯時會回傳<br><code>$error</code>:<code>withErrors($errors, $this-&gt;errorBag())</code>;<br><code>withInput($request-&gt;input())</code>代表錯誤時會回傳填的內容可以使用 old(‘html-name’) 存取<br>按下送出時不會全部要重填<br><figure class="highlight"><figcaption><span>vendor/laravel/framework/src/Illuminate/Foundation/Validation/ValidatesRequests.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Create the response for when a request fails validation.</div><div class="line"> *</div><div class="line"> * @param  \Illuminate\Http\Request  $request</div><div class="line"> * @param  array  $errors</div><div class="line"> * @return \Illuminate\Http\Response</div><div class="line"> */</div><div class="line">protected function buildFailedValidationResponse(Request $request, array $errors)</div><div class="line">&#123;</div><div class="line">    if (($request-&gt;ajax() &amp;&amp; ! $request-&gt;pjax()) || $request-&gt;wantsJson()) &#123;</div><div class="line">        return new JsonResponse($errors, 422);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return redirect()-&gt;to($this-&gt;getRedirectUrl())</div><div class="line">                    -&gt;withInput($request-&gt;input())</div><div class="line">                    -&gt;withErrors($errors, $this-&gt;errorBag());</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>有一堆validate的rule可以參考<br><code>https://laravel.com/docs/5.2/validation#available-validation-rules</code><br>ex:<code>&#39;email_field&#39;=&gt; &#39;email|unique:users&#39;</code> email欄位須遵守email格式並且不重複於users table</p>
+<p>在<code>config/app.php</code><br>裡面的<code>providers</code><br>如果有<code>App\Providers\RouteServiceProvider::class</code><br>就不用加<code>web</code> group<br>預設都有加,舊版才沒加吧<br>在<code>App/Http/Kernel.php</code>有描述<code>web</code>能防甚麼</p>
+<p><code>csrf_token()</code>會被轉成一串數字<br><code>csrf_filed()</code>會變轉成input type=hidden value=一串數字</p>
+<h2 id="教學從這邊好像就沒延續了QQ"><a href="#教學從這邊好像就沒延續了QQ" class="headerlink" title="教學從這邊好像就沒延續了QQ"></a>教學從這邊好像就沒延續了QQ</h2><h2 id="13-Authenticate-Your-Users"><a href="#13-Authenticate-Your-Users" class="headerlink" title="13. Authenticate Your Users"></a>13. Authenticate Your Users</h2><p><code># composer create-project --prefer-dist laravel/laravel makeauth</code><br><code># php artisan make:auth</code><br>會自動加上<code>Route::auth();</code>,<code>Route::get(&#39;/home&#39;, &#39;HomeController@index&#39;);</code><br>它的功能可以在<code>/vendor/laravel/framework/src/Illuminate/Routing/Router.php</code>中的<code>auth()</code>看見<br><figure class="highlight ruby"><figcaption><span>env</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DB_CONNECTION=sqlite</div></pre></td></tr></table></figure></p>
+<p><code># touch database/database.sqlite</code><br><figure class="highlight ruby"><figcaption><span>config/database.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">可以看到路徑</div><div class="line"><span class="string">'database'</span> =&gt; env(<span class="string">'DB_DATABASE'</span>, database_path(<span class="string">'database.sqlite'</span>)),</div><div class="line">改成</div><div class="line"><span class="string">'database'</span> =&gt; database_path(<span class="string">'database.sqlite'</span>),</div></pre></td></tr></table></figure></p>
+<p><code># php artisan migrate</code><br><code># php artisan serve</code></p>
+<p>Mail local測試<br><figure class="highlight ruby"><figcaption><span>env</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">MAIL_DRIVER=log</div></pre></td></tr></table></figure></p>
+<figure class="highlight ruby"><figcaption><span>config/mail.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">改成想要ㄉ</div><div class="line"><span class="string">'from'</span> =&gt; [<span class="string">'address'</span> =&gt; null, <span class="string">'name'</span> =&gt; null],</div></pre></td></tr></table></figure>
+<p>密碼信寄出去後<br><code>storage\logs\laravel.log</code>可以看到log</p>
+<h2 id="14-Understanding-Middleware"><a href="#14-Understanding-Middleware" class="headerlink" title="14. Understanding Middleware"></a>14. Understanding Middleware</h2><figure class="highlight ruby"><figcaption><span>app\Http\Kernel.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">protected $routeMiddleware = [</div><div class="line">    <span class="string">'auth'</span> =&gt; \App\Http\Middleware\Authenticate::<span class="class"><span class="keyword">class</span>,</span></div><div class="line">    <span class="string">'auth.basic'</span> =&gt; \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::<span class="class"><span class="keyword">class</span>,</span></div><div class="line">    <span class="string">'can'</span> =&gt; \Illuminate\Foundation\Http\Middleware\Authorize::<span class="class"><span class="keyword">class</span>,</span></div><div class="line">    <span class="string">'guest'</span> =&gt; \App\Http\Middleware\RedirectIfAuthenticated::<span class="class"><span class="keyword">class</span>,</span></div><div class="line">    <span class="string">'throttle'</span> =&gt; \Illuminate\Routing\Middleware\ThrottleRequests::<span class="class"><span class="keyword">class</span>,</span></div><div class="line">];</div></pre></td></tr></table></figure>
+<p>實作詳細<code>app\Http\Middleware\Authenticate.php</code></p>
+<figure class="highlight ruby"><figcaption><span>do on controller</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public function __construct()</div><div class="line">&#123;</div><div class="line">    $this-&gt;middleware(<span class="string">'auth'</span>); 所有方法都要登入</div><div class="line">    $this-&gt;middleware(<span class="string">'auth'</span>, [<span class="string">'only'</span> =&gt; [<span class="string">'index'</span>]]); 只有index要登入</div><div class="line">    $this-&gt;middleware(<span class="string">'auth'</span>, [<span class="string">'except'</span> =&gt; [<span class="string">'index'</span>]]); 只有index不用登入</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight ruby"><figcaption><span>do on route</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Route::get(<span class="string">'/home'</span>, <span class="string">'HomeController@index'</span>)-&gt;middleware(<span class="string">'auth'</span>);</div></pre></td></tr></table></figure>
+<p>這個是global middleware<br><code>CheckForMaintenanceMode</code><br><code># php artisan down</code> 變成維修頁面<br><code># php artisan up</code> 正常</p>
+<hr>
+<p>想加個admin:<br><code>php artisan make:middleware MustBeAdministrator</code></p>
+<figure class="highlight ruby"><figcaption><span>app\Http\Middleware\MustBeAdministrator.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$user = $request-&gt;user();</div><div class="line"><span class="keyword">if</span> ($user &amp;&amp; $user-&gt;username == <span class="string">'XDD'</span>) &#123;</div><div class="line">    <span class="keyword">return</span> $next($request);</div><div class="line">&#125;</div><div class="line">abort(<span class="number">404</span>, <span class="string">'No way.'</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight ruby"><figcaption><span>app\Http\Kernel.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">加在想加的地方</div><div class="line"><span class="string">'admin'</span> =&gt; \App\Http\Middleware\MustBeAdministrator::<span class="class"><span class="keyword">class</span></span></div></pre></td></tr></table></figure>
+<h2 id="15-Flashing-to-the-Session"><a href="#15-Flashing-to-the-Session" class="headerlink" title="15. Flashing to the Session"></a>15. Flashing to the Session</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Route::get('/flash', function () &#123;</div><div class="line">    Session::flash('status', 'hihi');</div><div class="line">    return redirect('/');</div><div class="line">&#125;);</div><div class="line"></div><div class="line">@if (Session::has('status'))</div><div class="line">    &lt;h3&gt;&#123;&#123; Session::get('status') &#125;&#125;&lt;/h3&gt;</div><div class="line">@endif</div></pre></td></tr></table></figure>
+<p><code>return redirect(&#39;/&#39;);</code>===<code>return Redirect::to(&#39;/&#39;);</code><br><code>session([&#39;foo&#39; =&gt; &#39;bar&#39;]);</code>===<code>Session::put(&#39;foo&#39;, &#39;bar&#39;);</code><br><code>session(&#39;foo&#39;)</code>===<code>Session::get(&#39;foo&#39;);</code> // bar</p>
+<p><code>session()-&gt;flash(&#39;status&#39;, &#39;hihi&#39;);</code></p>
+<p>製造helpers file<br><figure class="highlight ruby"><figcaption><span>composer.json</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="string">"autoload"</span>: &#123;</div><div class="line">    <span class="string">"files"</span>: &#123;</div><div class="line">        <span class="string">"app/helpers.php"</span></div><div class="line">    &#125;</div><div class="line">&#125;,</div></pre></td></tr></table></figure></p>
+<p><code># composer dump-autoload</code></p>
+<h2 id="16-Automatic-Resolution-and-the-Service-Container"><a href="#16-Automatic-Resolution-and-the-Service-Container" class="headerlink" title="16. Automatic Resolution and the Service Container"></a>16. Automatic Resolution and the Service Container</h2><p><code>bind</code>,<code>singleton</code>;<code>make</code></p>
+<h2 id="17-Bootstrapping-With-Service-Providers"><a href="#17-Bootstrapping-With-Service-Providers" class="headerlink" title="17. Bootstrapping With Service Providers"></a>17. Bootstrapping With Service Providers</h2><p><code>php artisan make:provider FooProvider</code><br><code>app/Providers/FooProvider</code><br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public function boot() &#123;</div><div class="line">    DB::listen(function($query) &#123;</div><div class="line">        var_dump($query-&gt;sql, $query-&gt;bindings);</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line">public function regitster()&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>config/app.php</code><br>‘provider’可加入</p>
+<h2 id="16-Conclusion"><a href="#16-Conclusion" class="headerlink" title="16. Conclusion"></a>16. Conclusion</h2><p><code>APP_ENV=production</code><br>看了13天才看完,真累XDD. Today 2016/05/27<br>Thanks, Jeffrey!</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/05/12/laravel-message-board/" rel="prev" title="Laravel 留言板">
+      <i class="fa fa-chevron-left"></i> Laravel 留言板
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/05/18/masm-ms-windows-programming/" rel="next" title="MASM : MS-Windows Programming (1)">
+      MASM : MS-Windows Programming (1) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Initial-Setup"><span class="nav-number">1.</span> <span class="nav-text">1. Initial Setup</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Your-First-View-and-Route"><span class="nav-number">2.</span> <span class="nav-text">2. Your First View and Route</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-View-Data-and-Blade"><span class="nav-number">3.</span> <span class="nav-text">3. View Data and Blade</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Routing-to-Controllers"><span class="nav-number">4.</span> <span class="nav-text">4. Routing to Controllers</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-Layout-Files"><span class="nav-number">5.</span> <span class="nav-text">5. Layout Files</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-How-to-Manage-Your-CSS-and-JS"><span class="nav-number">6.</span> <span class="nav-text">6. How to Manage Your CSS and JS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-Fetching-Data"><span class="nav-number">7.</span> <span class="nav-text">7. Fetching Data</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-Defining-Relationships-With-Eloquent"><span class="nav-number">8.</span> <span class="nav-text">8. Defining Relationships With Eloquent</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-Forms"><span class="nav-number">9.</span> <span class="nav-text">9. Forms</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-Updating-Records-and-Eager-Loading"><span class="nav-number">10.</span> <span class="nav-text">10. Updating Records and Eager Loading</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-Validation-and-More"><span class="nav-number">11.</span> <span class="nav-text">11. Validation and More</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#教學從這邊好像就沒延續了QQ"><span class="nav-number">11.1.</span> <span class="nav-text">教學從這邊好像就沒延續了QQ</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-Authenticate-Your-Users"><span class="nav-number">11.2.</span> <span class="nav-text">13. Authenticate Your Users</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-Understanding-Middleware"><span class="nav-number">11.3.</span> <span class="nav-text">14. Understanding Middleware</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-Flashing-to-the-Session"><span class="nav-number">11.4.</span> <span class="nav-text">15. Flashing to the Session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-Automatic-Resolution-and-the-Service-Container"><span class="nav-number">11.5.</span> <span class="nav-text">16. Automatic Resolution and the Service Container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-Bootstrapping-With-Service-Providers"><span class="nav-number">11.6.</span> <span class="nav-text">17. Bootstrapping With Service Providers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-Conclusion"><span class="nav-number">11.7.</span> <span class="nav-text">16. Conclusion</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

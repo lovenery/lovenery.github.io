@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="MongoDBDoc: https://docs.mongodb.com/manual/mongo/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB 筆記">
+<meta property="og:url" content="http://yoursite.com/2016/11/15/mongodb-notes/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="MongoDBDoc: https://docs.mongodb.com/manual/mongo/">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.472Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MongoDB 筆記">
+<meta name="twitter:description" content="MongoDBDoc: https://docs.mongodb.com/manual/mongo/">
+
+<link rel="canonical" href="http://yoursite.com/2016/11/15/mongodb-notes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>MongoDB 筆記 | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/15/mongodb-notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MongoDB 筆記
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-11-15 13:46:00" itemprop="dateCreated datePublished" datetime="2016-11-15T13:46:00+08:00">2016-11-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h1><p>Doc: <a href="https://docs.mongodb.com/manual/mongo/" target="_blank" rel="external">https://docs.mongodb.com/manual/mongo/</a></p>
+<a id="more"></a>
+<h2 id="進入shell"><a href="#進入shell" class="headerlink" title="進入shell"></a>進入shell</h2><p><code>$ mongo</code></p>
+<hr>
+<h1 id="資料庫-Database"><a href="#資料庫-Database" class="headerlink" title="資料庫 Database"></a>資料庫 Database</h1><h2 id="當前資料庫"><a href="#當前資料庫" class="headerlink" title="當前資料庫"></a>當前資料庫</h2><p><code>db</code></p>
+<h2 id="列出資料庫"><a href="#列出資料庫" class="headerlink" title="列出資料庫"></a>列出資料庫</h2><p><code>show databases</code><br><code>show dbs</code></p>
+<h2 id="建立資料庫"><a href="#建立資料庫" class="headerlink" title="建立資料庫"></a>建立資料庫</h2><p><code>use [DBNAME]</code></p>
+<h2 id="刪除資料庫"><a href="#刪除資料庫" class="headerlink" title="刪除資料庫"></a>刪除資料庫</h2><p><code>db.dropDatabase();</code></p>
+<hr>
+<h1 id="資料表-Collection"><a href="#資料表-Collection" class="headerlink" title="資料表 Collection"></a>資料表 Collection</h1><h2 id="列出資料表"><a href="#列出資料表" class="headerlink" title="列出資料表"></a>列出資料表</h2><p><code>show collections</code></p>
+<h2 id="建立資料表"><a href="#建立資料表" class="headerlink" title="建立資料表"></a>建立資料表</h2><p><code>db.createCollection(&quot;TestCollection&quot;)</code></p>
+<h2 id="刪除資料表"><a href="#刪除資料表" class="headerlink" title="刪除資料表"></a>刪除資料表</h2><p><code>db.TestCollection.drop();</code></p>
+<hr>
+<h1 id="資料-Document"><a href="#資料-Document" class="headerlink" title="資料 Document"></a>資料 Document</h1><h2 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h2><p><code>db.TestCollection.insert({data: &quot;test_data&quot;, num: 2, arr: [&quot;arr1&quot;, &quot;arr2&quot;, &quot;arr3&quot;]});</code></p>
+<h2 id="Query"><a href="#Query" class="headerlink" title="Query"></a>Query</h2><p><code>db.TestCollection.find({data: &quot;test_data&quot;});</code><br><code>db.TestCollection.find();</code></p>
+<h2 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h2><p><code>db.TestCollection.update({data: &quot;test_data&quot;}, { $set: {num: 3} });</code></p>
+<h2 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h2><p><code>db.TestCollection.remove({data: &quot;test_data&quot;});</code></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/11/09/lumen-from-scratch/" rel="prev" title="Lumen from scratch">
+      <i class="fa fa-chevron-left"></i> Lumen from scratch
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/11/16/raspberry-pi/" rel="next" title="Raspberry Pi Notes">
+      Raspberry Pi Notes <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB"><span class="nav-number">1.</span> <span class="nav-text">MongoDB</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#進入shell"><span class="nav-number">1.1.</span> <span class="nav-text">進入shell</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#資料庫-Database"><span class="nav-number">2.</span> <span class="nav-text">資料庫 Database</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#當前資料庫"><span class="nav-number">2.1.</span> <span class="nav-text">當前資料庫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列出資料庫"><span class="nav-number">2.2.</span> <span class="nav-text">列出資料庫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立資料庫"><span class="nav-number">2.3.</span> <span class="nav-text">建立資料庫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#刪除資料庫"><span class="nav-number">2.4.</span> <span class="nav-text">刪除資料庫</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#資料表-Collection"><span class="nav-number">3.</span> <span class="nav-text">資料表 Collection</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#列出資料表"><span class="nav-number">3.1.</span> <span class="nav-text">列出資料表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立資料表"><span class="nav-number">3.2.</span> <span class="nav-text">建立資料表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#刪除資料表"><span class="nav-number">3.3.</span> <span class="nav-text">刪除資料表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#資料-Document"><span class="nav-number">4.</span> <span class="nav-text">資料 Document</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Insert"><span class="nav-number">4.1.</span> <span class="nav-text">Insert</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Query"><span class="nav-number">4.2.</span> <span class="nav-text">Query</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Update"><span class="nav-number">4.3.</span> <span class="nav-text">Update</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Delete"><span class="nav-number">4.4.</span> <span class="nav-text">Delete</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

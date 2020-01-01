@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Node.js NotesNVMGitHub 12345678910111213141516171819# 目前狀態nvm ls# 列出全部可以載的nvm ls-remote# 安裝nvm install 6.6.6nvm use 6.6.6# 刪nvm uninstall 6.6.6# 載LTSnvm install lts/argon# 設成default (重開會自動設成目前default)">
+<meta name="keywords" content="notes,nodejs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js Notes">
+<meta property="og:url" content="http://yoursite.com/2017/05/27/node-js-notes/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="Node.js NotesNVMGitHub 12345678910111213141516171819# 目前狀態nvm ls# 列出全部可以載的nvm ls-remote# 安裝nvm install 6.6.6nvm use 6.6.6# 刪nvm uninstall 6.6.6# 載LTSnvm install lts/argon# 設成default (重開會自動設成目前default)">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.480Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node.js Notes">
+<meta name="twitter:description" content="Node.js NotesNVMGitHub 12345678910111213141516171819# 目前狀態nvm ls# 列出全部可以載的nvm ls-remote# 安裝nvm install 6.6.6nvm use 6.6.6# 刪nvm uninstall 6.6.6# 載LTSnvm install lts/argon# 設成default (重開會自動設成目前default)">
+
+<link rel="canonical" href="http://yoursite.com/2017/05/27/node-js-notes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Node.js Notes | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/27/node-js-notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Node.js Notes
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-05-27 10:38:23" itemprop="dateCreated datePublished" datetime="2017-05-27T10:38:23+08:00">2017-05-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Node-js-Notes"><a href="#Node-js-Notes" class="headerlink" title="Node.js Notes"></a>Node.js Notes</h1><h2 id="NVM"><a href="#NVM" class="headerlink" title="NVM"></a>NVM</h2><p><a href="https://github.com/creationix/nvm" target="_blank" rel="external">GitHub</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 目前狀態</span></div><div class="line">nvm ls</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 列出全部可以載的</span></div><div class="line">nvm ls-remote</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 安裝</span></div><div class="line">nvm install 6.6.6</div><div class="line">nvm use 6.6.6</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 刪</span></div><div class="line">nvm uninstall 6.6.6</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 載LTS</span></div><div class="line">nvm install lts/argon</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 設成default (重開會自動設成目前default)</span></div><div class="line">nvm alias default 4.5.0</div><div class="line">nvm use default</div></pre></td></tr></table></figure>
+<h2 id="NPM"><a href="#NPM" class="headerlink" title="NPM"></a>NPM</h2><p><a href="https://docs.npmjs.com/" target="_blank" rel="external">Site</a><br><a href="https://www.attosol.com/npm-notes-tips-tricks/" target="_blank" rel="external">https://www.attosol.com/npm-notes-tips-tricks/</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 自我更新</span></div><div class="line">npm install npm -g</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 列出套件</span></div><div class="line">npm ls</div><div class="line">npm ls -g</div><div class="line">npm ls -l</div><div class="line">npm ls -gl</div><div class="line">npm ls --depth=0</div><div class="line">npm ls --depth=0 -g</div><div class="line">npm ls --depth=0 -l</div><div class="line">npm ls --depth=0 -gl</div><div class="line">npm ls --depth=0 -long -l</div><div class="line">npm ls --depth=0 -long -gl</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 更新套件</span></div><div class="line">npm outdated</div><div class="line">npm outdated -g</div><div class="line">npm update</div><div class="line">npm update -g</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 製作套件</span></div><div class="line">cd FOLDER</div><div class="line">npm link</div><div class="line">npm unlink or npm r xxxxx -g</div><div class="line">cd ANOTHER_FOLDER</div><div class="line">npm link xxxxx</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 上架</span></div><div class="line">npm adduser 登入</div><div class="line">npm whoami 看有沒有登入成功</div><div class="line">npm publish 上架</div><div class="line">npm unpublish --force 強制下架(三思)</div><div class="line">npm view 看發佈過的版本</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> Script Shortcut</span></div><div class="line">npm start</div><div class="line">npm restart</div><div class="line">npm stop</div><div class="line">npm test</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> 列出available scripts <span class="keyword">in</span> the package.json:</span></div><div class="line">npm run # npm run-script</div></pre></td></tr></table></figure>
+<h2 id="SemVer-Semantic-Version"><a href="#SemVer-Semantic-Version" class="headerlink" title="SemVer (Semantic Version)"></a>SemVer (Semantic Version)</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">Maror</th>
+<th style="text-align:center">Minor</th>
+<th style="text-align:center">Patch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">X</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Z</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> Bug Fix &amp;&amp; Little Change</span></div><div class="line">npm version patch</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> New Feature</span></div><div class="line">npm version minor</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> New Release</span></div><div class="line">npm version major</div></pre></td></tr></table></figure>
+<p>package.json<br><code>^1.2.3</code> : <code>1.x.x</code> ( <code>≥1.2.3</code> &amp; <code>&lt;2.0.0</code> )<br><code>~1.2.3</code> : <code>1.2.x</code> ( <code>≥1.2.3</code> &amp; <code>&lt;1.3.0</code> )</p>
+<h2 id="Yarn"><a href="#Yarn" class="headerlink" title="Yarn"></a>Yarn</h2><p><a href="https://yarnpkg.com/en/" target="_blank" rel="external">Site</a><br><a href="https://github.com/yarnpkg/yarn" target="_blank" rel="external">GitHub</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">npm install yarn -g</div><div class="line">yarn install (= yarn)</div><div class="line">yarn init</div><div class="line">yarn add xxx (=npm install xxx -S)</div><div class="line">yarn add xxx -D (=npm install xxx -D)</div><div class="line">yarn upgrade (update all pkg in yarn.lock)</div><div class="line">yarn upgrade xxx (update package.json)</div><div class="line">yarn remove xxx (remove from package.json)</div></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/notes/" rel="tag"># notes</a>
+              <a href="/tags/nodejs/" rel="tag"># nodejs</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/05/18/regular-expression-notes/" rel="prev" title="Regular Expression Notes">
+      <i class="fa fa-chevron-left"></i> Regular Expression Notes
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/06/16/lex-and-yacc-notes/" rel="next" title="Lex and Yacc Notes">
+      Lex and Yacc Notes <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Node-js-Notes"><span class="nav-number">1.</span> <span class="nav-text">Node.js Notes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#NVM"><span class="nav-number">1.1.</span> <span class="nav-text">NVM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NPM"><span class="nav-number">1.2.</span> <span class="nav-text">NPM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SemVer-Semantic-Version"><span class="nav-number">1.3.</span> <span class="nav-text">SemVer (Semantic Version)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Yarn"><span class="nav-number">1.4.</span> <span class="nav-text">Yarn</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

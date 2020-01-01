@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="- Console Window Manipulation 大概分成這四種 Screen buffer Console window Controlling the cursor Controlling the text color">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MASM : MS-Windows Programming (3)">
+<meta property="og:url" content="http://yoursite.com/2016/05/18/masm-ms-windows-programming-3/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="- Console Window Manipulation 大概分成這四種 Screen buffer Console window Controlling the cursor Controlling the text color">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.463Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MASM : MS-Windows Programming (3)">
+<meta name="twitter:description" content="- Console Window Manipulation 大概分成這四種 Screen buffer Console window Controlling the cursor Controlling the text color">
+
+<link rel="canonical" href="http://yoursite.com/2016/05/18/masm-ms-windows-programming-3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>MASM : MS-Windows Programming (3) | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/18/masm-ms-windows-programming-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MASM : MS-Windows Programming (3)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-05-18 15:47:00" itemprop="dateCreated datePublished" datetime="2016-05-18T15:47:00+08:00">2016-05-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Console-Window-Manipulation-大概分成這四種"><a href="#Console-Window-Manipulation-大概分成這四種" class="headerlink" title="- Console Window Manipulation 大概分成這四種"></a>- Console Window Manipulation 大概分成這四種</h1><ul>
+<li>Screen buffer</li>
+<li>Console window</li>
+<li>Controlling the cursor</li>
+<li><p>Controlling the text color</p>
+  <a id="more"></a>
+</li>
+</ul>
+<blockquote>
+<p>The active screen buffer includes data displayed by the console window.</p>
+</blockquote>
+<h1 id="SetConsoleTitle"><a href="#SetConsoleTitle" class="headerlink" title="- SetConsoleTitle"></a>- SetConsoleTitle</h1><blockquote>
+<p><code>SetConsoleTitle</code> changes the console window’s title. Pass it a null-terminated string:</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">.data</div><div class="line">titleStr BYTE &quot;Console title&quot;,0</div><div class="line">.code</div><div class="line">INVOKE SetConsoleTitle, ADDR titleStr</div></pre></td></tr></table></figure>
+<hr>
+<h1 id="GetConsoleScreenBufferInfo"><a href="#GetConsoleScreenBufferInfo" class="headerlink" title="- GetConsoleScreenBufferInfo"></a>- GetConsoleScreenBufferInfo</h1><blockquote>
+<p><code>GetConsoleScreenBufferInfo</code> returns information about the current state of the console window. It has two parameters: <code>a handle to the console screen</code>, and <code>a pointer to a structure</code> that is filled in by the function:</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">.data</div><div class="line">outHandle DWORD ?</div><div class="line">consoleInfo CONSOLE_SCREEN_BUFFER_INFO &lt;&gt;</div><div class="line">.code</div><div class="line">  INVOKE GetConsoleScreenBufferInfo,</div><div class="line">    outHandle,</div><div class="line">    ADDR consoleInfo</div></pre></td></tr></table></figure>
+<h1 id="CONSOLE-SCREEN-BUFFER-INFO"><a href="#CONSOLE-SCREEN-BUFFER-INFO" class="headerlink" title="- CONSOLE_SCREEN_BUFFER_INFO"></a>- CONSOLE_SCREEN_BUFFER_INFO</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">CONSOLE_SCREEN_BUFFER_INFO STRUCT</div><div class="line">  dwSize COORD &lt;&gt;</div><div class="line">  dwCursorPos COORD &lt;&gt;</div><div class="line">  wAttributes WORD ?</div><div class="line">  srWindow SMALL_RECT &lt;&gt;</div><div class="line">  maxWinSize COORD &lt;&gt;</div><div class="line">CONSOLE_SCREEN_BUFFER_INFO ENDS</div></pre></td></tr></table></figure>
+<ul>
+<li>dwSize -size of the screen buffer (char columns and rows)</li>
+<li>dwCursorPos -cursor location</li>
+<li>wAttributes -colors of characters in console buffer</li>
+<li>srWindow -coords of console window relative to screen buffer</li>
+<li>maxWinSize -maximum size of the console window</li>
+</ul>
+<h1 id="COORD-and-SMALL-RECT"><a href="#COORD-and-SMALL-RECT" class="headerlink" title="- COORD and SMALL_RECT"></a>- COORD and SMALL_RECT</h1><ul>
+<li>The <code>COORD structure</code> specifies X and Y screen coordinates in character measurements, which default to <code>0-79</code> and <code>0-24</code>.</li>
+<li>The <code>SMALL_RECT structure</code> specifies a <code>window’s location</code> in character measurements.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">COORD STRUCT</div><div class="line">  X WORD ?</div><div class="line">  Y WORD ?</div><div class="line">COORD ENDS</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">SMALL_RECT STRUCT</div><div class="line">  Left WORD ?</div><div class="line">  Top WORD ?</div><div class="line">  Right WORD ?</div><div class="line">  Bottom WORD ?</div><div class="line">SMALL_RECT ENDS</div></pre></td></tr></table></figure>
+<hr>
+<h1 id="SetConsoleWindowInfo"><a href="#SetConsoleWindowInfo" class="headerlink" title="- SetConsoleWindowInfo"></a>- SetConsoleWindowInfo</h1><ul>
+<li><code>SetConsoleWindowInfo</code> lets you <code>set the size and position of the console window</code> relative to its screen buffer.</li>
+<li>Prototype:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">SetConsoleWindowInfo PROTO,</div><div class="line">  nStdHandle:DWORD,; screen buffer handle</div><div class="line">  bAbsolute:DWORD,; coordinate type</div><div class="line">  pConsoleRect:PTR SMALL_RECT; window rectangle</div></pre></td></tr></table></figure>
+<h1 id="SetConsoleScreenBufferSize"><a href="#SetConsoleScreenBufferSize" class="headerlink" title="- SetConsoleScreenBufferSize"></a>- SetConsoleScreenBufferSize</h1><ul>
+<li><code>SetConsoleScreenBufferSize</code> lets you set the screen buffer size to X columns by Y rows.</li>
+<li>Prototype:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">SetConsoleScreenBufferSize PROTO,</div><div class="line">  outHandle:DWORD,; handle to screen buffer</div><div class="line">  dwSize:COORD; new screen buffer size</div></pre></td></tr></table></figure>
+<hr>
+<h1 id="Controlling-the-Cursor"><a href="#Controlling-the-Cursor" class="headerlink" title="- Controlling the Cursor"></a>- Controlling the Cursor</h1><p>returns the size and visibility of the console cursor<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GetConsoleCursorInfo PROTO, hConsoleOutput:HANDLE, lpConsoleCursorInfo: PTR CONSOLE_CURSOR_INFO</div></pre></td></tr></table></figure></p>
+<p>sets the size and visibility of the cursor<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SetConsoleCursorInfo PROTO, hConsoleOutput:HANDLE, lpConsoleCursorInfo: PTR CONSOLE_CURSOR_INFO</div></pre></td></tr></table></figure></p>
+<p>sets the X, Y position of the cursor<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SetConsoleCursorPosition PROTO, hConsoleOutput:HANDLE, dwCursorPosition:COORD</div></pre></td></tr></table></figure></p>
+<h1 id="CONSOLE-CURSOR-INFO"><a href="#CONSOLE-CURSOR-INFO" class="headerlink" title="- CONSOLE_CURSOR_INFO"></a>- CONSOLE_CURSOR_INFO</h1><p>Structure containing information about the console’s cursor size and visibility:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">CONSOLE_CURSOR_INFO STRUCT</div><div class="line">  dwSize DWORD ?</div><div class="line">  bVisible DWORD ?</div><div class="line">CONSOLE_CURSOR_INFO ENDS</div></pre></td></tr></table></figure>
+<hr>
+<h1 id="SetConsoleTextAttribute"><a href="#SetConsoleTextAttribute" class="headerlink" title="- SetConsoleTextAttribute"></a>- SetConsoleTextAttribute</h1><ul>
+<li>Sets the foreground and background colors of all subsequent text written to the console.</li>
+<li>Prototype:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">SetConsoleTextAttribute PROTO,</div><div class="line">  outHandle:DWORD,; console output handle</div><div class="line">  nColor:DWORD; color attribute</div></pre></td></tr></table></figure>
+<h1 id="WriteConsoleOutputAttribute"><a href="#WriteConsoleOutputAttribute" class="headerlink" title="- WriteConsoleOutputAttribute"></a>- WriteConsoleOutputAttribute</h1><ul>
+<li>Copies an array of attribute values to consecutive cells of the console screen buffer, beginning at a specified location.</li>
+<li>Prototype:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">WriteConsoleOutputAttribute PROTO,</div><div class="line">  outHandle:DWORD,; output handle</div><div class="line">  pAttribute:PTR WORD,; write attributes</div><div class="line">  nLength:DWORD,; number of cells</div><div class="line">  xyCoord:COORD,; first cell coordinates</div><div class="line">  lpCount:PTR DWORD; number of cells written</div></pre></td></tr></table></figure>
+<h1 id="WriteConsoleOutputCharacter"><a href="#WriteConsoleOutputCharacter" class="headerlink" title="- WriteConsoleOutputCharacter"></a>- WriteConsoleOutputCharacter</h1><ul>
+<li>Copy characters to consecutive cells of the console screen buffer, beginning at a specified location.</li>
+<li>Prototype:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">WriteConsoleOutputCharacter PROTO,</div><div class="line">  outHandle:DWORD,; output handle</div><div class="line">  ADDR pChar,; pointer to the character to be written</div><div class="line">  Width,; size of line</div><div class="line">  xyPosition,; coordinates of first char</div><div class="line">  ADDR count; output count</div></pre></td></tr></table></figure>
+<h1 id="Example-WriteColors-Program"><a href="#Example-WriteColors-Program" class="headerlink" title="- Example : WriteColors Program"></a>- Example : WriteColors Program</h1><ul>
+<li>Creates an array of characters and an array of attributes, one for each character</li>
+<li>Copies the attributes to the screen buffer</li>
+<li>Copies the characters to the same screen buffer cells as the attributes</li>
+<li>(starts in row 2, column 10)</li>
+</ul>
+<figure class="highlight ruby"><figcaption><span>WriteColors.asm</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">INCLUDE Irvine32.inc</div><div class="line">.data</div><div class="line">outHandle HANDLE ?</div><div class="line">cellsWritten DWORD ?</div><div class="line">xyPos COORD &lt;<span class="number">10</span>,<span class="number">2</span>&gt;</div><div class="line"></div><div class="line">; Array of character <span class="symbol">codes:</span></div><div class="line">buffer BYTE <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">14</span>,<span class="number">15</span></div><div class="line">       BYTE <span class="number">16</span>,<span class="number">17</span>,<span class="number">18</span>,<span class="number">19.20</span></div><div class="line">BufSize DWORD ($ - buffer)</div><div class="line">; Array of <span class="symbol">attributes:</span></div><div class="line">attributes WORD 0Fh,0Eh,0Dh,0Ch,0Bh,0Ah,<span class="number">9</span>,<span class="number">8</span>,<span class="number">7</span>,<span class="number">6</span></div><div class="line">           WORD <span class="number">5</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>,0F0h,0E0h,0D0h,0C0h,0B0h</div><div class="line">.code</div><div class="line">main PROC</div><div class="line"></div><div class="line">; Get the Console standard output <span class="symbol">handle:</span></div><div class="line">INVOKE GetStdHandle,STD_OUTPUT_HANDLE</div><div class="line">mov outHandle,eax</div><div class="line"></div><div class="line">; Set the colors from (<span class="number">10</span>,<span class="number">2</span>) to (<span class="number">30</span>,<span class="number">2</span>):</div><div class="line">INVOKE WriteConsoleOutputAttribute,</div><div class="line">  outHandle, ADDR attributes,</div><div class="line">  BufSize, xyPos,</div><div class="line">  ADDR cellsWritten</div><div class="line"></div><div class="line">; Write character codes <span class="number">1</span> to <span class="number">20</span>:</div><div class="line">INVOKE WriteConsoleOutputCharacter,</div><div class="line">  outHandle, ADDR buffer, BufSize,</div><div class="line">  xyPos, ADDR cellsWritten</div><div class="line">  </div><div class="line">call ReadChar</div><div class="line">exit</div><div class="line">main ENDP</div><div class="line"><span class="keyword">END</span> main</div></pre></td></tr></table></figure>
+<hr>
+<h1 id="GetLocalTime-SetLocalTime"><a href="#GetLocalTime-SetLocalTime" class="headerlink" title="- GetLocalTime, SetLocalTime"></a>- GetLocalTime, SetLocalTime</h1><ul>
+<li><code>GetLocalTime</code>  returns the date and current time of day, according to the system clock.</li>
+<li><code>SetLocalTime</code> sets the system’s local date and time.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">GetLocalTime PROTO,</div><div class="line">	pSystemTime:PTR SYSTEMTIME</div><div class="line">  </div><div class="line">SetLocalTime PROTO,</div><div class="line">	pSystemTime:PTR SYSTEMTIME</div></pre></td></tr></table></figure>
+<h1 id="GetTickCount-Sleep"><a href="#GetTickCount-Sleep" class="headerlink" title="- GetTickCount, Sleep"></a>- GetTickCount, Sleep</h1><ul>
+<li><code>GetTickCountfunction</code> returns the number of milliseconds that have elapsed since the system was started.</li>
+<li><code>Sleep</code> pauses the current program for a specified number of milliseconds.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">GetTickCount PROTO; return value in EAX</div><div class="line"></div><div class="line">Sleep PROTO,  </div><div class="line">	dwMilliseconds:DWORD</div></pre></td></tr></table></figure>
+<h1 id="SYSTEMTIME-Structure"><a href="#SYSTEMTIME-Structure" class="headerlink" title="- SYSTEMTIME Structure"></a>- SYSTEMTIME Structure</h1><ul>
+<li><code>SYSTEMTIME</code> is used by date and time-related Windows API functions:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">SYSTEMTIME STRUCT</div><div class="line">  wYear WORD ?; year (4 digits)</div><div class="line">  wMonth WORD ?; month (1-12)</div><div class="line">  wDayOfWeek WORD ?; day of week (0-6)</div><div class="line">  wDay WORD ?; day (1-31)</div><div class="line">  wHour WORD ?; hours (0-23)</div><div class="line">  wMinute WORD ?; minutes (0-59)</div><div class="line">  wSecond WORD ?; seconds (0-59)</div><div class="line">  wMilliseconds WORD ?; milliseconds (0-999)</div><div class="line">SYSTEMTIME ENDS</div></pre></td></tr></table></figure>
+<h1 id="Example-Calculate-Elapsed-Time-Timer-asm"><a href="#Example-Calculate-Elapsed-Time-Timer-asm" class="headerlink" title="- Example : Calculate Elapsed Time (Timer.asm)"></a>- Example : Calculate Elapsed Time (Timer.asm)</h1><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">INCLUDE Irvine32.inc</div><div class="line">INCLUDE macros.inc</div><div class="line"></div><div class="line">.data</div><div class="line">startTime DWORD ?</div><div class="line"></div><div class="line">.code</div><div class="line">main PROC</div><div class="line">INVOKE GetTickCount ; get starting tick count</div><div class="line">mov startTime,eax ; save it</div><div class="line"></div><div class="line">; Create a useless calculation loop.</div><div class="line">move cx,<span class="number">10000100</span>h</div><div class="line"><span class="symbol">L1:</span></div><div class="line">	imul ebx</div><div class="line">  imul ebx</div><div class="line">  imul ebx</div><div class="line">Loop L1</div><div class="line"></div><div class="line">INVOKE GetTickCount ; get new tick count</div><div class="line">cmp eax,startTime ; lower than starting one?</div><div class="line">jb error ; it wrapped around</div><div class="line"></div><div class="line">sub eax,startTime ; get elapsed milliseconds</div><div class="line">call WriteDec ; display it</div><div class="line">mWrite &lt;<span class="string">" milliseconds have elapsed"</span>,0dh,0ah&gt;</div><div class="line">jmp quit</div><div class="line"></div><div class="line"><span class="symbol">error:</span></div><div class="line">mWrite <span class="string">"Error: GetTickCount invalid--system has "</span></div><div class="line">mWrite &lt;<span class="string">"been active for more than 49.7 days"</span>,0dh,0ah&gt;</div><div class="line"><span class="symbol">quit:</span></div><div class="line">exit</div><div class="line">main ENDP</div><div class="line"></div><div class="line"><span class="keyword">END</span> main</div></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/05/18/masm-ms-windows-programming-2/" rel="prev" title="MASM : MS-Windows Programming (2)">
+      <i class="fa fa-chevron-left"></i> MASM : MS-Windows Programming (2)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/05/19/ubuntu-server-1604-lts-notes/" rel="next" title="Ubuntu Server 16.04 LTS 安裝筆記">
+      Ubuntu Server 16.04 LTS 安裝筆記 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Console-Window-Manipulation-大概分成這四種"><span class="nav-number">1.</span> <span class="nav-text">- Console Window Manipulation 大概分成這四種</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SetConsoleTitle"><span class="nav-number">2.</span> <span class="nav-text">- SetConsoleTitle</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GetConsoleScreenBufferInfo"><span class="nav-number">3.</span> <span class="nav-text">- GetConsoleScreenBufferInfo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CONSOLE-SCREEN-BUFFER-INFO"><span class="nav-number">4.</span> <span class="nav-text">- CONSOLE_SCREEN_BUFFER_INFO</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#COORD-and-SMALL-RECT"><span class="nav-number">5.</span> <span class="nav-text">- COORD and SMALL_RECT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SetConsoleWindowInfo"><span class="nav-number">6.</span> <span class="nav-text">- SetConsoleWindowInfo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SetConsoleScreenBufferSize"><span class="nav-number">7.</span> <span class="nav-text">- SetConsoleScreenBufferSize</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Controlling-the-Cursor"><span class="nav-number">8.</span> <span class="nav-text">- Controlling the Cursor</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CONSOLE-CURSOR-INFO"><span class="nav-number">9.</span> <span class="nav-text">- CONSOLE_CURSOR_INFO</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SetConsoleTextAttribute"><span class="nav-number">10.</span> <span class="nav-text">- SetConsoleTextAttribute</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WriteConsoleOutputAttribute"><span class="nav-number">11.</span> <span class="nav-text">- WriteConsoleOutputAttribute</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WriteConsoleOutputCharacter"><span class="nav-number">12.</span> <span class="nav-text">- WriteConsoleOutputCharacter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Example-WriteColors-Program"><span class="nav-number">13.</span> <span class="nav-text">- Example : WriteColors Program</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GetLocalTime-SetLocalTime"><span class="nav-number">14.</span> <span class="nav-text">- GetLocalTime, SetLocalTime</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GetTickCount-Sleep"><span class="nav-number">15.</span> <span class="nav-text">- GetTickCount, Sleep</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SYSTEMTIME-Structure"><span class="nav-number">16.</span> <span class="nav-text">- SYSTEMTIME Structure</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Example-Calculate-Elapsed-Time-Timer-asm"><span class="nav-number">17.</span> <span class="nav-text">- Example : Calculate Elapsed Time (Timer.asm)</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

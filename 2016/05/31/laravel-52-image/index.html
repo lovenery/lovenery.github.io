@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Reference:https://devdojo.com/episode/laravel-user-image">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Laravel 5.2 Image">
+<meta property="og:url" content="http://yoursite.com/2016/05/31/laravel-52-image/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="Reference:https://devdojo.com/episode/laravel-user-image">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.465Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Laravel 5.2 Image">
+<meta name="twitter:description" content="Reference:https://devdojo.com/episode/laravel-user-image">
+
+<link rel="canonical" href="http://yoursite.com/2016/05/31/laravel-52-image/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Laravel 5.2 Image | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/31/laravel-52-image/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Laravel 5.2 Image
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-05-31 04:14:00" itemprop="dateCreated datePublished" datetime="2016-05-31T04:14:00+08:00">2016-05-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Reference:<a href="https://devdojo.com/episode/laravel-user-image" target="_blank" rel="external">https://devdojo.com/episode/laravel-user-image</a></p>
+<a id="more"></a>
+<h2 id="Auth-Template"><a href="#Auth-Template" class="headerlink" title="Auth Template"></a>Auth Template</h2><p><code>php artisan make:auth</code><br>Test</p>
+<h2 id="Add-avatar-column"><a href="#Add-avatar-column" class="headerlink" title="Add avatar column"></a>Add avatar column</h2><figure class="highlight ruby"><figcaption><span>create_users_table.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$table-&gt;string(<span class="string">'avatar'</span>)-&gt;default(<span class="string">'default.jpg'</span>);</div></pre></td></tr></table></figure>
+<p><code>php artisan migrate</code></p>
+<h2 id="Profile-link"><a href="#Profile-link" class="headerlink" title="Profile link"></a>Profile link</h2><figure class="highlight"><figcaption><span>resources/views/layouts/app.blade.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;li&gt;</div><div class="line">	&lt;a href="&#123;&#123; url('/profile') &#125;&#125;"&gt;</div><div class="line">		&lt;i class="fa fa-btn fa-user"&gt;&lt;/i&gt;Profile</div><div class="line">	&lt;/a&gt;</div><div class="line">&lt;/li&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight ruby"><figcaption><span>routes.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Route::get(<span class="string">'profile'</span>, <span class="string">'UserController@profile'</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight ruby"><figcaption><span>UserController.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">use Auth;</div><div class="line"></div><div class="line">public function profile()&#123;</div><div class="line">  <span class="keyword">return</span> view(<span class="string">'profile'</span>, array(<span class="string">'user'</span> =&gt; Auth::user()) );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight"><figcaption><span>profile.blade.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">@extends('layouts.app')</div><div class="line"></div><div class="line">@section('content')</div><div class="line">&lt;div class="container"&gt;</div><div class="line">    &lt;div class="row"&gt;</div><div class="line">        &lt;div class="col-md-10 col-md-offset-1"&gt;</div><div class="line"></div><div class="line">            &lt;h2&gt;&#123;&#123; $user-&gt;name &#125;&#125;'s Profile&lt;/h2&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">@endsection</div></pre></td></tr></table></figure>
+<p>Test</p>
+<h2 id="Default-Image"><a href="#Default-Image" class="headerlink" title="Default Image"></a>Default Image</h2><figure class="highlight ruby"><figcaption><span>profile.blade.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;img src=<span class="string">"/uploads/avatars/&#123;&#123; $user-&gt;avatar &#125;&#125;"</span> style=<span class="string">"width:150px; height:150px; float:left; border-radius:50%; margin-right:25px;"</span></div></pre></td></tr></table></figure>
+<p>Test</p>
+<h2 id="Upload-table"><a href="#Upload-table" class="headerlink" title="Upload table"></a>Upload table</h2><figure class="highlight"><figcaption><span>profile.blade.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;form enctype="multipart/form-data" action="/profile" method="POST"&gt;</div><div class="line">    &#123;&#123; csrf_field() &#125;&#125;</div><div class="line">    &lt;label&gt;Update Profile Image&lt;/label&gt;</div><div class="line">    &lt;input type="file" name="avatar"&gt;</div><div class="line">    &lt;input type="submit" class="pull-right btn btn-sm btn-primary"&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight ruby"><figcaption><span>routes.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Route::post(<span class="string">'profile'</span>, <span class="string">'UserController@update_avatar'</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight ruby"><figcaption><span>UserController.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public function update_avatar(Request $request)&#123;</div><div class="line">    <span class="regexp">//</span> Handle the user upload of avatar</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Install-Intervention-Image-Package"><a href="#Install-Intervention-Image-Package" class="headerlink" title="Install Intervention Image Package"></a>Install Intervention Image Package</h2><p><a href="http://image.intervention.io/" target="_blank" rel="external">http://image.intervention.io/</a></p>
+<p><code>composer require intervention/image</code></p>
+<figure class="highlight ruby"><figcaption><span>config/app.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">Intervention\Image\ImageServiceProvider::<span class="class"><span class="keyword">class</span>,</span></div><div class="line">...</div><div class="line"><span class="string">'Image'</span> =&gt; Intervention\Image\Facades\Image::<span class="class"><span class="keyword">class</span>,</span></div></pre></td></tr></table></figure>
+<h2 id="Upload-Success"><a href="#Upload-Success" class="headerlink" title="Upload Success!"></a>Upload Success!</h2><figure class="highlight ruby"><figcaption><span>UserController.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">use Image;</div><div class="line">public function update_avatar(Request $request)&#123;</div><div class="line">    <span class="regexp">//</span> Handle the user upload of avatar</div><div class="line">  <span class="keyword">if</span>($request-&gt;hasFile(<span class="string">'avatar'</span>))&#123;</div><div class="line">    $avatar = $request-&gt;file(<span class="string">'avatar'</span>);</div><div class="line">    $filename = time() . <span class="string">'.'</span> . $avatar-&gt;getClientOriginalExtension();</div><div class="line">    Image::make($avatar)-&gt;resize(<span class="number">300</span>, <span class="number">300</span>)-&gt;save( public_path(<span class="string">'uploads/avatars/'</span> . $filename ) );</div><div class="line">    $user = Auth::user();</div><div class="line">    $user-&gt;avatar = $filename;</div><div class="line">    $user-&gt;save();</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> view(<span class="string">'profile'</span>, array(<span class="string">'user'</span> =&gt; Auth::user()) );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Test</p>
+<h2 id="User-Navbar-Image"><a href="#User-Navbar-Image" class="headerlink" title="User Navbar Image"></a>User Navbar Image</h2><figure class="highlight"><figcaption><span>resources/views/layouts/app.blade.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="position:relative; padding-left:50px;"&gt;</div><div class="line">&lt;img src="/uploads/avatars/&#123;&#123; Auth::user()-&gt;avatar &#125;&#125;" style="width:32px; height:32px; position:absolute; top:10px; left:10px; border-radius:50%"&gt;</div></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/05/29/laravel-52-socialite/" rel="prev" title="Laravel 5.2 Socialite">
+      <i class="fa fa-chevron-left"></i> Laravel 5.2 Socialite
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/06/05/laravel-52-fileupload/" rel="next" title="Laravel 5.2 FileUpload">
+      Laravel 5.2 FileUpload <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Auth-Template"><span class="nav-number">1.</span> <span class="nav-text">Auth Template</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Add-avatar-column"><span class="nav-number">2.</span> <span class="nav-text">Add avatar column</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Profile-link"><span class="nav-number">3.</span> <span class="nav-text">Profile link</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Default-Image"><span class="nav-number">4.</span> <span class="nav-text">Default Image</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Upload-table"><span class="nav-number">5.</span> <span class="nav-text">Upload table</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Install-Intervention-Image-Package"><span class="nav-number">6.</span> <span class="nav-text">Install Intervention Image Package</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Upload-Success"><span class="nav-number">7.</span> <span class="nav-text">Upload Success!</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User-Navbar-Image"><span class="nav-number">8.</span> <span class="nav-text">User Navbar Image</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

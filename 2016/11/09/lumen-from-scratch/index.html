@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Lumenref: https://www.cloudways.com/blog/creating-rest-api-with-lumen/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lumen from scratch">
+<meta property="og:url" content="http://yoursite.com/2016/11/09/lumen-from-scratch/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="Lumenref: https://www.cloudways.com/blog/creating-rest-api-with-lumen/">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.472Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lumen from scratch">
+<meta name="twitter:description" content="Lumenref: https://www.cloudways.com/blog/creating-rest-api-with-lumen/">
+
+<link rel="canonical" href="http://yoursite.com/2016/11/09/lumen-from-scratch/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Lumen from scratch | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/09/lumen-from-scratch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Lumen from scratch
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-11-09 18:05:00" itemprop="dateCreated datePublished" datetime="2016-11-09T18:05:00+08:00">2016-11-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Lumen"><a href="#Lumen" class="headerlink" title="Lumen"></a>Lumen</h1><p>ref: <a href="https://www.cloudways.com/blog/creating-rest-api-with-lumen/" target="_blank" rel="external">https://www.cloudways.com/blog/creating-rest-api-with-lumen/</a></p>
+<a id="more"></a>
+<p><code>Lumen (5.3.2) (Laravel Components 5.3.*)</code></p>
+<h2 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h2><p><code>composer self-update</code><br><code>composer global update</code></p>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><p><code>composer global require &quot;laravel/lumen-installer&quot;</code><br><code>lumen new car_api</code></p>
+<h2 id="env"><a href="#env" class="headerlink" title=".env"></a>.env</h2><p><code>cp .env.example .env</code></p>
+<p>APP_KEY: Vup31GMytLqiQHNjKOahXDbLsqiiFXbd<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$app-&gt;get(<span class="string">'/key'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> str_random(<span class="number">32</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>APP_TIMEZONE: UTC -&gt; Asia/Taipei</p>
+<p>DB_…</p>
+<h2 id="Enable-Eloquent-Facades"><a href="#Enable-Eloquent-Facades" class="headerlink" title="Enable Eloquent, Facades"></a>Enable Eloquent, Facades</h2><p><code>bootstrap/app.php</code><br>uncomment<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$app-&gt;withFacades();</div><div class="line">$app-&gt;withEloquent();</div></pre></td></tr></table></figure></p>
+<h2 id="Migration"><a href="#Migration" class="headerlink" title="Migration"></a>Migration</h2><p><code>php artisan make:migration create_table_cars --create=cars</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$table-&gt;string(<span class="string">'make'</span>);</div><div class="line">$table-&gt;string(<span class="string">'model'</span>);</div><div class="line">$table-&gt;string(<span class="string">'year'</span>);</div></pre></td></tr></table></figure>
+<p><code>php artisan migrate</code></p>
+<h2 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h2><p><code>app/Car.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span> <span class="keyword">namespace</span> <span class="title">App</span>;</div><div class="line"> </div><div class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Database</span>\<span class="title">Eloquent</span>\<span class="title">Model</span>;</div><div class="line"> </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> <span class="keyword">extends</span> <span class="title">Model</span></span></div><div class="line">&#123; </div><div class="line"> 	<span class="keyword">protected</span> $fillable = [<span class="string">'make'</span>, <span class="string">'model'</span>, <span class="string">'year'</span>];	 </div><div class="line">&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
+<h2 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h2><p><code>app/Http/Controllers/CarController.php</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">namespace App\Http\Controllers;</div><div class="line"></div><div class="line">use App\Car;</div><div class="line">use App\Http\Controllers\Controller;</div><div class="line">use Illuminate\Http\Request;</div><div class="line"></div><div class="line">class CarController extends Controller&#123;</div><div class="line"></div><div class="line">	public function createCar(Request $request)&#123;</div><div class="line"></div><div class="line">    	$car = Car::create($request-&gt;all());</div><div class="line"></div><div class="line">    	return response()-&gt;json($car);</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public function updateCar(Request $request, $id)&#123;</div><div class="line"></div><div class="line">    	$car  = Car::find($id);</div><div class="line">    	$car-&gt;make = $request-&gt;input(&apos;make&apos;);</div><div class="line">    	$car-&gt;model = $request-&gt;input(&apos;model&apos;);</div><div class="line">    	$car-&gt;year = $request-&gt;input(&apos;year&apos;);</div><div class="line">    	$car-&gt;save();</div><div class="line"></div><div class="line">    	return response()-&gt;json($car);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public function deleteCar($id)&#123;</div><div class="line">    	$car  = Car::find($id);</div><div class="line">    	$car-&gt;delete();</div><div class="line"></div><div class="line">    	return response()-&gt;json(&apos;Removed successfully.&apos;);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public function index()&#123;</div><div class="line"></div><div class="line">    	$cars  = Car::all();</div><div class="line"></div><div class="line">    	return response()-&gt;json($cars);</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h2><p><code>routes/web.php</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$app-&gt;group([&apos;prefix&apos; =&gt; &apos;api/v1&apos;,&apos;namespace&apos; =&gt; &apos;App\Http\Controllers&apos;], function($app)</div><div class="line">&#123;</div><div class="line">    $app-&gt;post(&apos;car&apos;,&apos;CarController@createCar&apos;);</div><div class="line"></div><div class="line">    $app-&gt;put(&apos;car/&#123;id&#125;&apos;,&apos;CarController@updateCar&apos;);</div><div class="line"></div><div class="line">    $app-&gt;delete(&apos;car/&#123;id&#125;&apos;,&apos;CarController@deleteCar&apos;);</div><div class="line"></div><div class="line">    $app-&gt;get(&apos;car&apos;,&apos;CarController@index&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h2 id="Testing"><a href="#Testing" class="headerlink" title="Testing!"></a>Testing!</h2><h4 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h4><p><code>curl -i -X POST -H &quot;Content-Type:application/json&quot; http://car_api.dev/api/v1/car -d &#39;{&quot;make&quot;:&quot;toyota&quot;, &quot;model&quot;:&quot;camry&quot;, &quot;year&quot;:&quot;2016&quot;}&#39;</code></p>
+<h4 id="View"><a href="#View" class="headerlink" title="View"></a>View</h4><p><code>curl http://car_api.dev/api/v1/car</code></p>
+<h4 id="Update-1"><a href="#Update-1" class="headerlink" title="Update"></a>Update</h4><p><code>curl -X PUT -H &quot;Content-Type:application/json&quot; http://car_api.dev/api/v1/car/1 -d &#39;{&quot;make&quot;:&quot;toyota&quot;, &quot;model&quot;:&quot;supra&quot;, &quot;year&quot;:&quot;1999&quot;}&#39;</code></p>
+<h4 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h4><p><code>curl -X DELETE http://car_api.dev/api/v1/car/1</code></p>
+<h2 id="Simple-Secure"><a href="#Simple-Secure" class="headerlink" title="Simple Secure"></a>Simple Secure</h2><p><code>bootstrap/app.php</code><br>uncomment<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$app-&gt;routeMiddleware([</div><div class="line">    <span class="string">'auth'</span> =&gt; App\Http\Middleware\Authenticate::class,</div><div class="line">]);</div><div class="line">......</div><div class="line">$app-&gt;register(App\Providers\AuthServiceProvider::class);</div></pre></td></tr></table></figure></p>
+<p><code>app/Providers/AuthServiceProvider.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">boot</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">$this</span>-&gt;app[<span class="string">'auth'</span>]-&gt;viaRequest(<span class="string">'api'</span>, <span class="function"><span class="keyword">function</span> <span class="params">($request)</span> </span>&#123;</div><div class="line">        $header = $request-&gt;header(<span class="string">'api_token'</span>);</div><div class="line">        <span class="keyword">if</span> ($header &amp;&amp; $header == <span class="string">'hello im api token'</span>) &#123;</div><div class="line">		        <span class="keyword">return</span> <span class="keyword">new</span> User();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>; <span class="comment">// 一定要null</span></div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>app/Http/Controllers/CarController.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">$this</span>-&gt;middleware(<span class="string">'auth'</span>, [<span class="string">'only'</span> =&gt; [</div><div class="line">        <span class="string">'createCar'</span>,</div><div class="line">        <span class="string">'updateCar'</span>,</div><div class="line">        <span class="string">'deleteCar'</span></div><div class="line">    ]]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>or in <code>routes/web.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">`$app-&gt;get(<span class="string">'car'</span>, [<span class="string">'middleware'</span> =&gt; <span class="string">'auth'</span>, <span class="string">'uses'</span> =&gt; <span class="string">'CarController@index'</span>]);`</div></pre></td></tr></table></figure></p>
+<p><code>curl -H &quot;api_token:hello im api token&quot;  http://car_api.dev/api/v1/car</code></p>
+<p><code>curl -X PUT -H &quot;api_token:hello im api token&quot; -H &quot;Content-Type:application/json&quot; http://car_api.dev/api/v1/car/1 -d &#39;{&quot;year&quot;:&quot;1999&quot;}&#39;</code></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/11/08/ionic-notes/" rel="prev" title="Ionic 筆記">
+      <i class="fa fa-chevron-left"></i> Ionic 筆記
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/11/15/mongodb-notes/" rel="next" title="MongoDB 筆記">
+      MongoDB 筆記 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Lumen"><span class="nav-number">1.</span> <span class="nav-text">Lumen</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Update"><span class="nav-number">1.1.</span> <span class="nav-text">Update</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Install"><span class="nav-number">1.2.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#env"><span class="nav-number">1.3.</span> <span class="nav-text">.env</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Enable-Eloquent-Facades"><span class="nav-number">1.4.</span> <span class="nav-text">Enable Eloquent, Facades</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Migration"><span class="nav-number">1.5.</span> <span class="nav-text">Migration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Model"><span class="nav-number">1.6.</span> <span class="nav-text">Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Controller"><span class="nav-number">1.7.</span> <span class="nav-text">Controller</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Route"><span class="nav-number">1.8.</span> <span class="nav-text">Route</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Testing"><span class="nav-number">1.9.</span> <span class="nav-text">Testing!</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Create"><span class="nav-number">1.9.0.1.</span> <span class="nav-text">Create</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#View"><span class="nav-number">1.9.0.2.</span> <span class="nav-text">View</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Update-1"><span class="nav-number">1.9.0.3.</span> <span class="nav-text">Update</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Delete"><span class="nav-number">1.9.0.4.</span> <span class="nav-text">Delete</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Simple-Secure"><span class="nav-number">1.10.</span> <span class="nav-text">Simple Secure</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

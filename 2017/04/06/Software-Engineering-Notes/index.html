@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="軟體工程筆記, using Javasript">
+<meta name="keywords" content="notes,js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Software Engineering Notes">
+<meta property="og:url" content="http://yoursite.com/2017/04/06/Software-Engineering-Notes/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="軟體工程筆記, using Javasript">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.478Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Software Engineering Notes">
+<meta name="twitter:description" content="軟體工程筆記, using Javasript">
+
+<link rel="canonical" href="http://yoursite.com/2017/04/06/Software-Engineering-Notes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Software Engineering Notes | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/06/Software-Engineering-Notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Software Engineering Notes
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-04-06 20:28:46" itemprop="dateCreated datePublished" datetime="2017-04-06T20:28:46+08:00">2017-04-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>軟體工程筆記, using Javasript</p>
+<a id="more"></a>
+<h1 id="Linter"><a href="#Linter" class="headerlink" title="Linter"></a>Linter</h1><h2 id="ESLint"><a href="#ESLint" class="headerlink" title="ESLint"></a>ESLint</h2><p><a href="http://eslint.org/" target="_blank" rel="external">http://eslint.org/</a><br><a href="https://github.com/eslint/eslint" target="_blank" rel="external">https://github.com/eslint/eslint</a></p>
+<p><code>$ npm install eslint -g</code>(x) or <code>npm install eslint --save-dev</code>(o)<br><code>$ cd project-folder</code><br><code>$ eslint --init</code></p>
+<h2 id="Editor-package-name"><a href="#Editor-package-name" class="headerlink" title="Editor package name"></a>Editor package name</h2><h4 id="Sublime"><a href="#Sublime" class="headerlink" title="Sublime"></a>Sublime</h4><p><code>SublimeLinter</code><br><code>SublimeLinter-contrib-eslint</code></p>
+<h4 id="VS-Code"><a href="#VS-Code" class="headerlink" title="VS Code"></a>VS Code</h4><p><code>ESLint</code></p>
+<h2 id="My-Config"><a href="#My-Config" class="headerlink" title="My Config"></a>My Config</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// .eslintrc.js</span></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="string">"extends"</span>: <span class="string">"standard"</span>,</div><div class="line">    <span class="string">"plugins"</span>: [</div><div class="line">        <span class="string">"standard"</span>,</div><div class="line">        <span class="string">"promise"</span></div><div class="line">    ],</div><div class="line">    <span class="string">"env"</span>: &#123;</div><div class="line">        <span class="string">"mocha"</span>: <span class="literal">true</span></div><div class="line">    &#125;,</div><div class="line">    <span class="string">"rules"</span>: &#123;</div><div class="line">        <span class="string">"indent"</span>: [</div><div class="line">            <span class="string">"error"</span>,</div><div class="line">            <span class="number">4</span></div><div class="line">        ],</div><div class="line">        <span class="string">"semi"</span>: [</div><div class="line">            <span class="string">"error"</span>,</div><div class="line">            <span class="string">"never"</span></div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="Style-References"><a href="#Style-References" class="headerlink" title="Style References"></a>Style References</h2><p><a href="https://github.com/feross/standard" target="_blank" rel="external">https://github.com/feross/standard</a><br><a href="https://github.com/airbnb/javascript" target="_blank" rel="external">https://github.com/airbnb/javascript</a><br><a href="https://google.github.io/styleguide/jsguide.html" target="_blank" rel="external">https://google.github.io/styleguide/jsguide.html</a></p>
+<h1 id="Unit-Test"><a href="#Unit-Test" class="headerlink" title="Unit Test"></a>Unit Test</h1><h2 id="Mocha"><a href="#Mocha" class="headerlink" title="Mocha"></a>Mocha</h2><p>JavaScript Test Framework<br><a href="https://mochajs.org/" target="_blank" rel="external">https://mochajs.org/</a><br><a href="https://github.com/mochajs/mocha" target="_blank" rel="external">https://github.com/mochajs/mocha</a><br><code>npm install mocha -g</code>(x) or <code>npm install mocha --save-dev</code>(o)</p>
+<h2 id="Assertion-Library"><a href="#Assertion-Library" class="headerlink" title="Assertion Library"></a>Assertion Library</h2><p>choose one</p>
+<h4 id="TDD-BDD"><a href="#TDD-BDD" class="headerlink" title="TDD+BDD"></a>TDD+BDD</h4><p><a href="http://chaijs.com" target="_blank" rel="external">http://chaijs.com</a><br><a href="https://github.com/chaijs/chai" target="_blank" rel="external">https://github.com/chaijs/chai</a><br><code>npm install chai --save-dev</code><br><code>npm install chai-as-promised --save-dev</code></p>
+<h4 id="BDD"><a href="#BDD" class="headerlink" title="BDD"></a>BDD</h4><p><a href="http://shouldjs.github.io/" target="_blank" rel="external">http://shouldjs.github.io/</a><br><a href="https://github.com/shouldjs/should.js" target="_blank" rel="external">https://github.com/shouldjs/should.js</a><br><code>npm install should --save-dev</code></p>
+<h4 id="BDD-1"><a href="#BDD-1" class="headerlink" title="BDD"></a>BDD</h4><p><a href="https://github.com/Automattic/expect.js" target="_blank" rel="external">https://github.com/Automattic/expect.js</a></p>
+<h1 id="Continuous-Integration"><a href="#Continuous-Integration" class="headerlink" title="Continuous Integration"></a>Continuous Integration</h1><h2 id="Travis-CI"><a href="#Travis-CI" class="headerlink" title="Travis CI"></a>Travis CI</h2><p><a href="https://travis-ci.org/" target="_blank" rel="external">https://travis-ci.org/</a></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="attr">language:</span> <span class="string">node_js</span></div><div class="line"><span class="attr">node_js:</span></div><div class="line"><span class="bullet">  -</span> <span class="string">'7'</span></div><div class="line"><span class="bullet">  -</span> <span class="string">'6'</span></div><div class="line"><span class="attr">script:</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">ci</span></div><div class="line"><span class="comment"># default command if not specify: npm run test</span></div></pre></td></tr></table></figure>
+<h2 id="Jenkins"><a href="#Jenkins" class="headerlink" title="Jenkins"></a>Jenkins</h2><p><a href="https://jenkins.io/" target="_blank" rel="external">https://jenkins.io/</a><br><a href="https://github.com/jenkinsci/jenkins" target="_blank" rel="external">https://github.com/jenkinsci/jenkins</a></p>
+<h4 id="Installing-Jenkins-on-Ubuntu"><a href="#Installing-Jenkins-on-Ubuntu" class="headerlink" title="Installing Jenkins on Ubuntu"></a>Installing Jenkins on Ubuntu</h4><p><a href="https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu" target="_blank" rel="external">https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu</a></p>
+<p><code>systemctl status jenkins.service</code><br><code>sudo systemctl start jenkins.service</code></p>
+<p><a href="http://loclahost:8080" target="_blank" rel="external">http://loclahost:8080</a></p>
+<p><code>sudo vim /var/lib/jenkins/secrets/initialAdminPassword</code><br>要存起來 之後就不見了</p>
+<p><code>/var/log/jenkins/</code> Log生很快，容量超大</p>
+<h4 id="加入ssh-key-到-github-amp-jenkins"><a href="#加入ssh-key-到-github-amp-jenkins" class="headerlink" title="加入ssh key 到 github &amp; jenkins"></a>加入ssh key 到 github &amp; jenkins</h4><p>讓jenkins可以Clone with SSH<br><code>sudo su jenkins</code><br><code>ssh-keygen</code><br><code>cat .ssh/id_rsa.pub</code> to github.com<br><code>Jenkins &gt; Credentials &gt; System &gt; Global credentials (unrestricted)</code> 選 <code>Add Credentials</code> 加入ssh</p>
+<h4 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h4><p>可以收HTTP Request for webhook &amp; 好看的網址<br><code>sudo a2enmod proxy proxy_http</code><br><code>sudo systemctl restart apache2.service</code><br><code>cd /etc/apache2/sites-available</code><br><code>sudo cp 000-default.conf jenkins.conf</code><br><code>sudo vim jenkins.conf</code><br><code>sudo a2ensite jenkins.conf</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;VirtualHost *:80&gt;</div><div class="line">  ServerName <span class="string">"YOUR_JENKINS_URL"</span></div><div class="line"></div><div class="line">  ProxyRequests Off</div><div class="line">  &lt;Proxy *&gt;</div><div class="line">    Order deny,allow</div><div class="line">    Allow from all</div><div class="line">  &lt;/Proxy&gt;</div><div class="line">  ProxyPreserveHost on</div><div class="line">  ProxyPass / http://localhost:8080/ nocanon</div><div class="line">  AllowEncodedSlashes NoDecode</div><div class="line">&lt;/VirtualHost&gt;</div></pre></td></tr></table></figure>
+<p><code>Jenkins &gt; Jenkins Location &gt; Jenkins URL &gt; &quot;YOUR_JENKINS_URL&quot; &gt; Apply</code></p>
+<h4 id="Build-On-Push-need-setup-proxy-first"><a href="#Build-On-Push-need-setup-proxy-first" class="headerlink" title="Build On Push (need setup proxy first)"></a>Build On Push (need setup proxy first)</h4><p><code>Jenkins &gt; Manage Jenkins &gt; Configure System &gt; 往下拉看到GitHub &gt; Advanced... &gt; Manage additional GitHub actions(Convert login and password to token) -&gt; From login and password -&gt; 拿到persional access token之後點上面 Add GitHub Server -&gt; Credentials輸入剛剛的token -&gt; Apply</code><br>似乎要 uncheck “manage hooks” 不然github上的設定會不見<br><a href="http://jagdeesh1009.blogspot.tw/2016/04/jenkins-github-hooks-problems.html" target="_blank" rel="external">http://jagdeesh1009.blogspot.tw/2016/04/jenkins-github-hooks-problems.html</a></p>
+<p><code>到github專案網址 &gt; Settings &gt; Integrations &amp; services &gt;  Add service &gt; 搜尋Jenkins (GitHub plugin) &gt; 輸入URL(預設http://x.x.x.x/github-webhook/) &gt; 確定</code><br>可以點進去按Test</p>
+<p><code>Jenkins &gt; Your Project &gt; Configure &gt; Build Triggers &gt; 勾GitHub hook trigger for GITScm polling</code></p>
+<p>現在可到專案看 GitHub Hook Log</p>
+<h4 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h4><p>embeddable-build-status<br><a href="https://plugins.jenkins.io/embeddable-build-status" target="_blank" rel="external">https://plugins.jenkins.io/embeddable-build-status</a><br><a href="https://wiki.jenkins-ci.org/display/JENKINS/Embeddable+Build+Status+Plugin" target="_blank" rel="external">https://wiki.jenkins-ci.org/display/JENKINS/Embeddable+Build+Status+Plugin</a></p>
+<h4 id="Restart-Jenkins-Url"><a href="#Restart-Jenkins-Url" class="headerlink" title="Restart Jenkins Url"></a>Restart Jenkins Url</h4><p><a href="http://loclahost:8080/safeRestart/" target="_blank" rel="external">http://loclahost:8080/safeRestart/</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/notes/" rel="tag"># notes</a>
+              <a href="/tags/js/" rel="tag"># js</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/03/05/visual-studio-code-notes/" rel="prev" title="Visual Studio Code 筆記">
+      <i class="fa fa-chevron-left"></i> Visual Studio Code 筆記
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/04/14/Visual-Studio-Code-Extensions/" rel="next" title="Visual Studio Code Extensions">
+      Visual Studio Code Extensions <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linter"><span class="nav-number">1.</span> <span class="nav-text">Linter</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ESLint"><span class="nav-number">1.1.</span> <span class="nav-text">ESLint</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Editor-package-name"><span class="nav-number">1.2.</span> <span class="nav-text">Editor package name</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Sublime"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">Sublime</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VS-Code"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">VS Code</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#My-Config"><span class="nav-number">1.3.</span> <span class="nav-text">My Config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Style-References"><span class="nav-number">1.4.</span> <span class="nav-text">Style References</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unit-Test"><span class="nav-number">2.</span> <span class="nav-text">Unit Test</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mocha"><span class="nav-number">2.1.</span> <span class="nav-text">Mocha</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Assertion-Library"><span class="nav-number">2.2.</span> <span class="nav-text">Assertion Library</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TDD-BDD"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">TDD+BDD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BDD"><span class="nav-number">2.2.0.2.</span> <span class="nav-text">BDD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BDD-1"><span class="nav-number">2.2.0.3.</span> <span class="nav-text">BDD</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Continuous-Integration"><span class="nav-number">3.</span> <span class="nav-text">Continuous Integration</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Travis-CI"><span class="nav-number">3.1.</span> <span class="nav-text">Travis CI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jenkins"><span class="nav-number">3.2.</span> <span class="nav-text">Jenkins</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Installing-Jenkins-on-Ubuntu"><span class="nav-number">3.2.0.1.</span> <span class="nav-text">Installing Jenkins on Ubuntu</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加入ssh-key-到-github-amp-jenkins"><span class="nav-number">3.2.0.2.</span> <span class="nav-text">加入ssh key 到 github &amp; jenkins</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Proxy"><span class="nav-number">3.2.0.3.</span> <span class="nav-text">Proxy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Build-On-Push-need-setup-proxy-first"><span class="nav-number">3.2.0.4.</span> <span class="nav-text">Build On Push (need setup proxy first)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Plugins"><span class="nav-number">3.2.0.5.</span> <span class="nav-text">Plugins</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Restart-Jenkins-Url"><span class="nav-number">3.2.0.6.</span> <span class="nav-text">Restart Jenkins Url</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

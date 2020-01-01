@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="New in Laravel 5.5 Notes 參考來源：https://laracasts.com Laravel v5.5.0 released this on 6 Sep, 2017.  01 Whoops 以前被拿掉，現在裝回來的東西 一個Debug工具 https://github.com/filp/whoops  02 Streamlined Request Validation 新">
+<meta name="keywords" content="notes,laravel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="New in Laravel 5.5 Notes">
+<meta property="og:url" content="http://yoursite.com/2017/11/03/new-in-laravel-5-5-notes/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="New in Laravel 5.5 Notes 參考來源：https://laracasts.com Laravel v5.5.0 released this on 6 Sep, 2017.  01 Whoops 以前被拿掉，現在裝回來的東西 一個Debug工具 https://github.com/filp/whoops  02 Streamlined Request Validation 新">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.482Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="New in Laravel 5.5 Notes">
+<meta name="twitter:description" content="New in Laravel 5.5 Notes 參考來源：https://laracasts.com Laravel v5.5.0 released this on 6 Sep, 2017.  01 Whoops 以前被拿掉，現在裝回來的東西 一個Debug工具 https://github.com/filp/whoops  02 Streamlined Request Validation 新">
+
+<link rel="canonical" href="http://yoursite.com/2017/11/03/new-in-laravel-5-5-notes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>New in Laravel 5.5 Notes | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/03/new-in-laravel-5-5-notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          New in Laravel 5.5 Notes
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-11-03 14:42:05" itemprop="dateCreated datePublished" datetime="2017-11-03T14:42:05+08:00">2017-11-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="New-in-Laravel-5-5-Notes"><a href="#New-in-Laravel-5-5-Notes" class="headerlink" title="New in Laravel 5.5 Notes"></a>New in Laravel 5.5 Notes</h1><ul>
+<li>參考來源：<a href="https://laracasts.com" target="_blank" rel="external">https://laracasts.com</a></li>
+<li>Laravel v5.5.0 released this on 6 Sep, 2017.</li>
+</ul>
+<h2 id="01-Whoops"><a href="#01-Whoops" class="headerlink" title="01 Whoops"></a>01 Whoops</h2><ul>
+<li>以前被拿掉，現在裝回來的東西</li>
+<li>一個Debug工具</li>
+<li><a href="https://github.com/filp/whoops" target="_blank" rel="external">https://github.com/filp/whoops</a></li>
+</ul>
+<h2 id="02-Streamlined-Request-Validation"><a href="#02-Streamlined-Request-Validation" class="headerlink" title="02 Streamlined Request Validation"></a>02 Streamlined Request Validation</h2><ul>
+<li>新增了CSRF過期的頁面，忘了加CSRF的話也會出現</li>
+<li>Syntactic sugar for validate</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 以前的語法：失敗時會自動Redirect並傳回$error</span></div><div class="line"><span class="keyword">$this</span>-&gt;validate($request, [ <span class="comment">// or \Validator::make($request-&gt;all(), []);</span></div><div class="line">    <span class="string">'title'</span> =&gt; <span class="string">'required'</span>,</div><div class="line">]);</div><div class="line"></div><div class="line"><span class="comment">// $validated 只會return驗證過的欄位名稱</span></div><div class="line">$validated = $request-&gt;validate([</div><div class="line">    <span class="string">'title'</span> =&gt; <span class="string">'required'</span>,</div><div class="line">]);</div><div class="line">\App\Post::Create($validated); <span class="comment">// nice and clean way</span></div></pre></td></tr></table></figure>
+<h2 id="03-Fresh-Migrations"><a href="#03-Fresh-Migrations" class="headerlink" title="03 Fresh Migrations"></a>03 Fresh Migrations</h2><ul>
+<li>php artisan migrate:fresh<ul>
+<li>Drop all tables and migrate</li>
+<li>以前的migrate:refresh是rollback all and migrate</li>
+</ul>
+</li>
+</ul>
+<h2 id="04-Frontend-Presets"><a href="#04-Frontend-Presets" class="headerlink" title="04 Frontend Presets"></a>04 Frontend Presets</h2><ul>
+<li>剛開專案時，幫你快速建構前端scaffolding或刪掉</li>
+<li>php artisan preset <type><ul>
+<li>php artisan preset none</li>
+<li>php artisan preset bootstrap</li>
+<li>php artisan preset vue</li>
+<li>php artisan preset react</li>
+</ul>
+</type></li>
+<li>想看更多請到：/vendor/laravel/framework/src/Illuminate/Foundation/Console/PresetCommand.php</li>
+</ul>
+<h2 id="05-Automatic-Package-Discovery"><a href="#05-Automatic-Package-Discovery" class="headerlink" title="05 Automatic Package Discovery"></a>05 Automatic Package Discovery</h2><ul>
+<li>現在安裝套件可以直接在composer.json加上需要的</li>
+<li>以前的話要到config註冊</li>
+</ul>
+<h2 id="06-Faster-Email-Layout-Testing"><a href="#06-Faster-Email-Layout-Testing" class="headerlink" title="06 Faster Email Layout Testing"></a>06 Faster Email Layout Testing</h2><ul>
+<li>obj可以implements Renderable</li>
+<li>裡面的render()就可以return一些字串</li>
+<li>就可以在瀏覽器上預覽你的信件</li>
+</ul>
+<h2 id="07-Silky-Smooth-Custom-Validation-Rules"><a href="#07-Silky-Smooth-Custom-Validation-Rules" class="headerlink" title="07 Silky Smooth Custom Validation Rules"></a>07 Silky Smooth Custom Validation Rules</h2><ul>
+<li>需要Valication的Rule太多，不想重複寫。</li>
+<li>新指令：php artisan make:rule <name></name></li>
+<li>產生一個php檔在/app/Rules/<name></name></li>
+<li>到：/vendor/laravel/framework/src/Illuminate/Contracts/Validation/Rule.php 看要實作啥</li>
+<li>需要實作passes(), message()</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 最後寫成這樣 很方便</span></div><div class="line">$validated = $request-&gt;validate([</div><div class="line">    <span class="string">'title'</span> =&gt; <span class="keyword">new</span> App\Rules\&lt;name&gt;</div><div class="line">]);</div></pre></td></tr></table></figure>
+<h2 id="08-Collection-Dumping"><a href="#08-Collection-Dumping" class="headerlink" title="08 Collection Dumping"></a>08 Collection Dumping</h2><ul>
+<li>以前用 dd()(die and dump) 只能處理完再dd</li>
+<li>現在可以在Collection object上使用dump()</li>
+<li>ex: $posts-&gt;dump();</li>
+<li>目的是例如想在處理函示前斷掉：$posts-&gt;shuffle()-&gt;dump()-&gt;sort()&gt;dump(); 會顯示2次dump的結果</li>
+</ul>
+<h2 id="09-Model-Factory-Generation"><a href="#09-Model-Factory-Generation" class="headerlink" title="09 Model Factory Generation"></a>09 Model Factory Generation</h2><ul>
+<li>新指令：php artisan make:factory <name></name></li>
+<li>比以前更懶的意思，現在可以根據model自動生成factories</li>
+<li>一樣在 /database/factories/<name>.php</name></li>
+</ul>
+<h2 id="10-Custom-Blade-“If”-Directives"><a href="#10-Custom-Blade-“If”-Directives" class="headerlink" title="10 Custom Blade “If” Directives"></a>10 Custom Blade “If” Directives</h2><ul>
+<li>把在view中的if條件式變成blade file</li>
+<li>失敗時記得先清掉view cache, php artisan view:clear</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 到/app/Providers/AppServiceProvider.php之boot()加上</span></div><div class="line">\Blade::if(<span class="string">'&lt;name&gt;'</span>, <span class="function"><span class="keyword">function</span> <span class="params">($param)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;    </div><div class="line">&#125;)</div><div class="line"><span class="comment">// 就可以在blade中用 @&lt;name&gt; ... @end&lt;name&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="11-What’s-New-in-Laravel-Mix"><a href="#11-What’s-New-in-Laravel-Mix" class="headerlink" title="11 What’s New in Laravel Mix"></a>11 What’s New in Laravel Mix</h2><ul>
+<li>Please Deposit a Quarter…</li>
+</ul>
+<h2 id="12-Auto-Registering-Artisan-Commands"><a href="#12-Auto-Registering-Artisan-Commands" class="headerlink" title="12 Auto-Registering Artisan Commands"></a>12 Auto-Registering Artisan Commands</h2><ul>
+<li>現在生成新的artisan command不用再到/app/Console/Kernel.php註冊了</li>
+<li>直接改生成檔案的建構子</li>
+</ul>
+<h2 id="13-Higher-Order-Tap"><a href="#13-Higher-Order-Tap" class="headerlink" title="13 Higher Order Tap"></a>13 Higher Order Tap</h2><ul>
+<li>更改了tap() 新增了 HigherOrderTapProxy.php</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Now</span></div><div class="line"><span class="comment">// P.S. $post-&gt;update($attributes); 不會回傳obj</span></div><div class="line"><span class="keyword">return</span> tap($post)-&gt;update($attributes);</div></pre></td></tr></table></figure>
+<h2 id="14-The-RefreshDatabase-Trait"><a href="#14-The-RefreshDatabase-Trait" class="headerlink" title="14 The RefreshDatabase Trait"></a>14 The RefreshDatabase Trait</h2><ul>
+<li>以前，use Illuminate\Foundation\Testing\DatabaseMigrations; 可以讓你run test之前刷新資料表</li>
+<li>現在有一個新的 use Illuminate\Foundation\Testing\RefreshDatabase;</li>
+<li>phpunit.xml可以新增env參數 決定要哪種refresh.</li>
+</ul>
+<h2 id="15-New-Blade-Directives"><a href="#15-New-Blade-Directives" class="headerlink" title="15 New Blade Directives"></a>15 New Blade Directives</h2><ul>
+<li>10之前介紹過可以自己新增blade語法</li>
+<li>後來又預設加了這些</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 預設新增了這些</span></div><div class="line">@auth <span class="comment">// @if(auth()-&gt;check())</span></div><div class="line">...</div><div class="line">@endauth</div><div class="line"></div><div class="line">@guest</div><div class="line">...</div><div class="line">@endguest</div></pre></td></tr></table></figure>
+<h2 id="16-Route-Helpers"><a href="#16-Route-Helpers" class="headerlink" title="16 Route Helpers"></a>16 Route Helpers</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 以前</span></div><div class="line">Route::get(<span class="string">'自填'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> redirect(<span class="string">'home'</span>);</div><div class="line">&#125;)</div><div class="line">Route::get(<span class="string">'自填'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> view(<span class="string">'welcome'</span>);</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">// 現在可以更懶</span></div><div class="line">Route::redirect(<span class="string">'自填'</span>, <span class="string">'home'</span>);</div><div class="line">Route::view(<span class="string">'自填'</span>, <span class="string">'welcome'</span>);</div></pre></td></tr></table></figure>
+<h2 id="17-Toggle-Exception-Handling-Within-Your-Tests"><a href="#17-Toggle-Exception-Handling-Within-Your-Tests" class="headerlink" title="17 Toggle Exception Handling Within Your Tests"></a>17 Toggle Exception Handling Within Your Tests</h2><ul>
+<li>有時候想略過Excepttion時使用</li>
+<li>新語法！</li>
+<li>在測試時，$this-&gt;withoutExceptionHandling();，很有用。</li>
+</ul>
+<h2 id="18-Cleaner-Exception-Rendering"><a href="#18-Cleaner-Exception-Rendering" class="headerlink" title="18 Cleaner Exception Rendering"></a>18 Cleaner Exception Rendering</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 通常的做法</span></div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> XXX;</div><div class="line">&#125; <span class="keyword">catch</span> (XXX $e) &#123;</div><div class="line">    <span class="keyword">return</span> redirect(<span class="string">'...'</span>);</div><div class="line">&#125;</div><div class="line"><span class="comment">// 或到 app/Exceptions/Handler.php#render()新增</span></div><div class="line"><span class="keyword">if</span> ($exception <span class="keyword">instanceof</span> XXX) &#123;</div><div class="line">    <span class="keyword">return</span> redirect(<span class="string">'...'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 現在可以在個別的exception class新增render()</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">XXX</span> <span class="keyword">extends</span> \<span class="title">Exception</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">render</span><span class="params">($request)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> redirect(<span class="string">'...'</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">// 讓controller可以更clean 使用這樣簡短語法即可：</span></div><div class="line"><span class="keyword">throw</span> <span class="keyword">new</span> XXX;</div></pre></td></tr></table></figure>
+<h2 id="19-Optional-Objects"><a href="#19-Optional-Objects" class="headerlink" title="19 Optional Objects"></a>19 Optional Objects</h2><ul>
+<li>Optional.php</li>
+<li>有時候null obj我們還試著存取其中的attribute就會出錯</li>
+<li>$user-&gt;profile-&gt;location; // 會得到 PHP error: non-object</li>
+<li>這時候用 optional($user-&gt;profile)-&gt;location;</li>
+<li>就只會回傳 null !!!</li>
+<li>原理是optional()會檢查傳進的值是否為obj</li>
+</ul>
+<h2 id="20-API-Resources"><a href="#20-API-Resources" class="headerlink" title="20 API Resources"></a>20 API Resources</h2><ul>
+<li>想做API時用</li>
+<li>也可以不用</li>
+<li>以前在controller裡面override toArray() 讓你變json很方便</li>
+<li>新指令 php artisan make:resource <name></name></li>
+<li>會新增/app/Http/Resources/<name>.php</name></li>
+<li>現在可以</li>
+<li>return new <name>Resource($obj);</name></li>
+<li>也有toArray()</li>
+<li>還可以在resource裡面決定要return的欄位，就不用再model那邊麻煩設了</li>
+<li>另外還有這種 用在需要一堆資料return collection時</li>
+<li>return new <name>Resource::collection($obj);</name></li>
+<li>詳見：Illuminate\Http\Resources\Json\ResourceCollection</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/notes/" rel="tag"># notes</a>
+              <a href="/tags/laravel/" rel="tag"># laravel</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/10/01/upgrading-to-valet-2-0/" rel="prev" title="Upgrading to Valet 2.0">
+      <i class="fa fa-chevron-left"></i> Upgrading to Valet 2.0
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/12/27/cisco-packet-tracer-notes/" rel="next" title="Cisco Packet Tracer Notes">
+      Cisco Packet Tracer Notes <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#New-in-Laravel-5-5-Notes"><span class="nav-number">1.</span> <span class="nav-text">New in Laravel 5.5 Notes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#01-Whoops"><span class="nav-number">1.1.</span> <span class="nav-text">01 Whoops</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#02-Streamlined-Request-Validation"><span class="nav-number">1.2.</span> <span class="nav-text">02 Streamlined Request Validation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#03-Fresh-Migrations"><span class="nav-number">1.3.</span> <span class="nav-text">03 Fresh Migrations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#04-Frontend-Presets"><span class="nav-number">1.4.</span> <span class="nav-text">04 Frontend Presets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#05-Automatic-Package-Discovery"><span class="nav-number">1.5.</span> <span class="nav-text">05 Automatic Package Discovery</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#06-Faster-Email-Layout-Testing"><span class="nav-number">1.6.</span> <span class="nav-text">06 Faster Email Layout Testing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#07-Silky-Smooth-Custom-Validation-Rules"><span class="nav-number">1.7.</span> <span class="nav-text">07 Silky Smooth Custom Validation Rules</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#08-Collection-Dumping"><span class="nav-number">1.8.</span> <span class="nav-text">08 Collection Dumping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#09-Model-Factory-Generation"><span class="nav-number">1.9.</span> <span class="nav-text">09 Model Factory Generation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-Custom-Blade-“If”-Directives"><span class="nav-number">1.10.</span> <span class="nav-text">10 Custom Blade “If” Directives</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-What’s-New-in-Laravel-Mix"><span class="nav-number">1.11.</span> <span class="nav-text">11 What’s New in Laravel Mix</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-Auto-Registering-Artisan-Commands"><span class="nav-number">1.12.</span> <span class="nav-text">12 Auto-Registering Artisan Commands</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-Higher-Order-Tap"><span class="nav-number">1.13.</span> <span class="nav-text">13 Higher Order Tap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-The-RefreshDatabase-Trait"><span class="nav-number">1.14.</span> <span class="nav-text">14 The RefreshDatabase Trait</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-New-Blade-Directives"><span class="nav-number">1.15.</span> <span class="nav-text">15 New Blade Directives</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-Route-Helpers"><span class="nav-number">1.16.</span> <span class="nav-text">16 Route Helpers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-Toggle-Exception-Handling-Within-Your-Tests"><span class="nav-number">1.17.</span> <span class="nav-text">17 Toggle Exception Handling Within Your Tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#18-Cleaner-Exception-Rendering"><span class="nav-number">1.18.</span> <span class="nav-text">18 Cleaner Exception Rendering</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#19-Optional-Objects"><span class="nav-number">1.19.</span> <span class="nav-text">19 Optional Objects</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-API-Resources"><span class="nav-number">1.20.</span> <span class="nav-text">20 API Resources</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en,zh-TW,zh-CN,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Vagrant NotesDownload VirtualBox (please first)Download Vagrant Commands1234567891011121314151617181920212223242526272829303132333435# Vagrant 1.9.7vagrant -v# Helpvagrant# Create Vagrantfilevagrant i">
+<meta name="keywords" content="notes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vagrant Notes">
+<meta property="og:url" content="http://yoursite.com/2017/08/28/vagrant-notes/index.html">
+<meta property="og:site_name" content="Chenxu&#39;s Notes">
+<meta property="og:description" content="Vagrant NotesDownload VirtualBox (please first)Download Vagrant Commands1234567891011121314151617181920212223242526272829303132333435# Vagrant 1.9.7vagrant -v# Helpvagrant# Create Vagrantfilevagrant i">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-01T16:08:14.482Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vagrant Notes">
+<meta name="twitter:description" content="Vagrant NotesDownload VirtualBox (please first)Download Vagrant Commands1234567891011121314151617181920212223242526272829303132333435# Vagrant 1.9.7vagrant -v# Helpvagrant# Create Vagrantfilevagrant i">
+
+<link rel="canonical" href="http://yoursite.com/2017/08/28/vagrant-notes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Vagrant Notes | Chenxu's Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chenxu's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/28/vagrant-notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Chenxu Wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenxu's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vagrant Notes
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-08-28 13:44:54" itemprop="dateCreated datePublished" datetime="2017-08-28T13:44:54+08:00">2017-08-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-01-02 00:08:14" itemprop="dateModified" datetime="2020-01-02T00:08:14+08:00">2020-01-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Vagrant-Notes"><a href="#Vagrant-Notes" class="headerlink" title="Vagrant Notes"></a>Vagrant Notes</h1><p><a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="external">Download VirtualBox (please first)</a><br><a href="https://www.vagrantup.com/downloads.html" target="_blank" rel="external">Download Vagrant</a></p>
+<h2 id="Commands"><a href="#Commands" class="headerlink" title="Commands"></a>Commands</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> Vagrant 1.9.7</span></div><div class="line">vagrant -v</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> Help</span></div><div class="line">vagrant</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> Create Vagrantfile</span></div><div class="line">vagrant init</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> Boxes</span></div><div class="line">vagrant box list</div><div class="line">vagrant box add laravel/homestead</div><div class="line">vagrant box remove laravel/homestead</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> Status</span></div><div class="line">vagrant global-status</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> SSH</span></div><div class="line">vagrant ssh # ssh vagrant@127.0.0.1 -p 2222</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> After editting config file...</span></div><div class="line"><span class="meta">#</span><span class="bash"> provisions the vagrant machine</span></div><div class="line">vagrant provision</div><div class="line"><span class="meta">#</span><span class="bash"> restarts vagrant machine, loads new Vagrantfile configuration</span></div><div class="line">vagrant reload</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> Shut down machine</span></div><div class="line">vagrant halt</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> Remove machine</span></div><div class="line">vagrant destroy</div><div class="line">vagrant destroy 1a2b3c4d</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> List all providers</span></div><div class="line">vagrant provider</div></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Vagrantfile</span></div><div class="line">Vagrant.configure(<span class="string">"2"</span>) <span class="keyword">do</span> <span class="params">|config|</span></div><div class="line">    config.vm.box = <span class="string">"ubuntu/xenial64"</span> <span class="comment"># change me</span></div><div class="line">    </div><div class="line">    <span class="comment"># forwarded port</span></div><div class="line">    config.vm.network <span class="string">"forwarded_port"</span>, <span class="symbol">guest:</span> <span class="number">80</span>, <span class="symbol">host:</span> <span class="number">8080</span> <span class="comment"># uncomment me</span></div><div class="line">    </div><div class="line">    <span class="comment"># host-only</span></div><div class="line">    config.vm.network <span class="string">"private_network"</span>, <span class="symbol">ip:</span> <span class="string">"192.168.33.10"</span> <span class="comment"># uncomment me</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<h2 id="Find-Boxes"><a href="#Find-Boxes" class="headerlink" title="Find Boxes"></a>Find Boxes</h2><p><a href="https://vagrantcloud.com/search" target="_blank" rel="external">https://vagrantcloud.com/search</a><br><a href="https://app.vagrantup.com/ubuntu" target="_blank" rel="external">https://app.vagrantup.com/ubuntu</a><br><a href="https://app.vagrantup.com/centos" target="_blank" rel="external">https://app.vagrantup.com/centos</a></p>
+<h2 id="Vagrant-Parallels-Provider"><a href="#Vagrant-Parallels-Provider" class="headerlink" title="Vagrant Parallels Provider"></a>Vagrant Parallels Provider</h2><p><a href="https://github.com/Parallels/vagrant-parallels" target="_blank" rel="external">github.com/Parallels/vagrant-parallels</a><br><a href="https://app.vagrantup.com/boxes/search?utf8=%E2%9C%93&amp;sort=downloads&amp;provider=parallels&amp;q=" target="_blank" rel="external">Vagrant Cloud - parallels sort by downloads</a><br><a href="https://app.vagrantup.com/parallels" target="_blank" rel="external">Vagrant Cloud - parallels official</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vagrant plugin install vagrant-parallels</div><div class="line">vagrant plugin list</div><div class="line"></div><div class="line">vagrant init parallels/ubuntu-16.04</div><div class="line">vagrant up --provider=parallels</div></pre></td></tr></table></figure>
+<h2 id="Laravel-Homestead"><a href="#Laravel-Homestead" class="headerlink" title="Laravel Homestead"></a>Laravel Homestead</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/laravel/homestead.git Homestead</div><div class="line">cd Homestead</div><div class="line">sh init.sh</div><div class="line">vim Homestead.yaml</div><div class="line"></div><div class="line">provider: parallels</div><div class="line">folders:</div><div class="line">    - map: ~/Your_Code_folders</div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> Optional</span></div><div class="line">sudo vim /etc/hosts</div><div class="line">192.168.10.10 homestead.app</div><div class="line"></div><div class="line">vagrant up</div></pre></td></tr></table></figure>
+<h2 id="Packaging"><a href="#Packaging" class="headerlink" title="Packaging"></a>Packaging</h2><p><a href="https://www.vagrantup.com/docs/vagrant-cloud/boxes/create.html#creating-boxes-via-the-vagrant-enterprise-web-interface" target="_blank" rel="external">https://www.vagrantup.com/docs/vagrant-cloud/boxes/create.html#creating-boxes-via-the-vagrant-enterprise-web-interface</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">vagrant package</div><div class="line"></div><div class="line">Usage: vagrant package [options] [name|id]</div><div class="line">Options:</div><div class="line"></div><div class="line">        --base NAME                  Name of a VM in VirtualBox to package as a base box (VirtualBox Only)</div><div class="line">        --output NAME                Name of the file to output</div><div class="line">        --include FILE,FILE..        Comma separated additional files to package with the box</div><div class="line">        --vagrantfile FILE           Vagrantfile to package with the box</div><div class="line">    -h, --help                       Print this help</div><div class="line">    </div><div class="line"><span class="meta"></span></div><div class="line">#<span class="bash"> NOTE</span></div><div class="line">vagrant package --vagrantfile Vagrantfile.package</div><div class="line">upload to https://app.vagrantup.com/</div></pre></td></tr></table></figure>
+<blockquote>
+<p>「vagrant package」可以為任何”Virtualbox的”虛擬機創建box，而不一定非得是vagrant啟動的虛擬機，只要「–base」參數指向Virtualbox的某個虛擬機名字即可。<br>原文網址：<a href="https://kknews.cc/zh-tw/other/bamzo6.html" target="_blank" rel="external">https://kknews.cc/zh-tw/other/bamzo6.html</a></p>
+</blockquote>
+<p><a href="https://github.com/mitchellh/vagrant/issues/5186" target="_blank" rel="external">Important Issue Solved @skinneejoe</a></p>
+<ol>
+<li><code>sudo passwd ubuntu</code> password to vagrant</li>
+<li>shutdown vm</li>
+<li><code>rm .vagrant/machines/default/virtualbox/private_key</code></li>
+<li>Package the box</li>
+<li>in new boxex Vagrantfile include: <code>config.ssh.username = &#39;ubuntu&#39;</code>, <code>config.ssh.password = &#39;vagrant&#39;</code></li>
+</ol>
+<h2 id="Uninstall-Vagrant"><a href="#Uninstall-Vagrant" class="headerlink" title="Uninstall Vagrant"></a>Uninstall Vagrant</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Using uninstall.tool</div><div class="line">rm -rf ~/.vagrant.d/</div></pre></td></tr></table></figure>
+<h2 id="Build-your-own-environment"><a href="#Build-your-own-environment" class="headerlink" title="Build your own environment"></a>Build your own environment</h2><ol>
+<li>Editting existing box from vagrant cloud</li>
+<li>install some stuff and upload to vagrant cloud</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/notes/" rel="tag"># notes</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/08/16/lemp-development-environment-using-vagrant/" rel="prev" title="LEMP development environment using Vagrant">
+      <i class="fa fa-chevron-left"></i> LEMP development environment using Vagrant
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/10/01/upgrading-to-valet-2-0/" rel="next" title="Upgrading to Valet 2.0">
+      Upgrading to Valet 2.0 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vagrant-Notes"><span class="nav-number">1.</span> <span class="nav-text">Vagrant Notes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Commands"><span class="nav-number">1.1.</span> <span class="nav-text">Commands</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Find-Boxes"><span class="nav-number">1.2.</span> <span class="nav-text">Find Boxes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vagrant-Parallels-Provider"><span class="nav-number">1.3.</span> <span class="nav-text">Vagrant Parallels Provider</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Laravel-Homestead"><span class="nav-number">1.4.</span> <span class="nav-text">Laravel Homestead</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Packaging"><span class="nav-number">1.5.</span> <span class="nav-text">Packaging</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Uninstall-Vagrant"><span class="nav-number">1.6.</span> <span class="nav-text">Uninstall Vagrant</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-your-own-environment"><span class="nav-number">1.7.</span> <span class="nav-text">Build your own environment</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Chenxu Wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chenxu Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
